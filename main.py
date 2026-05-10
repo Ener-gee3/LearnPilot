@@ -5,6 +5,7 @@ from pydantic import BaseModel
 from typing import Optional, List
 from ai_engine import AIEngine
 from logger_util import SystemMonitor
+from history_service import HistoryService
 
 app = FastAPI()
 
@@ -27,22 +28,24 @@ class LearningResponse(BaseModel):
     steps: List[str]
     exercise: str
 
+@app.get("/history")
+async def get_history():
+    return HistoryService.get_history()
+
 @app.post("/generate", response_model=LearningResponse)
 async def generate(request: LearningRequest):
-    # Track the start time
     start_time = time.time()
-    
-    # Log the incoming request
     SystemMonitor.log_request(request.mode, request.topic)
     
-    # Process request
+    # Generate the AI response
     result = await AIEngine.generate_response(
         request.mode, 
         request.topic, 
         request.code_snippet
     )
     
-    # Log performance before returning
-    SystemMonitor.log_performance(start_time)
+    # Save to our local JSON database
+    HistoryService.save_session(request.mode, request.topic, result)
     
+    SystemMonitor.log_performance(start_time)
     return result
