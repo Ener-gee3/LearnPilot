@@ -8,14 +8,7 @@ from logger_util import SystemMonitor
 from history_service import HistoryService
 
 app = FastAPI()
-
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
 
 class LearningRequest(BaseModel):
     topic: str
@@ -36,16 +29,7 @@ async def get_history():
 async def generate(request: LearningRequest):
     start_time = time.time()
     SystemMonitor.log_request(request.mode, request.topic)
-    
-    # Generate the AI response
-    result = await AIEngine.generate_response(
-        request.mode, 
-        request.topic, 
-        request.code_snippet
-    )
-    
-    # Save to our local JSON database
+    result = await AIEngine.generate_response(request.mode, request.topic, request.code_snippet)
     HistoryService.save_session(request.mode, request.topic, result)
-    
     SystemMonitor.log_performance(start_time)
     return result
