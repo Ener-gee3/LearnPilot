@@ -15,7 +15,7 @@
 //  2. Paste that URL into BACKEND_URL below (keep the quotes)
 //  3. Push to GitHub — done, works everywhere
 // ─────────────────────────────────────────────────────────────────────────────
-const BACKEND_URL = ''   // <- paste deployed backend URL here when ready
+const BACKEND_URL = 'https://learnpilot-2g0r.onrender.com'   // <- paste deployed backend URL here when ready
 
 const isLocal = window.location.hostname === 'localhost'
              || window.location.hostname === '127.0.0.1'
@@ -41,7 +41,7 @@ let chunkResponses  = {}
 
 // New feature state
 let currentFormat    = 'text'          // Idea 7 — teaching format
-let precheckLevel    = null            // Idea 2 — knowledge level
+let precheckLevel    = 'beginner'            // Idea 2 — knowledge level
 let pendingTopic     = null            // held while precheck modal open
 let timerInterval    = null            // Idea 8 — study timer
 let timerTotal       = 0
@@ -1058,7 +1058,7 @@ function endBreak() {
   breakInterval = null
   document.getElementById('break-overlay').classList.remove('open')
   // reset precheck for next topic
-  precheckLevel = null
+  precheckLevel = 'beginner'
 }
 
 // ══════════════════════════════════════════════════════
