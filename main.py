@@ -12,6 +12,10 @@ from history_service import HistoryService
 app = FastAPI()
 
 @app.get("/health")
+@app.get("/files")
+async def get_files():
+    return []
+
 async def health_check():
     return {"status": "online"}
 @app.get('/')
