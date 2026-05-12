@@ -35,7 +35,7 @@ class LearningRequest(BaseModel):
 class LearningResponse(BaseModel):
     mode: str
     explanation: str
-    real_world_application: str
+    real_world: str
     resources: List[Dict[str, str]]
     quiz: Optional[QuizModel] = None
     steps: List[str]
