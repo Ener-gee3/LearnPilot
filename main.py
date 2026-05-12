@@ -14,6 +14,10 @@ from features import (
     generate_quiz,
     generate_exercises,
     fetch_related_links,
+    grade_exercise,
+    generate_flashcards,
+    grade_exam,
+    ask_followup,
 )
 from pdf_service import (
     get_uploaded_files,
@@ -188,3 +192,53 @@ async def generate_chunk(request: GenerateChunkRequest):
     result["chunk_index"]   = request.chunk_index
     result["total_chunks"]  = request.total_chunks
     return result
+
+# ── Grade / Flashcards / Followup / Exam-grade endpoints ─────────────────────
+
+class GradeRequest(BaseModel):
+    question: str
+    sample_answer: str
+    user_answer: str
+
+class FlashcardsRequest(BaseModel):
+    topic: str
+    all_contexts: List[str]
+
+class FollowupRequest(BaseModel):
+    topic: str
+    mode: str
+    context: str
+    question: str
+
+class ExamGradeRequest(BaseModel):
+    questions: List[Dict]
+    answers: List[Dict]
+
+@app.post("/grade")
+async def grade(request: GradeRequest):
+    result = await grade_exercise(
+        question=request.question,
+        sample_answer=request.sample_answer,
+        user_answer=request.user_answer,
+    )
+    return result
+
+@app.post("/flashcards")
+async def flashcards(request: FlashcardsRequest):
+    cards = await generate_flashcards(request.topic, request.all_contexts)
+    return {"cards": cards}
+
+@app.post("/followup")
+async def followup(request: FollowupRequest):
+    answer = await ask_followup(
+        topic=request.topic,
+        mode=request.mode,
+        context=request.context,
+        question=request.question,
+    )
+    return {"answer": answer}
+
+@app.post("/exam-grade")
+async def exam_grade(request: ExamGradeRequest):
+    results = await grade_exam(request.questions, request.answers)
+    return {"results": results}
