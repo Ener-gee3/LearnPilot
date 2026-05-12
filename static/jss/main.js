@@ -41,7 +41,7 @@ let chunkResponses  = {}
 
 // New feature state
 let currentFormat    = 'text'          // Idea 7 — teaching format
-let precheckLevel    = null            // Idea 2 — knowledge level
+let precheckLevel    = 'beginner'            // Idea 2 — knowledge level
 let pendingTopic     = null            // held while precheck modal open
 let timerInterval    = null            // Idea 8 — study timer
 let timerTotal       = 0
