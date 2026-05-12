@@ -14,10 +14,6 @@ from features import (
     generate_quiz,
     generate_exercises,
     fetch_related_links,
-    grade_exercise,
-    generate_flashcards,
-    grade_exam,
-    ask_followup,
 )
 from pdf_service import (
     get_uploaded_files,
@@ -193,7 +189,7 @@ async def generate_chunk(request: GenerateChunkRequest):
     result["total_chunks"]  = request.total_chunks
     return result
 
-# ── Grade / Flashcards / Followup / Exam-grade endpoints ─────────────────────
+# ── Grade / Flashcards / Followup / Exam-grade / Summarize endpoints ──────────
 
 class GradeRequest(BaseModel):
     question: str
@@ -213,6 +209,18 @@ class FollowupRequest(BaseModel):
 class ExamGradeRequest(BaseModel):
     questions: List[Dict]
     answers: List[Dict]
+
+class SummarizeRequest(BaseModel):
+    raw_response: str
+    topic: str
+
+from features import (
+    grade_exercise,
+    generate_flashcards,
+    grade_exam,
+    ask_followup,
+    generate_summary,
+)
 
 @app.post("/grade")
 async def grade(request: GradeRequest):
@@ -242,3 +250,8 @@ async def followup(request: FollowupRequest):
 async def exam_grade(request: ExamGradeRequest):
     results = await grade_exam(request.questions, request.answers)
     return {"results": results}
+
+@app.post("/summarize")
+async def summarize(request: SummarizeRequest):
+    result = await generate_summary(request.raw_response, request.topic)
+    return result
