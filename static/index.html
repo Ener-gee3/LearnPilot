@@ -7,22 +7,22 @@
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
-    --bg:        #0a0b14;
-    --bg2:       #0f1020;
-    --bg3:       #151830;
-    --border:    rgba(255,255,255,0.07);
-    --border2:   rgba(255,255,255,0.13);
-    --text:      #ede9fe;
+    --bg:        #0d0f12;
+    --bg2:       #13161b;
+    --bg3:       #1a1e26;
+    --border:    rgba(255,255,255,0.08);
+    --border2:   rgba(255,255,255,0.14);
+    --text:      #e8eaf0;
     --text2:     #8b8fa8;
-    --text3:     #4b4d6e;
-    --accent:    #7c3aed;
-    --accent2:   #6d28d9;
-    --green:     #34d399;
+    --text3:     #5a5e73;
+    --accent:    #6c8fff;
+    --accent2:   #4f6fe0;
+    --green:     #4ade80;
     --amber:     #fbbf24;
     --purple:    #a78bfa;
     --radius:    12px;
@@ -70,7 +70,7 @@
 
   .logo-icon {
     width: 36px; height: 36px;
-    background: linear-gradient(135deg, #7c3aed, #059669);
+    background: var(--accent);
     border-radius: 10px;
     display: flex; align-items: center; justify-content: center;
     font-size: 18px;
@@ -130,9 +130,9 @@
   }
 
   .mode-btn.active {
-    background: rgba(124,58,237,0.13);
-    border-color: rgba(124,58,237,0.35);
-    color: var(--purple);
+    background: rgba(108,143,255,0.12);
+    border-color: rgba(108,143,255,0.3);
+    color: var(--accent);
   }
 
   .mode-icon {
@@ -156,7 +156,6 @@
     display: flex;
     flex-direction: column;
     gap: 3px;
-    flex: 1;
     overflow-y: auto;
   }
 
@@ -231,10 +230,10 @@
   }
 
   .topic-input::placeholder { color: var(--text3); }
-  .topic-input:focus { border-color: #7c3aed; }
+  .topic-input:focus { border-color: var(--accent); }
 
   .submit-btn {
-    background: linear-gradient(90deg, #7c3aed, #059669);
+    background: var(--accent);
     color: #fff;
     border: none;
     border-radius: var(--radius);
@@ -251,7 +250,7 @@
     gap: 6px;
   }
 
-  .submit-btn:hover { opacity: 0.88; }
+  .submit-btn:hover { background: var(--accent2); }
   .submit-btn:disabled {
     opacity: 0.5;
     cursor: not-allowed;
@@ -261,9 +260,9 @@
     display: inline-flex;
     align-items: center;
     gap: 5px;
-    background: rgba(124,58,237,0.1);
-    border: 1px solid rgba(124,58,237,0.3);
-    color: var(--purple);
+    background: rgba(108,143,255,0.1);
+    border: 1px solid rgba(108,143,255,0.25);
+    color: var(--accent);
     padding: 4px 10px;
     border-radius: 20px;
     font-size: 12px;
@@ -328,8 +327,8 @@
   }
 
   .chip:hover {
-    border-color: var(--purple);
-    color: var(--purple);
+    border-color: var(--accent);
+    color: var(--accent);
   }
 
   /* ── Loading ── */
@@ -349,7 +348,7 @@
   .dot {
     width: 8px; height: 8px;
     border-radius: 50%;
-    background: #7c3aed;
+    background: var(--accent);
     animation: bounce 1.2s infinite;
   }
 
@@ -402,8 +401,11 @@
 
   .response-topic {
     font-weight: 600;
-    font-size: 15px;
+    font-size: 14px;
     color: var(--text);
+    line-height: 1.4;
+    max-width: 70%;
+    word-break: break-word;
   }
 
   .mode-tag {
@@ -553,7 +555,7 @@
     background: rgba(255,255,255,0.06);
     padding: 2px 5px;
     border-radius: 4px;
-    color: var(--purple);
+    color: var(--accent);
   }
 
   .md-body pre {
@@ -590,19 +592,24 @@
     border-radius: var(--radius);
     padding: 24px 16px;
     margin: 16px 0;
-    overflow-x: auto;
+    overflow: hidden;
     text-align: center;
+    max-height: 520px;
   }
 
   .mermaid {
     display: flex;
     justify-content: center;
     width: 100%;
+    max-height: 480px;
+    overflow: hidden;
   }
   .mermaid svg {
-    max-width: 100% !important;
+    max-width: 620px !important;
+    max-height: 460px !important;
+    width: auto !important;
     height: auto !important;
-    overflow: visible !important;
+    overflow: hidden !important;
     font-family: 'DM Sans', sans-serif !important;
   }
   .mermaid svg .node foreignObject {
@@ -676,9 +683,9 @@
     white-space: nowrap;
   }
   .plan-step.active {
-    background: rgba(124,58,237,0.15);
-    border-color: var(--purple);
-    color: var(--purple);
+    background: rgba(108,143,255,0.15);
+    border-color: var(--accent);
+    color: var(--accent);
     font-weight: 500;
   }
   .plan-step.done {
@@ -773,7 +780,7 @@
     transition: all 0.15s;
     white-space: nowrap;
   }
-  .action-btn:hover { border-color: var(--purple); color: var(--purple); background: rgba(124,58,237,0.08); }
+  .action-btn:hover { border-color: var(--accent); color: var(--accent); background: rgba(108,143,255,0.08); }
   .action-btn:disabled { opacity: 0.4; cursor: not-allowed; }
   .action-btn.loading { opacity: 0.6; }
   .action-btn .btn-icon { font-size: 14px; }
@@ -971,420 +978,347 @@
     font-size: 13px;
   }
 
+  /* ── Modal ── */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    animation: fadeIn 0.2s ease;
+  }
+  @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+  .modal-box {
+    background: var(--bg2);
+    border: 1px solid var(--border2);
+    border-radius: 16px;
+    width: 100%;
+    max-width: 720px;
+    max-height: 85vh;
+    display: flex;
+    flex-direction: column;
+    animation: slideUp 0.25s ease;
+  }
+  @keyframes slideUp { from{transform:translateY(20px);opacity:0} to{transform:translateY(0);opacity:1} }
+  .modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 24px;
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+  .modal-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .modal-subtitle { font-size: 11px; color: var(--text3); margin-top: 2px; }
+  .modal-close {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--text2);
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.15s;
+  }
+  .modal-close:hover { background: var(--bg3); color: var(--text); }
+  .modal-body { flex: 1; overflow-y: auto; padding: 20px 24px; }
+  .modal-footer {
+    padding: 14px 24px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+
+  /* Quiz in modal */
+  .quiz-question { margin-bottom: 22px; }
+  .quiz-q-num { font-size: 11px; color: var(--text3); font-weight: 600; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .quiz-q-text { font-size: 14px; font-weight: 500; color: var(--text); margin-bottom: 10px; line-height: 1.5; }
+  .quiz-options { display: flex; flex-direction: column; gap: 6px; }
+  .quiz-option {
+    padding: 9px 14px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    cursor: pointer;
+    font-size: 13px;
+    color: var(--text2);
+    background: var(--bg3);
+    transition: all 0.12s;
+    text-align: left;
+  }
+  .quiz-option:hover:not(.revealed) { border-color: var(--accent); color: var(--text); }
+  .quiz-option.correct { border-color: var(--green) !important; background: rgba(74,222,128,0.1); color: var(--green) !important; }
+  .quiz-option.wrong   { border-color: #f87171 !important; background: rgba(248,113,113,0.08); color: #f87171 !important; }
+  .quiz-explanation { margin-top: 8px; font-size: 12px; color: var(--text3); background: rgba(108,143,255,0.06); border-radius: 6px; padding: 8px 12px; display: none; line-height: 1.5; }
+  .quiz-score-bar { display: flex; align-items: center; gap: 10px; padding: 12px 16px; background: var(--bg3); border-radius: 8px; margin-bottom: 18px; font-size: 13px; color: var(--text2); }
+  .quiz-score-val { font-weight: 700; font-size: 18px; color: var(--accent); }
+
+  /* Exercise in modal */
+  .exercise-item { margin-bottom: 20px; padding: 16px; background: var(--bg3); border-radius: 10px; border: 1px solid var(--border); }
+  .exercise-q-num { font-size: 11px; color: var(--text3); font-weight: 600; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .exercise-type-badge { display: inline-block; font-size: 10px; padding: 2px 8px; border-radius: 4px; background: rgba(167,139,250,0.12); color: var(--purple); font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 8px; }
+  .exercise-q-text { font-size: 14px; color: var(--text); font-weight: 500; margin-bottom: 8px; line-height: 1.5; }
+  .exercise-hint { font-size: 12px; color: var(--text3); font-style: italic; margin-bottom: 10px; }
+  .exercise-textarea {
+    width: 100%;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 12px;
+    color: var(--text);
+    font-family: var(--font);
+    font-size: 13px;
+    line-height: 1.5;
+    resize: vertical;
+    min-height: 80px;
+    outline: none;
+    transition: border-color 0.15s;
+    margin-bottom: 8px;
+  }
+  .exercise-textarea:focus { border-color: var(--accent); }
+  .exercise-submit-btn {
+    font-size: 12px;
+    padding: 6px 14px;
+    border-radius: 6px;
+    border: 1px solid var(--accent);
+    background: rgba(108,143,255,0.1);
+    color: var(--accent);
+    cursor: pointer;
+    font-family: var(--font);
+    font-weight: 500;
+    transition: all 0.15s;
+  }
+  .exercise-submit-btn:hover { background: var(--accent); color: white; }
+  .exercise-submit-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+  .grade-result {
+    margin-top: 10px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    line-height: 1.5;
+    display: none;
+  }
+  .grade-correct   { background: rgba(74,222,128,0.1); border: 1px solid rgba(74,222,128,0.3); color: var(--green); }
+  .grade-partial   { background: rgba(251,191,36,0.1); border: 1px solid rgba(251,191,36,0.3); color: var(--amber); }
+  .grade-incorrect { background: rgba(248,113,113,0.08); border: 1px solid rgba(248,113,113,0.3); color: #f87171; }
+
+  /* Links in modal */
+  .link-item { display: flex; align-items: flex-start; gap: 12px; padding: 12px 14px; margin-bottom: 8px; background: var(--bg3); border-radius: 10px; border: 1px solid var(--border); text-decoration: none; transition: border-color 0.15s; }
+  .link-item:hover { border-color: var(--accent); }
+  .link-icon { font-size: 22px; flex-shrink: 0; margin-top: 1px; }
+  .link-info { flex: 1; min-width: 0; }
+  .link-title { font-size: 13px; font-weight: 500; color: var(--accent); margin-bottom: 3px; }
+  .link-desc  { font-size: 11px; color: var(--text3); line-height: 1.4; }
+  .link-source { font-size: 10px; font-weight: 600; color: var(--text3); background: var(--bg2); padding: 2px 7px; border-radius: 4px; flex-shrink: 0; align-self: flex-start; margin-top: 2px; }
+
+
+  /* ── Flashcards ── */
+  .flashcard-scene { perspective: 1000px; width: 100%; max-width: 560px; height: 220px; margin: 0 auto 20px; cursor: pointer; }
+  .flashcard { width:100%; height:100%; position:relative; transform-style:preserve-3d; transition:transform 0.5s ease; }
+  .flashcard.flipped { transform: rotateY(180deg); }
+  .flashcard-face { position:absolute; inset:0; backface-visibility:hidden; border-radius:12px; border:1px solid var(--border); display:flex; flex-direction:column; align-items:center; justify-content:center; padding:24px; text-align:center; }
+  .flashcard-front { background:var(--bg3); }
+  .flashcard-back  { background:linear-gradient(135deg,rgba(108,143,255,0.08),rgba(167,139,250,0.08)); transform:rotateY(180deg); }
+  .flashcard-hint  { font-size:10px; color:var(--text3); text-transform:uppercase; letter-spacing:0.8px; margin-bottom:12px; }
+  .flashcard-text  { font-size:15px; color:var(--text); line-height:1.5; font-weight:500; }
+  .flashcard-diff  { margin-top:10px; font-size:10px; padding:2px 8px; border-radius:4px; font-weight:600; text-transform:uppercase; letter-spacing:0.5px; }
+  .diff-easy   { background:rgba(74,222,128,0.12); color:var(--green); }
+  .diff-medium { background:rgba(251,191,36,0.12); color:var(--amber); }
+  .diff-hard   { background:rgba(248,113,113,0.12); color:#f87171; }
+  .flashcard-nav { display:flex; align-items:center; justify-content:center; gap:16px; margin-bottom:16px; }
+  .fc-nav-btn { background:var(--bg3); border:1px solid var(--border); color:var(--text2); padding:6px 16px; border-radius:8px; cursor:pointer; font-size:13px; font-family:var(--font); transition:all 0.15s; }
+  .fc-nav-btn:hover { border-color:var(--accent); color:var(--accent); }
+  .fc-counter { font-size:12px; color:var(--text3); min-width:70px; text-align:center; }
+  .fc-rate-btns { display:flex; gap:8px; justify-content:center; margin-top:8px; }
+  .fc-rate-btn { padding:5px 14px; border-radius:6px; border:1px solid var(--border); font-size:11px; font-weight:600; cursor:pointer; font-family:var(--font); transition:all 0.15s; background:transparent; }
+  .fc-easy   { color:var(--green); border-color:var(--green); }
+  .fc-medium { color:var(--amber); border-color:var(--amber); }
+  .fc-hard   { color:#f87171; border-color:#f87171; }
+
+  /* ── Exam ── */
+  .exam-section-title { font-size:13px; font-weight:700; color:var(--accent); text-transform:uppercase; letter-spacing:0.8px; margin:20px 0 12px; padding-bottom:6px; border-bottom:1px solid var(--border); }
+  .exam-q { margin-bottom:16px; padding:14px 16px; background:var(--bg3); border-radius:10px; border:1px solid var(--border); }
+  .exam-q-num { font-size:10px; color:var(--text3); font-weight:600; text-transform:uppercase; margin-bottom:4px; }
+  .exam-q-marks { float:right; font-size:11px; color:var(--accent); font-weight:600; }
+  .exam-q-text { font-size:14px; color:var(--text); font-weight:500; margin-bottom:10px; line-height:1.5; }
+  .exam-mcq-opts { display:flex; flex-direction:column; gap:5px; }
+  .exam-mcq-opt { padding:7px 12px; border-radius:6px; border:1px solid var(--border); cursor:pointer; font-size:13px; color:var(--text2); background:var(--bg2); transition:all 0.12s; }
+  .exam-mcq-opt:hover:not(.revealed) { border-color:var(--accent); }
+  .exam-mcq-opt.selected { border-color:var(--accent); background:rgba(108,143,255,0.1); color:var(--accent); }
+  .exam-mcq-opt.correct { border-color:var(--green) !important; background:rgba(74,222,128,0.1); color:var(--green) !important; }
+  .exam-mcq-opt.wrong   { border-color:#f87171 !important; background:rgba(248,113,113,0.08); color:#f87171 !important; }
+  .exam-textarea { width:100%; background:var(--bg2); border:1px solid var(--border); border-radius:8px; padding:10px 12px; color:var(--text); font-family:var(--font); font-size:13px; line-height:1.5; resize:vertical; min-height:80px; outline:none; transition:border-color 0.15s; }
+  .exam-textarea:focus { border-color:var(--accent); }
+  .exam-grade-result { margin-top:8px; padding:8px 12px; border-radius:6px; font-size:12px; display:none; }
+  .exam-grade-good  { background:rgba(74,222,128,0.1); border:1px solid rgba(74,222,128,0.3); color:var(--green); }
+  .exam-grade-ok    { background:rgba(251,191,36,0.1); border:1px solid rgba(251,191,36,0.3); color:var(--amber); }
+  .exam-grade-poor  { background:rgba(248,113,113,0.08); border:1px solid rgba(248,113,113,0.3); color:#f87171; }
+  .exam-submit-row  { display:flex; justify-content:flex-end; gap:8px; padding:12px 0 4px; }
+  .exam-submit-btn  { padding:8px 20px; border-radius:8px; border:1px solid var(--accent); background:rgba(108,143,255,0.1); color:var(--accent); font-family:var(--font); font-size:13px; font-weight:500; cursor:pointer; transition:all 0.15s; }
+  .exam-submit-btn:hover { background:var(--accent); color:white; }
+  .exam-score-banner { text-align:center; padding:20px; background:linear-gradient(135deg,rgba(108,143,255,0.1),rgba(167,139,250,0.1)); border-radius:12px; margin-bottom:16px; }
+  .exam-score-num  { font-size:40px; font-weight:700; color:var(--accent); }
+  .exam-score-pct  { font-size:16px; color:var(--text2); margin-top:4px; }
+  .exam-score-label { font-size:13px; color:var(--text3); margin-top:2px; }
+
+  /* ── Study Timer ── */
+  .timer-widget {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: var(--bg2);
+    border: 1px solid var(--border2);
+    border-radius: 16px;
+    padding: 16px 18px;
+    width: 220px;
+    z-index: 500;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    display: none;
+  }
+  .timer-widget.visible { display: block; animation: slideUp 0.3s ease; }
+  .timer-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; }
+  .timer-title  { font-size:11px; font-weight:600; color:var(--text3); text-transform:uppercase; letter-spacing:0.8px; }
+  .timer-close  { background:none; border:none; color:var(--text3); cursor:pointer; font-size:14px; padding:0; }
+  .timer-display { text-align:center; font-size:36px; font-weight:700; color:var(--text); font-variant-numeric:tabular-nums; letter-spacing:2px; margin:8px 0; }
+  .timer-mode-label { text-align:center; font-size:11px; color:var(--accent); font-weight:600; margin-bottom:10px; }
+  .timer-progress { width:100%; height:4px; background:var(--bg3); border-radius:2px; margin-bottom:12px; overflow:hidden; }
+  .timer-progress-bar { height:100%; background:var(--accent); border-radius:2px; transition:width 0.9s linear; }
+  .timer-controls { display:flex; gap:6px; justify-content:center; margin-bottom:10px; }
+  .timer-btn { padding:6px 14px; border-radius:8px; border:1px solid var(--border); background:var(--bg3); color:var(--text2); font-size:12px; font-family:var(--font); cursor:pointer; transition:all 0.15s; }
+  .timer-btn:hover { border-color:var(--accent); color:var(--accent); }
+  .timer-btn.primary { background:rgba(108,143,255,0.1); border-color:var(--accent); color:var(--accent); }
+  .timer-presets { display:flex; gap:4px; flex-wrap:wrap; }
+  .timer-preset { padding:3px 8px; border-radius:6px; border:1px solid var(--border); background:transparent; color:var(--text3); font-size:10px; cursor:pointer; font-family:var(--font); transition:all 0.15s; }
+  .timer-preset:hover { border-color:var(--accent); color:var(--accent); }
+  .timer-fab { position:fixed; bottom:24px; right:24px; width:48px; height:48px; border-radius:50%; background:var(--accent); border:none; color:white; font-size:20px; cursor:pointer; box-shadow:0 4px 16px rgba(108,143,255,0.4); z-index:499; transition:all 0.2s; display:flex; align-items:center; justify-content:center; }
+  .timer-fab:hover { transform:scale(1.1); }
+
+  /* ── Follow-up Question ── */
+  .followup-bar { display:flex; gap:8px; padding:12px 18px 16px; border-top:1px solid var(--border); }
+  .followup-input { flex:1; background:var(--bg3); border:1px solid var(--border); border-radius:8px; padding:8px 14px; color:var(--text); font-family:var(--font); font-size:13px; outline:none; transition:border-color 0.15s; }
+  .followup-input:focus { border-color:var(--accent); }
+  .followup-btn { padding:8px 14px; border-radius:8px; border:1px solid var(--accent); background:rgba(108,143,255,0.1); color:var(--accent); font-family:var(--font); font-size:12px; font-weight:500; cursor:pointer; white-space:nowrap; transition:all 0.15s; }
+  .followup-btn:hover { background:var(--accent); color:white; }
+  .followup-thread { display:flex; flex-direction:column; gap:10px; padding:0 18px 4px; }
+  /* Nested context sub-navigation inside response card (when in PDF chunk mode) */
+  .context-subnav {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 22px 12px;
+    border-bottom: 1px solid var(--border);
+    background: rgba(108,143,255,0.03);
+    flex-wrap: wrap;
+  }
+  .context-subnav-label {
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--text3);
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+  }
+  .context-subnav .plan-steps { gap: 6px; }
+  .context-subnav .plan-step  { font-size: 11px; padding: 3px 9px; }
+  /* PDF mode visual distinction — context nav uses muted bg vs chunk nav main color */
+  .chunk-nav.context-nav {
+    background: rgba(108,143,255,0.04);
+    border-top: 1px dashed var(--border);
+  }
+  .hist-del { position:absolute; top:6px; right:6px; width:18px; height:18px; border-radius:50%; border:none; background:transparent; color:var(--text3); cursor:pointer; font-size:14px; line-height:1; display:none; padding:0; }
+  .history-item { position:relative; }
+  .history-item:hover .hist-del { display:block; }
+  .hist-del:hover { background:rgba(248,113,113,0.15); color:#f87171; }
+  .followup-answer { padding:12px 14px; background:rgba(108,143,255,0.06); border-radius:8px; border:1px solid rgba(108,143,255,0.2); font-size:13px; color:var(--text2); line-height:1.6; }
+  .followup-q { font-size:11px; font-weight:600; color:var(--accent); margin-bottom:6px; }
+
+  /* ── Progress Tracker ── */
+  .progress-bar-outer { height:3px; background:var(--bg3); }
+  .progress-bar-fill  { height:3px; background:linear-gradient(90deg,var(--accent),var(--purple)); transition:width 0.5s ease; }
+
+  /* ── Progress Tracker ── */
+  .progress-section { padding: 0; }
+  .progress-stats { display: flex; gap: 6px; margin-bottom: 10px; }
+  .progress-stat {
+    flex: 1;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 6px;
+    text-align: center;
+  }
+  .progress-stat-num  { font-size: 18px; font-weight: 700; color: var(--accent); line-height: 1; }
+  .progress-stat-lbl  { font-size: 9px; color: var(--text3); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 3px; }
+  .progress-topic-list { display: flex; flex-direction: column; gap: 5px; max-height: 160px; overflow-y: auto; }
+  .progress-topic-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 8px;
+    background: var(--bg3);
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    font-size: 11px;
+    color: var(--text2);
+    cursor: pointer;
+    transition: border-color 0.15s;
+  }
+  .progress-topic-item:hover { border-color: var(--accent); color: var(--text); }
+  .progress-mode-dot {
+    width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0;
+  }
+  .dot-concept  { background: #6c8fff; }
+  .dot-reverse  { background: #a78bfa; }
+  .dot-visual   { background: #4ade80; }
+  .dot-pdf      { background: #fbbf24; }
+  .progress-topic-name { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .progress-contexts { font-size: 10px; color: var(--text3); flex-shrink: 0; }
+  .progress-mode-bar { margin-top: 10px; }
+  .progress-mode-bar-label { font-size: 10px; color: var(--text3); display: flex; justify-content: space-between; margin-bottom: 3px; }
+  .progress-mode-bar-track { height: 5px; background: var(--bg3); border-radius: 3px; overflow: hidden; display: flex; }
+  .progress-mode-seg { height: 100%; transition: width 0.5s ease; }
+  .seg-concept { background: #6c8fff; }
+  .seg-reverse { background: #a78bfa; }
+  .seg-visual  { background: #4ade80; }
+  .seg-pdf     { background: #fbbf24; }
+  .progress-empty { font-size: 11px; color: var(--text3); padding: 8px 4px; }
+
+  .progress-sidebar-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 9px 12px;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-family: var(--font);
+    color: var(--text2);
+    font-size: 12px;
+    transition: all 0.15s;
+  }
+  .progress-sidebar-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  /* ── Scrollbar ── */
   /* ── Scrollbar ── */
   ::-webkit-scrollbar { width: 4px; height: 4px; }
   ::-webkit-scrollbar-track { background: transparent; }
   ::-webkit-scrollbar-thumb { background: var(--bg3); border-radius: 4px; }
-
-  /* ══════════════════════════════════════════
-     NEW FEATURES — Ideas 2, 4/5, 7, 8, 9, 10
-  ══════════════════════════════════════════ */
-
-  /* ── Teaching Format Selector (Idea 7) ── */
-  .format-selector {
-    display: flex;
-    gap: 5px;
-    flex-wrap: wrap;
-    margin-top: 10px;
-  }
-  .format-btn {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    padding: 5px 12px;
-    border-radius: 20px;
-    border: 1px solid var(--border);
-    background: transparent;
-    color: var(--text3);
-    font-family: var(--font);
-    font-size: 11px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.15s;
-  }
-  .format-btn:hover { border-color: var(--accent); color: var(--accent); }
-  .format-btn.active {
-    background: rgba(124,58,237,0.12);
-    border-color: rgba(124,58,237,0.45);
-    color: var(--purple);
-  }
-  .format-btn.disabled-format {
-    opacity: 0.35;
-    cursor: not-allowed;
-  }
-  .format-badge {
-    font-size: 9px;
-    background: rgba(251,191,36,0.15);
-    color: var(--amber);
-    padding: 1px 5px;
-    border-radius: 3px;
-    font-weight: 600;
-    letter-spacing: 0.3px;
-  }
-
-  /* ── Pre-Assessment / Knowledge Check (Idea 2) ── */
-  .precheck-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.75);
-    z-index: 500;
-    align-items: center;
-    justify-content: center;
-  }
-  .precheck-overlay.open { display: flex; }
-  .precheck-modal {
-    background: var(--bg2);
-    border: 1px solid var(--border2);
-    border-radius: 16px;
-    padding: 28px;
-    max-width: 480px;
-    width: 90%;
-    animation: fadeUp 0.25s ease;
-  }
-  .precheck-title {
-    font-family: var(--serif);
-    font-size: 18px;
-    font-style: italic;
-    margin-bottom: 6px;
-  }
-  .precheck-sub {
-    font-size: 12px;
-    color: var(--text3);
-    margin-bottom: 20px;
-    line-height: 1.5;
-  }
-  .precheck-options {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    margin-bottom: 20px;
-  }
-  .precheck-opt {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 12px 16px;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    cursor: pointer;
-    transition: all 0.14s;
-    background: var(--bg3);
-  }
-  .precheck-opt:hover { border-color: var(--accent); }
-  .precheck-opt.selected { border-color: var(--accent); background: rgba(108,143,255,0.1); }
-  .precheck-opt-icon { font-size: 20px; flex-shrink: 0; }
-  .precheck-opt-label { font-size: 13px; font-weight: 500; color: var(--text); }
-  .precheck-opt-desc  { font-size: 11px; color: var(--text3); margin-top: 1px; }
-  .precheck-actions { display: flex; gap: 10px; justify-content: flex-end; }
-  .precheck-skip {
-    background: none;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    padding: 8px 16px;
-    color: var(--text3);
-    font-family: var(--font);
-    font-size: 13px;
-    cursor: pointer;
-    transition: all 0.14s;
-  }
-  .precheck-skip:hover { color: var(--text); border-color: var(--border2); }
-  .precheck-go {
-    background: linear-gradient(135deg, #7c3aed, #059669);
-    border: none;
-    border-radius: var(--radius-sm);
-    padding: 8px 20px;
-    color: #fff;
-    font-family: var(--font);
-    font-size: 13px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.14s;
-  }
-  .precheck-go:hover { opacity: 0.88; }
-
-  /* ── Timer / Break System (Idea 8) ── */
-  .timer-bar {
-    display: none;
-    align-items: center;
-    gap: 12px;
-    padding: 8px 16px;
-    background: var(--bg2);
-    border-bottom: 1px solid var(--border);
-    font-size: 12px;
-    color: var(--text2);
-  }
-  .timer-bar.active { display: flex; }
-  .timer-display {
-    font-family: var(--mono);
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--text);
-    min-width: 52px;
-  }
-  .timer-display.warning { color: var(--amber); }
-  .timer-display.break-mode { color: var(--green); }
-  .timer-progress {
-    flex: 1;
-    height: 3px;
-    background: var(--bg3);
-    border-radius: 2px;
-    overflow: hidden;
-  }
-  .timer-fill {
-    height: 100%;
-    background: var(--accent);
-    border-radius: 2px;
-    transition: width 1s linear, background 0.3s;
-  }
-  .timer-fill.warning { background: var(--amber); }
-  .timer-fill.break-mode { background: var(--green); }
-  .timer-label { font-size: 11px; color: var(--text3); }
-  .timer-btn {
-    background: none;
-    border: 1px solid var(--border);
-    border-radius: 5px;
-    padding: 3px 9px;
-    color: var(--text3);
-    font-size: 11px;
-    font-family: var(--font);
-    cursor: pointer;
-    transition: all 0.12s;
-  }
-  .timer-btn:hover { border-color: var(--border2); color: var(--text); }
-
-  /* Break overlay */
-  .break-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.88);
-    z-index: 600;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 16px;
-  }
-  .break-overlay.open { display: flex; }
-  .break-emoji { font-size: 56px; animation: pulse 2s infinite; }
-  .break-title { font-family: var(--serif); font-size: 26px; font-style: italic; color: var(--text); }
-  .break-sub   { font-size: 14px; color: var(--text3); }
-  .break-timer { font-family: var(--mono); font-size: 36px; color: var(--green); font-weight: 500; }
-  .break-skip  {
-    margin-top: 8px;
-    background: none;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    padding: 8px 20px;
-    color: var(--text3);
-    font-family: var(--font);
-    font-size: 13px;
-    cursor: pointer;
-  }
-  .break-skip:hover { color: var(--text); border-color: var(--border2); }
-
-  /* ── Exam / Final Assessment (Idea 9) ── */
-  .exam-trigger {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 10px 16px;
-    margin: 0 28px 20px;
-    background: rgba(251,191,36,0.06);
-    border: 1px solid rgba(251,191,36,0.25);
-    border-radius: var(--radius);
-    font-size: 13px;
-    color: var(--amber);
-    cursor: pointer;
-    transition: all 0.15s;
-  }
-  .exam-trigger:hover { background: rgba(251,191,36,0.1); }
-  .exam-panel { margin: 0 28px 20px; border-radius: var(--radius); overflow: hidden; border: 1px solid rgba(251,191,36,0.2); animation: fadeUp 0.3s ease; }
-  .exam-header {
-    background: rgba(251,191,36,0.08);
-    border-bottom: 1px solid rgba(251,191,36,0.15);
-    padding: 12px 18px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .exam-title { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; color: var(--amber); }
-  .exam-body { padding: 20px; background: var(--bg2); }
-  .exam-q {
-    margin-bottom: 18px;
-    padding: 14px 16px;
-    background: var(--bg3);
-    border-radius: var(--radius-sm);
-    border: 1px solid var(--border);
-  }
-  .exam-q-num { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; color: var(--amber); margin-bottom: 6px; }
-  .exam-q-text { font-size: 14px; color: var(--text); font-weight: 500; line-height: 1.5; margin-bottom: 10px; }
-  .exam-input {
-    width: 100%;
-    background: var(--bg2);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 8px 12px;
-    color: var(--text);
-    font-family: var(--font);
-    font-size: 13px;
-    outline: none;
-    resize: vertical;
-    min-height: 60px;
-  }
-  .exam-input:focus { border-color: var(--amber); }
-  .exam-submit {
-    width: 100%;
-    padding: 10px;
-    background: var(--amber);
-    color: #1a1000;
-    border: none;
-    border-radius: var(--radius-sm);
-    font-family: var(--font);
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: opacity 0.15s;
-    margin-top: 4px;
-  }
-  .exam-submit:hover { opacity: 0.88; }
-  .exam-result {
-    padding: 16px;
-    background: rgba(74,222,128,0.06);
-    border: 1px solid rgba(74,222,128,0.2);
-    border-radius: var(--radius-sm);
-    font-size: 13px;
-    color: var(--text2);
-    line-height: 1.6;
-    display: none;
-    margin-top: 12px;
-  }
-  .exam-score-bar {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 14px 16px;
-    background: var(--bg3);
-    border-radius: var(--radius-sm);
-    margin-bottom: 16px;
-  }
-  .exam-score-num { font-family: var(--mono); font-size: 24px; font-weight: 500; color: var(--green); }
-  .exam-score-label { font-size: 12px; color: var(--text3); }
-
-  /* ── Compare Sessions (Ideas 4 & 5) ── */
-  .compare-btn {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    padding: 5px 12px;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    background: transparent;
-    color: var(--text3);
-    font-size: 11px;
-    font-family: var(--font);
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.14s;
-    white-space: nowrap;
-  }
-  .compare-btn:hover { border-color: var(--accent); color: var(--accent); }
-  .compare-btn.active { background: rgba(124,58,237,0.12); border-color: var(--purple); color: var(--purple); }
-
-  .compare-view {
-    display: none;
-    grid-template-columns: 1fr 1fr;
-    gap: 1px;
-    background: var(--border);
-    flex: 1;
-    min-height: 0;
-    overflow: hidden;
-  }
-  .compare-view.open { display: grid; }
-  .compare-pane {
-    background: var(--bg);
-    display: flex;
-    flex-direction: column;
-    overflow-y: auto;
-    max-height: calc(100vh - 120px);
-  }
-  .compare-pane-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px 16px;
-    border-bottom: 1px solid var(--border);
-    background: var(--bg2);
-    position: sticky;
-    top: 0;
-    z-index: 2;
-  }
-  .compare-pane-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; color: var(--text3); }
-  .compare-pane-topic { font-size: 13px; font-weight: 500; color: var(--text); margin-top: 2px; }
-  .compare-pane-body { padding: 20px; flex: 1; }
-  .compare-select {
-    background: var(--bg3);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 4px 8px;
-    color: var(--text2);
-    font-family: var(--font);
-    font-size: 11px;
-    cursor: pointer;
-    outline: none;
-  }
-  .compare-empty {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    flex: 1;
-    color: var(--text3);
-    font-size: 13px;
-    gap: 8px;
-    padding: 40px;
-    text-align: center;
-  }
-  .compare-empty-icon { font-size: 32px; opacity: 0.4; }
-
-  /* ── Export / Preview (Idea 10) ── */
-  .export-bar {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 10px 28px;
-    border-top: 1px solid var(--border);
-    background: var(--bg3);
-    flex-wrap: wrap;
-  }
-  .export-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; color: var(--text3); margin-right: 4px; }
-  .export-btn {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    padding: 6px 13px;
-    border-radius: var(--radius-sm);
-    border: 1px solid var(--border);
-    background: transparent;
-    color: var(--text2);
-    font-family: var(--font);
-    font-size: 11px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.14s;
-    white-space: nowrap;
-  }
-  .export-btn:hover { border-color: var(--accent); color: var(--accent); background: rgba(108,143,255,0.07); }
-
-  /* ── Session Compare Bar in header ── */
-  .main-toolbar {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 40px;
-    border-bottom: 1px solid var(--border);
-    background: var(--bg);
-  }
 </style>
 </head>
 <body>
@@ -1396,7 +1330,7 @@
     <div class="logo">
       <div class="logo-icon">✦</div>
       <div>
-        <div class="logo-text" style="font-family:'Syne',sans-serif;font-weight:700;">LearnPilot</div>
+        <div class="logo-text">LearnPilot</div>
         <div class="logo-sub">AI Learning Assistant</div>
       </div>
     </div>
@@ -1430,11 +1364,35 @@
     </div>
 
     <!-- History -->
-    <div style="flex:1; overflow:hidden; display:flex; flex-direction:column;">
+    <div style="flex:1; min-height:80px; display:flex; flex-direction:column; overflow:hidden;">
       <div class="section-label">Recent</div>
-      <div class="history-list" id="history-list">
+      <div id="history-list" style="display:flex;flex-direction:column;gap:3px;overflow-y:auto;max-height:220px;">
         <div style="font-size:12px; color:var(--text3); padding: 8px 10px;">No history yet</div>
       </div>
+    </div>
+
+    <!-- Progress Tracker Button -->
+    <div style="padding: 0 0 8px;">
+      <button onclick="openProgressModal()" id="progress-btn" class="progress-sidebar-btn">
+        <span style="display:flex;align-items:center;gap:7px"><span style="font-size:14px">📊</span> Progress Tracker</span>
+        <span id="progress-btn-count" style="font-size:10px;background:rgba(108,143,255,0.15);color:var(--accent);padding:2px 7px;border-radius:10px;font-weight:600;display:none">0</span>
+      </button>
+    </div>
+
+    <!-- Take Exam Button -->
+    <div style="padding: 0 0 8px;">
+      <button onclick="openExamPicker()" id="exam-picker-btn" class="progress-sidebar-btn">
+        <span style="display:flex;align-items:center;gap:7px"><span style="font-size:14px">📝</span> Take Exam</span>
+        <span id="exam-picker-count" style="font-size:10px;background:rgba(167,139,250,0.15);color:var(--purple);padding:2px 7px;border-radius:10px;font-weight:600;display:none">0</span>
+      </button>
+    </div>
+
+    <!-- Exam Results Button -->
+    <div style="padding: 0 0 12px;">
+      <button onclick="openExamResults()" id="exam-results-btn" class="progress-sidebar-btn">
+        <span style="display:flex;align-items:center;gap:7px"><span style="font-size:14px">🏆</span> Exam Results</span>
+        <span id="exam-results-count" style="font-size:10px;background:rgba(74,222,128,0.15);color:#4ade80;padding:2px 7px;border-radius:10px;font-weight:600;display:none">0</span>
+      </button>
     </div>
 
     <!-- PDF Upload -->
@@ -1451,7 +1409,7 @@
 
     <!-- Footer -->
     <div style="font-size:11px; color:var(--text3); line-height:1.5;">
-      Powered by Qwen2.5 · Groq<br/>
+      Powered by LLaMA 3.1 · Groq<br/>
       RAG: Wikipedia · Stack Exchange · arXiv · PubMed
     </div>
   </aside>
@@ -1459,26 +1417,8 @@
   <!-- ── Main ── -->
   <main class="main">
 
-    <!-- ── Timer Bar (Idea 8) ── -->
-    <div class="timer-bar" id="timer-bar">
-      <span style="font-size:13px;">⏱️</span>
-      <span class="timer-label" id="timer-label">Study session</span>
-      <div class="timer-progress"><div class="timer-fill" id="timer-fill" style="width:100%"></div></div>
-      <span class="timer-display" id="timer-display">25:00</span>
-      <button class="timer-btn" onclick="pauseTimer()" id="timer-pause-btn">Pause</button>
-      <button class="timer-btn" onclick="stopTimer()">Stop</button>
-    </div>
-
-    <!-- ── Toolbar: Compare + Timer Start (Ideas 4, 5, 8) ── -->
-    <div class="main-toolbar">
-      <button class="compare-btn" id="compare-toggle-btn" onclick="toggleCompareView()">⇄ Compare Sessions</button>
-      <div style="flex:1;"></div>
-      <button class="timer-btn" onclick="startTimer(25)" style="font-size:11px;">⏱ 25 min</button>
-      <button class="timer-btn" onclick="startTimer(50)" style="font-size:11px;">⏱ 50 min</button>
-    </div>
-
     <!-- Input -->
-    <div class="input-area" id="input-area-block">
+    <div class="input-area">
       <div class="input-label">What do you want to learn?</div>
       <div class="input-row">
         <textarea
@@ -1510,16 +1450,6 @@
           <button onclick="clearPdfContext()" style="background:none;border:none;color:var(--text3);cursor:pointer;font-size:11px;">✕</button>
         </div>
       </div>
-      <!-- Teaching Format Selector (Idea 7) -->
-      <div style="margin-top:10px;">
-        <div style="font-size:10px;font-weight:600;letter-spacing:0.8px;text-transform:uppercase;color:var(--text3);margin-bottom:6px;">Teaching format</div>
-        <div class="format-selector">
-          <button class="format-btn active" data-fmt="text" onclick="selectFormat(this)">📝 Text</button>
-          <button class="format-btn" data-fmt="visual" onclick="selectFormat(this)">🖼️ Image <span class="format-badge">SOON</span></button>
-          <button class="format-btn" data-fmt="video" onclick="selectFormat(this)">🎬 Video <span class="format-badge">SOON</span></button>
-          <button class="format-btn" data-fmt="3d" onclick="selectFormat(this)">🧊 3D <span class="format-badge">SOON</span></button>
-        </div>
-      </div>
     </div>
 
     <!-- Response -->
@@ -1540,122 +1470,34 @@
       <div id="response-container" style="display:none;"></div>
     </div>
 
-    <!-- ── Compare View (Ideas 4 & 5) ── -->
-    <div class="compare-view" id="compare-view">
-      <div class="compare-pane" id="compare-pane-left">
-        <div class="compare-pane-header">
-          <div>
-            <div class="compare-pane-label">Session A</div>
-            <div class="compare-pane-topic" id="compare-topic-left">—</div>
-          </div>
-          <select class="compare-select" id="compare-select-left" onchange="loadComparePane('left',this.value)">
-            <option value="">Select session</option>
-          </select>
-        </div>
-        <div class="compare-pane-body" id="compare-body-left">
-          <div class="compare-empty">
-            <div class="compare-empty-icon">📄</div>
-            <div>Select a session from history to compare</div>
-          </div>
-        </div>
-      </div>
-      <div class="compare-pane" id="compare-pane-right">
-        <div class="compare-pane-header">
-          <div>
-            <div class="compare-pane-label">Session B</div>
-            <div class="compare-pane-topic" id="compare-topic-right">—</div>
-          </div>
-          <select class="compare-select" id="compare-select-right" onchange="loadComparePane('right',this.value)">
-            <option value="">Select session</option>
-          </select>
-        </div>
-        <div class="compare-pane-body" id="compare-body-right">
-          <div class="compare-empty">
-            <div class="compare-empty-icon">📄</div>
-            <div>Select a session from history to compare</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
   </main>
-</div>
-
-<!-- ── Pre-Assessment Modal (Idea 2) ── -->
-<div class="precheck-overlay" id="precheck-overlay">
-  <div class="precheck-modal">
-    <div class="precheck-title">How much do you know?</div>
-    <div class="precheck-sub" id="precheck-sub">Before we begin, let us know your starting point so we can tailor the explanation.</div>
-    <div class="precheck-options">
-      <div class="precheck-opt" onclick="selectPrecheck(this,'none')">
-        <div class="precheck-opt-icon">🌱</div>
-        <div>
-          <div class="precheck-opt-label">Complete beginner</div>
-          <div class="precheck-opt-desc">I've never heard of this topic before</div>
-        </div>
-      </div>
-      <div class="precheck-opt" onclick="selectPrecheck(this,'some')">
-        <div class="precheck-opt-icon">📘</div>
-        <div>
-          <div class="precheck-opt-label">Some familiarity</div>
-          <div class="precheck-opt-desc">I've seen it but don't understand it well</div>
-        </div>
-      </div>
-      <div class="precheck-opt" onclick="selectPrecheck(this,'solid')">
-        <div class="precheck-opt-icon">⚡</div>
-        <div>
-          <div class="precheck-opt-label">Know the basics</div>
-          <div class="precheck-opt-desc">I understand the fundamentals, want to go deeper</div>
-        </div>
-      </div>
-    </div>
-    <div class="precheck-actions">
-      <button class="precheck-skip" onclick="closePrecheck(true)">Skip</button>
-      <button class="precheck-go" onclick="closePrecheck(false)" id="precheck-go-btn">Start Learning →</button>
-    </div>
-  </div>
-</div>
-
-<!-- ── Break Overlay (Idea 8) ── -->
-<div class="break-overlay" id="break-overlay">
-  <div class="break-emoji">☕</div>
-  <div class="break-title">Time for a break!</div>
-  <div class="break-sub">Great work — rest your mind for a few minutes.</div>
-  <div class="break-timer" id="break-timer-display">5:00</div>
-  <button class="break-skip" onclick="endBreak()">Skip break →</button>
 </div>
 
 <script>
 const API = window.location.origin
 let currentMode   = 'Concept-First Learning'
 let history       = []
+
+// Progress tracker state
+let progressTopics = []  // [{topic, mode, contexts, timestamp}]
 let activePdfId   = null
 let activePdfName = ''
 
 // Session context for feature buttons
 let currentSessionTopic    = ''
 let currentSessionMode     = ''
-let currentSessionContexts = []
+let currentSessionContexts = []   // accumulates all raw responses (for quiz/exercises)
 let currentSessionRawData  = null
 
-// Chunked learning state
-let learningPlan    = []
-let currentChunk    = 0
-let currentTopic    = ''
-let chunkResponses  = {}
+// Context window navigation (More Context feature)
+let contextCards       = []   // [{html, title, realWorldHtml}] — one per context
+let currentContextIdx  = 0    // which context is currently visible
 
-// New feature state
-let currentFormat    = 'text'          // Idea 7 — teaching format
-let precheckLevel    = null            // Idea 2 — knowledge level
-let pendingTopic     = null            // held while precheck modal open
-let timerInterval    = null            // Idea 8 — study timer
-let timerTotal       = 0
-let timerRemaining   = 0
-let timerPaused      = false
-let breakInterval    = null
-let breakRemaining   = 0
-let compareMode      = false           // Ideas 4/5 — compare view
-let compareHistory   = {}             // {index: responseData}
+// Chunked learning state
+let learningPlan    = []   // [{title, page_start, page_end, section}, ...]
+let currentChunk    = 0    // index into learningPlan
+let currentTopic    = ''   // original user question
+let chunkResponses  = {}   // cache: {chunkIndex: responseData}
 
 loadPdfList()
 mermaid.initialize({
@@ -1666,8 +1508,9 @@ mermaid.initialize({
     useMaxWidth: true,
     htmlLabels: true,
     curve: 'basis',
-    nodeSpacing: 50,
-    rankSpacing: 70,
+    nodeSpacing: 40,
+    rankSpacing: 55,
+    diagramPadding: 12,
   },
   themeVariables: {
     background: '#1a1e26',
@@ -1676,7 +1519,7 @@ mermaid.initialize({
     primaryTextColor: '#e8eaf0',
     secondaryColor: '#1a2035',
     tertiaryColor: '#1a1e26',
-    lineColor: '#7c3aed',
+    lineColor: '#6c8fff',
     edgeLabelBackground: '#1a1e26',
     fontSize: '14px',
     fontFamily: 'DM Sans, sans-serif',
@@ -1710,18 +1553,16 @@ function tryExample(topic) {
 }
 
 async function submit() {
-  const input = document.getElementById('topic-input')
-  const topic = input.value.trim()
-  if (!topic) return
-
-  // Idea 2 — show pre-assessment if first time for this topic
-  if (precheckLevel === null) {
-    pendingTopic = topic
-    document.getElementById('precheck-sub').textContent =
-      `Before diving into "${topic}", let us know your starting point.`
-    document.getElementById('precheck-overlay').classList.add('open')
+  // Prevent duplicate concurrent submits (Enter key + Generate button double-fire)
+  if (window._isSubmitting) {
+    console.warn('submit: already in flight, ignoring duplicate')
     return
   }
+  window._isSubmitting = true
+
+  const input = document.getElementById('topic-input')
+  const topic = input.value.trim()
+  if (!topic) { window._isSubmitting = false; return }
 
   const btn = document.getElementById('submit-btn')
   btn.disabled = true
@@ -1742,17 +1583,26 @@ async function submit() {
   try {
     // Detect chapter reference from input or topic text
     const chapterEl  = document.getElementById('chapter-input')
-    const chapterRef = (chapterEl && chapterEl.value ? chapterEl.value.trim() : '') ||
-                       ((topic.match(/chapter\s*\d+/i) || [])[0] || '')
+    const chapterVal = chapterEl && chapterEl.value ? chapterEl.value.trim() : ''
+    // Accept "4", "chapter 4", "ch4", "Chapter 4" etc.
+    const chapterRef = chapterVal ||
+                       ((topic.match(/\bchapter\s*\d+\b/i) || [])[0] || '') ||
+                       ((topic.match(/\bch\.?\s*\d+\b/i) || [])[0] || '')
 
-    // If PDF active + chapter detected → use chunked learning
-    if (activePdfId && chapterRef && /chapter\s*\d+/i.test(chapterRef)) {
+    // Normalize: if chapterRef is just a number, prepend "chapter "
+    const chapterNorm = chapterRef
+      ? (/^\d+$/.test(chapterRef) ? 'chapter ' + chapterRef : chapterRef)
+      : ''
+
+    // If PDF active + any chapter ref detected → use chunked learning
+    if (activePdfId && chapterNorm) {
       currentTopic = topic
       input.value  = ''
       input.style.height = 'auto'
       btn.disabled = false
       btn.innerHTML = '<span>Generate</span><span>→</span>'
-      await startChunkedLearning(topic, chapterRef)
+      await startChunkedLearning(topic, chapterNorm)
+      window._isSubmitting = false
       return
     }
 
@@ -1772,121 +1622,116 @@ async function submit() {
     if (!res.ok) throw new Error(`Server error: ${res.status}`)
     const data = await res.json()
 
+    // Detect Groq rate-limit in response and handle gracefully
+    if (data.raw && (data.raw.includes('rate_limit_exceeded') || data.raw.includes('Rate limit reached') || data.raw.includes('Error code: 429'))) {
+      // Extract retry-after seconds from error message
+      var retryMatch = data.raw.match(/try again in ([\d.]+)s/i)
+      var waitSecs = retryMatch ? Math.ceil(parseFloat(retryMatch[1])) + 1 : 12
+      showRateLimitCountdown(topic, waitSecs)
+      btn.disabled = false
+      btn.innerHTML = '<span>Generate</span><span>→</span>'
+      window._isSubmitting = false
+      return
+    }
+
     renderResponse(topic, data)
-    addToHistory(topic, currentMode)
+    // addToHistory(topic, currentMode)
     input.value = ''
     input.style.height = 'auto'
 
   } catch (err) {
     container.innerHTML = `
       <div class="error-box">
-        The backend server is not connected. Please try again later.
+        <strong>Connection error</strong><br/>
+        Make sure your backend is running: <code>uvicorn main:app --reload</code><br/>
+        <small style="margin-top:6px;display:block;opacity:0.7;">${err.message}</small>
       </div>`
   }
 
   btn.disabled = false
   btn.innerHTML = '<span>Generate</span><span>→</span>'
+  window._isSubmitting = false
+}
+
+// ── Rate-limit countdown UI ────────────────────────────────────────────────
+// Shows a friendly countdown in the response container and auto-retries when done.
+// onRetry is optional — if omitted, re-triggers submit() automatically.
+function showRateLimitCountdown(topic, waitSecs, onRetry) {
+  var container = document.getElementById('response-container')
+  if (!container) return
+  var remaining = waitSecs
+
+  function render() {
+    container.innerHTML =
+      '<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 20px;gap:18px;text-align:center">'
+      + '<div style="font-size:48px">⏳</div>'
+      + '<div style="font-size:18px;font-weight:700;color:var(--text)">Groq rate limit reached</div>'
+      + '<div style="font-size:14px;color:var(--text2);max-width:420px">Free-tier Groq allows 6,000 tokens/min. Auto-retrying <strong style="color:var(--accent)">' + escHtml(topic) + '</strong> in:</div>'
+      + '<div id="rl-countdown" style="font-size:56px;font-weight:800;color:var(--accent);font-variant-numeric:tabular-nums">' + remaining + 's</div>'
+      + '<div style="font-size:12px;color:var(--text3)">You can also <a href="https://console.groq.com/settings/billing" target="_blank" style="color:var(--accent)">upgrade Groq tier</a> for higher limits</div>'
+      + '</div>'
+  }
+
+  render()
+
+  var ticker = setInterval(function() {
+    remaining--
+    var el = document.getElementById('rl-countdown')
+    if (el) el.textContent = remaining + 's'
+    if (remaining <= 0) {
+      clearInterval(ticker)
+      if (typeof onRetry === 'function') {
+        onRetry()
+      } else {
+        // Re-trigger submit with the original topic
+        var input = document.getElementById('topic-input')
+        if (input) input.value = topic
+        submit()
+      }
+    }
+  }, 1000)
 }
 
 function renderResponse(topic, data) {
-  const container = document.getElementById('response-container')
-
-  const modeColors = {
-    'Concept-First Learning': 'tag-concept',
-    'Reverse Engineering':    'tag-reverse',
-    'Visual Learning':        'tag-visual'
-  }
-
-  const stepsHtml = (data.steps || []).map(s => `
-    <div class="step-item">
-      <div class="step-dot"></div>
-      <div>${renderInlineMd(s)}</div>
-    </div>`).join('')
-
-  // Strip leaked system prompt content and Real World section from raw markdown
-  const rawCleaned = (data.raw || data.explanation || '')
-    .replace(/## Real World Applications[\s\S]*?(?=## |$)/g, '')
-    .replace(/Give a concrete, relevant example that matches the subject:[\s\S]*?Match the example to the subject\.?\n*/g, '')
-    .replace(/Biology\/Nature topic[^\n]*\n/g, '')
-    .replace(/History\/Social topic[^\n]*\n/g, '')
-    .replace(/Math\/Physics topic[^\n]*\n/g, '')
-    .replace(/Programming\/CS topic[^\n]*\n/g, '')
-    .replace(/Language\/Arts topic[^\n]*\n/g, '')
-    .replace(/One clear question that tests genuine understanding[^\n]*\n/g, '')
-    .replace(/Format exactly as:[^\n]*\n/g, '')
-    .replace(/Show exactly where this concept[^\n]*\n/g, '')
-    .replace(/Give 3-5 specific[^\n]*\n/g, '')
-    .replace(/Explain the core idea[^\n]*\n/g, '')
-    .replace(/Go deeper\. Explain[^\n]*\n/g, '')
-    .replace(/Introduce one more advanced[^\n]*\n/g, '')
-    .replace(/Give ONE concrete example[^\n]*\n/g, '')
-    .replace(/\[Write the[^\]]*\]\n*/g, '')
-    .replace(/\[Write [^\]]*\]\n*/g, '')
-    .trim()
-  const rawHtml = renderMarkdown(rawCleaned)
-
-  const realWorldHtml = data.real_world
-    ? `<div class="realworld-box">
-        <div class="realworld-label">🌍 Real World Applications</div>
-        <div class="md-body">${renderMarkdown(data.real_world)}</div>
-       </div>`
-    : ''
-
-  // Store session context for features
   currentSessionTopic    = topic
-  currentSessionMode     = data.mode
+  currentSessionMode     = data.mode || currentMode
   currentSessionContexts = [data.raw || '']
   currentSessionRawData  = data
+  contextCards      = [{ title: topic, data: data }]
+  currentContextIdx = 0
+  currentSessionId  = 's_' + Date.now()
+  // Clear any PDF chunk state from previous session
+  learningPlan   = []
+  chunkResponses = {}
+  // Remove stale plan bar from DOM
+  var container = document.getElementById('response-container')
+  if (container) { var op = container.querySelector('.plan-bar'); if (op) op.remove() }
 
-  container.innerHTML = `
-    <div class="response-card" id="main-response-card">
-      <div class="response-header">
-        <div class="response-meta">
-          <div class="response-topic">${escHtml(topic)}</div>
-          <span class="mode-tag ${modeColors[data.mode] || 'tag-concept'}">${data.mode}</span>
-        </div>
-      </div>
-      <div class="response-body">
-        <div class="response-content">
-          <div class="md-body" id="md-output">${rawHtml}</div>
-        </div>
-        <div class="steps-panel">
-          <div class="steps-title">Summary</div>
-          ${stepsHtml}
-        </div>
-      </div>
-      ${realWorldHtml}
-      ${data.exercise ? `<div class="exercise-box">
-        <div class="exercise-label">Practice</div>
-        <div class="exercise-text">${escHtml(data.exercise)}</div>
-      </div>` : ''}
-      <div class="action-bar">
-        <button class="action-btn" onclick="doMoreContext(this)">
-          <span class="btn-icon">➕</span> More Context
-        </button>
-        <button class="action-btn" onclick="doQuiz(this)">
-          <span class="btn-icon">🧠</span> Quizlet
-        </button>
-        <button class="action-btn" onclick="doExercises(this)">
-          <span class="btn-icon">✏️</span> Exercise Questions
-        </button>
-        <button class="action-btn" onclick="doRelatedLinks(this)">
-          <span class="btn-icon">🔗</span> Related Links
-        </button>
-      </div>
-      <div class="exam-trigger" onclick="doExam(this)">
-        🎓 <strong>Final Assessment</strong> — Test everything you've learned in this session
-      </div>
-      <div id="features-container"></div>
-      <div class="export-bar">
-        <span class="export-label">Export</span>
-        <button class="export-btn" onclick="exportMarkdown()">📄 Markdown</button>
-        <button class="export-btn" onclick="exportPDF()">🖨️ Print / PDF</button>
-        <button class="export-btn" onclick="copyToClipboard()">📋 Copy text</button>
-      </div>
-    </div>`
+  // Save IMMEDIATELY before any rendering — this is the bulletproof save.
+  // Even if renderContextWindow throws (e.g., due to bad mermaid code, missing fields),
+  // the session is already persisted. Same logic for all 3 modes.
+  saveCurrentSession()
 
-  renderMermaidBlocks()
+  try {
+    renderContextWindow(0)
+  } catch (e) {
+    console.error('renderContextWindow failed for mode=' + currentSessionMode + ':', e)
+    // Show at least the raw text as a fallback so the user sees something
+    if (container) {
+      container.innerHTML = '<div class="response-card"><div class="response-header"><div class="response-meta"><div class="response-topic">' + escHtml(topic) + '</div><span class="mode-tag tag-concept">' + escHtml(currentSessionMode || '') + '</span></div></div><div class="response-body"><div class="response-content"><div class="md-body">' + (typeof renderMarkdown === 'function' ? renderMarkdown(data.raw || '') : escHtml(data.raw || '')) + '</div></div></div></div>'
+    }
+  }
+
+  // Fetch AI summary async — rerenders + re-saves when ready (updates with aiSummary)
+  fetchAndStoreSummary(contextCards[0], topic).then(function() {
+    try { renderContextWindow(0) } catch (e) { console.error('rerender after summary failed:', e) }
+    saveCurrentSession()
+  }).catch(function(e) {
+    console.error('summary fetch failed:', e)
+    saveCurrentSession()  // save anyway, without summary
+  })
+  // Track progress
+  trackProgress(topic, currentSessionMode, 1)
 }
 
 function renderMarkdown(raw) {
@@ -1942,7 +1787,7 @@ function makeFallbackDiagram(rawCode) {
   }
   const items = nodes.slice(0,8).map((label, i) => `
     <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
-      <div style="background:rgba(124,58,237,0.12);border:1px solid rgba(124,58,237,0.3);border-radius:8px;padding:8px 14px;font-size:12px;font-weight:500;color:#a78bfa;text-align:center;max-width:120px;line-height:1.3;">${label}</div>
+      <div style="background:rgba(108,143,255,0.12);border:1px solid rgba(108,143,255,0.3);border-radius:8px;padding:8px 14px;font-size:12px;font-weight:500;color:#6c8fff;text-align:center;max-width:120px;line-height:1.3;">${label}</div>
       ${i < nodes.slice(0,8).length - 1 ? '<div style="font-size:16px;color:var(--text3);">↓</div>' : ''}
     </div>`).join('')
   return `<div style="display:flex;flex-direction:column;align-items:center;gap:0;padding:8px 0;">${items}</div>`
@@ -2005,25 +1850,100 @@ async function startChunkedLearning(topic, chapterRef) {
     currentChunk   = 0
     currentTopic   = topic
     chunkResponses = {}
+    contextCards   = []
+    currentSessionContexts = []
 
     // Step 2: Teach first chunk
     await teachChunk(0)
 
   } catch(err) {
-    container.innerHTML = `<div class="error-box">The backend server is not connected. Please try again later.</div>`
+    container.innerHTML = `<div class="error-box"><strong>Error</strong><br/>${err.message}</div>`
   }
 }
 
 async function teachChunk(index) {
   if (index < 0 || index >= learningPlan.length) return
 
+  // Prevent duplicate concurrent fetches (double-click on Next, plan pill, etc.)
+  if (window._isTeaching) {
+    console.warn('teachChunk: already in flight, ignoring duplicate call for index=' + index)
+    return
+  }
+  window._isTeaching = true
+
+  try {
+    await _teachChunkInner(index)
+  } finally {
+    window._isTeaching = false
+  }
+}
+
+async function _teachChunkInner(index) {
   currentChunk = index
   const chunk  = learningPlan[index]
   const container = document.getElementById('response-container')
 
-  // Show from cache if available
+  // If this chunk has a sibling session ID (restored from localStorage),
+  // load directly from saved sessions instead of re-fetching
+  if (chunk._sibId) {
+    var sib = savedSessions.find(function(x) { return x.id === chunk._sibId })
+    if (sib && sib.contexts && sib.contexts.length) {
+      currentSessionId       = sib.id
+      currentSessionTopic    = sib.topic
+      currentSessionMode     = sib.mode
+      currentSessionContexts = sib.contexts.map(function(c) { return c.raw || '' })
+      contextCards = sib.contexts.map(function(c) {
+        return { title: c.title || sib.topic, data: { raw: c.raw, raw_clean: c.raw_clean, real_world: c.real_world, mode: c.mode }, aiTitle: c.aiTitle, aiSummary: c.aiSummary }
+      })
+      currentContextIdx = 0
+      renderContextWindow(0)
+      var capturedIndex = index
+      setTimeout(function() { injectPlanBar(capturedIndex) }, 0)
+      // Restore followups
+      setTimeout(function() {
+        var thread = document.getElementById('followup-thread')
+        if (thread && sib.followups && sib.followups.length) {
+          sib.followups.forEach(function(fu) {
+            var b = document.createElement('div')
+            b.className = 'followup-answer'
+            b.innerHTML = '<div class="followup-q">↩ ' + escHtml(fu.q) + '</div>' + fu.a
+            thread.appendChild(b)
+          })
+        }
+      }, 80)
+      return
+    }
+  }
+
+  // Show from cache if available — route through unified pipeline
   if (chunkResponses[index]) {
-    renderChunkResponse(chunkResponses[index], index)
+    var cached = chunkResponses[index]
+    var chunkTopic = currentTopic + ' — ' + chunk.title
+    var newSessionId = 's_pdf_' + activePdfId + '_' + (currentTopic||'').replace(/[^a-z0-9]/gi,'_').slice(0,20) + '_p' + index
+    // Try to restore aiTitle/aiSummary from savedSessions so the summary panel
+    // shows the previously-generated summary instead of "Generating..." forever
+    var savedAiTitle = null, savedAiSummary = null
+    var savedSess = savedSessions.find(function(s) { return s.id === newSessionId })
+    if (savedSess && savedSess.contexts && savedSess.contexts[0]) {
+      savedAiTitle   = savedSess.contexts[0].aiTitle
+      savedAiSummary = savedSess.contexts[0].aiSummary
+    }
+    currentSessionTopic    = chunkTopic
+    currentSessionMode     = cached.mode || currentMode
+    currentSessionContexts = [cached.raw || cached.explanation || '']
+    currentSessionRawData  = cached
+    contextCards      = [{ title: chunkTopic, data: cached, aiTitle: savedAiTitle, aiSummary: savedAiSummary }]
+    currentContextIdx = 0
+    currentSessionId  = newSessionId
+    renderContextWindow(0)
+    setTimeout(function() { injectPlanBar(index) }, 0)
+    // If summary wasn't saved before, fetch it now (rare — only if first visit was interrupted)
+    if (!savedAiSummary) {
+      fetchAndStoreSummary(contextCards[0], chunkTopic).then(function() {
+        if (currentContextIdx === 0) renderContextWindow(0)
+        saveCurrentSession()
+      })
+    }
     return
   }
 
@@ -2051,13 +1971,52 @@ async function teachChunk(index) {
     if (!res.ok) throw new Error(`Server error: ${res.status}`)
     const data = await res.json()
 
+    // Detect Groq rate limit — show friendly countdown instead of raw error dump
+    if (data.raw && (data.raw.includes('rate_limit_exceeded') || data.raw.includes('Rate limit reached') || data.raw.includes('Error code: 429'))) {
+      var retryMatch = data.raw.match(/try again in ([\d.]+)s/i)
+      var waitSecs = retryMatch ? Math.ceil(parseFloat(retryMatch[1])) + 1 : 12
+      showRateLimitCountdown(currentTopic + ' — ' + chunk.title, waitSecs, function() { teachChunk(index) })
+      return
+    }
+
     // Cache the response
     chunkResponses[index] = data
-    renderChunkResponse(data, index)
-    addToHistory(`${currentTopic} [${chunk.title}]`, currentMode)
+
+    // Route PDF chunk through the unified rendering pipeline
+    var chunkTopic = currentTopic + ' — ' + chunk.title
+    currentSessionTopic    = chunkTopic
+    currentSessionMode     = data.mode || currentMode
+    currentSessionContexts = [data.raw || data.explanation || '']
+    currentSessionRawData  = data
+    contextCards      = [{ title: chunkTopic, data: data }]
+    currentContextIdx = 0
+    currentSessionId  = 's_pdf_' + activePdfId + '_' + (currentTopic||'').replace(/[^a-z0-9]/gi,'_').slice(0,20) + '_p' + index
+
+    // SAVE FIRST — bulletproof even if rendering fails for any mode
+    saveCurrentSession()
+
+    try {
+      renderContextWindow(0)
+      setTimeout(function() { injectPlanBar(index) }, 0)
+    } catch (e) {
+      console.error('teachChunk render failed for mode=' + currentSessionMode + ':', e)
+    }
+
+    // Fetch summary async & re-save when ready (with aiSummary)
+    fetchAndStoreSummary(contextCards[0], chunkTopic).then(function() {
+      try {
+        renderContextWindow(0)
+        setTimeout(function() { injectPlanBar(index) }, 0)
+      } catch (e) { console.error('teachChunk rerender failed:', e) }
+      saveCurrentSession()
+    }).catch(function(e) {
+      console.error('teachChunk summary fetch failed:', e)
+      saveCurrentSession()
+    })
+    trackProgress(chunkTopic, currentSessionMode, 1)
 
   } catch(err) {
-    container.innerHTML = `<div class="error-box">The backend server is not connected. Please try again later.</div>`
+    container.innerHTML = `<div class="error-box"><strong>Error</strong><br/>${err.message}</div>`
   }
 }
 
@@ -2079,7 +2038,9 @@ function renderChunkResponse(data, index) {
     'Visual Learning':        'tag-visual'
   }
 
-  const stepsHtml = (data.steps || []).map(s => `
+  // Extract first sentence of concept section as summary
+  var aiSummary = (typeof card !== 'undefined' && card && card.aiSummary) ? card.aiSummary : ''
+  const stepsHtml = (aiSummary ? '<div style="font-size:12px;color:var(--text2);line-height:1.5;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--border)">' + escHtml(aiSummary) + '</div>' : '') + (data.steps || []).map(s => `
     <div class="step-item">
       <div class="step-dot"></div>
       <div>${renderInlineMd(s)}</div>
@@ -2154,305 +2115,490 @@ function renderChunkResponse(data, index) {
   renderMermaidBlocks()
 }
 
-// ── Feature Button Functions ──────────────────────────────────────────────────
+// ── Modal Helpers ────────────────────────────────────────────────────────────
 
-function getFeatureContainer() {
-  return document.getElementById('features-container')
+function openModal(id) {
+  const el = document.getElementById(id)
+  if (el) { el.style.display = 'flex'; document.body.style.overflow = 'hidden' }
 }
+function closeModal(id) {
+  const el = document.getElementById(id)
+  if (el) { el.style.display = 'none'; document.body.style.overflow = '' }
+}
+// Close on overlay click
+document.addEventListener('click', e => {
+  if (e.target.classList.contains('modal-overlay')) {
+    e.target.style.display = 'none'
+    document.body.style.overflow = ''
+  }
+  // Progress topic items (data-topic delegation)
+  var topicEl = e.target.closest('[data-topic]')
+  if (topicEl && topicEl.dataset.topic) {
+    closeModal('progress-modal')
+    tryExample(topicEl.dataset.topic)
+  }
+  // Delete session button
+  if (e.target.dataset && e.target.dataset.del) {
+    e.stopPropagation()
+    deleteSession(e.target.dataset.del, e, e.target.dataset.group || null)
+    return
+  }
+  // History session click — restore saved session
+  var sessEl = e.target.closest('[data-sess]')
+  if (sessEl && sessEl.dataset.sess) {
+    restoreSession(sessEl.dataset.sess)
+  }
+})
 
 function setActionBtnLoading(btn, loading, label) {
   btn.disabled = loading
-  if (loading) {
-    btn.classList.add('loading')
-    btn.innerHTML = `<span class="btn-icon">⏳</span> Loading...`
-  } else {
-    btn.classList.remove('loading')
-    btn.innerHTML = label
-  }
+  btn.classList.toggle('loading', loading)
+  if (!loading) btn.innerHTML = label
+  else btn.innerHTML = '<span class="btn-icon">⏳</span> Loading...'
 }
 
 // ── More Context ──────────────────────────────────────────────────────────────
-async function doMoreContext(btn) {
-  setActionBtnLoading(btn, true, '')
-  const fc = getFeatureContainer()
+// ── Context Window Renderer ──────────────────────────────────────────────────
+// Renders contextCards[idx] inside the main response card
+// with Prev/Next navigation just like the chunked learning plan
 
-  // Show loading in panel
-  const panelId = 'more-ctx-' + Date.now()
-  const loadDiv = document.createElement('div')
-  loadDiv.className = 'feature-panel'
-  loadDiv.id = panelId
-  loadDiv.innerHTML = `
-    <div class="feature-panel-header">
-      <div class="feature-panel-title">➕ Additional Context</div>
-    </div>
-    <div class="feature-panel-body">
-      <div class="panel-loading">
-        <div class="dot"></div><div class="dot" style="animation-delay:0.2s"></div><div class="dot" style="animation-delay:0.4s"></div>
-        <span>Generating additional context...</span>
-      </div>
-    </div>`
-  fc.appendChild(loadDiv)
-
+async function fetchAndStoreSummary(card, topic) {
+  // SKIP if we already have a summary cached — major API call reduction.
+  // This means navigating Prev/Next or restoring saved sessions doesn't refetch.
+  if (card && card.aiSummary && card.aiSummary.length > 10) {
+    return
+  }
   try {
-    const res = await fetch(`${API}/more-context`, {
+    var res = await fetch(API + '/summarize', {
       method: 'POST',
       headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({raw_response: (card.data.raw || '').slice(0, 2000), topic: topic})
+    })
+    var data = await res.json()
+    card.aiTitle   = data.title   || card.title
+    card.aiSummary = data.summary || ''
+  } catch(e) {
+    // fallback — no summary, use existing title
+  }
+}
+
+function stripLearnPilotInstructions(raw) {
+  if (!raw) return ""
+  var rwIdx = raw.indexOf("## Real World Applications")
+  var text = rwIdx !== -1 ? raw.slice(0, rwIdx) : raw
+  var bad = ["Give a concrete","Explain the core idea","Go deeper","Introduce one more","Give ONE concrete","[Write"]
+  return text.split("\n").filter(function(line) {
+    var l = line.trim()
+    return !bad.some(function(b){ return l.indexOf(b)===0 })
+  }).join("\n").trim()
+}
+
+
+
+function renderContextWindow(idx) {
+  if (!contextCards.length) return
+  currentContextIdx = idx
+  const card        = contextCards[idx]
+  const total       = contextCards.length
+  const modeColors  = {'Concept-First Learning':'tag-concept','Reverse Engineering':'tag-reverse','Visual Learning':'tag-visual'}
+  const data        = card.data
+  const ordinals    = ['First','Second','Third','Fourth','Fifth','Sixth','Seventh','Eighth','Ninth','Tenth']
+  const label       = ordinals[idx] || `#${idx+1}`
+  // Keep header title short — just ordinal + brief
+  var aiTitle = card.aiTitle || (card.title || currentSessionTopic).split(' ').slice(0,5).join(' ')
+  const displayTitle = idx === 0 ? aiTitle : (label + ' Concept: ' + aiTitle)
+
+  // Build raw content
+  const rawClean = stripLearnPilotInstructions(data.raw_clean || data.raw || "")
+  const rawHtml  = renderMarkdown(rawClean)
+  const rwHtml   = data.real_world
+    ? `<div class="realworld-box"><div class="realworld-label">🌍 Real World Applications</div><div class="md-body">${renderMarkdown(data.real_world)}</div></div>`
+    : ''
+
+  // Steps
+  // Summary panel — AI-generated summary only, no bullet points
+  const summaryStyle = "font-size:13px;color:#9ca3af;line-height:1.6;"
+  const loadingStyle = "font-size:12px;color:#6b7280;"
+  const stepsHtml = card.aiSummary ? ("<div style=" + JSON.stringify(summaryStyle) + ">" + escHtml(card.aiSummary) + "</div>") : ("<div style=" + JSON.stringify(loadingStyle) + ">Generating summary...</div>")
+
+
+
+  // Context navigation bar (pill indicators like learning plan)
+  const pillsHtml = contextCards.map((c, i) => {
+    const done   = i < idx
+    const active = i === idx
+    const cls    = done ? 'plan-step done' : active ? 'plan-step active' : 'plan-step'
+    const lbl    = i === 0 ? 'Original' : ordinals[i] || `#${i+1}`
+    return `<span class="${cls}" onclick="renderContextWindow(${i})" style="cursor:pointer">${done?'✓ ':''}${lbl}</span>`
+  }).join('')
+
+  // Navigation buttons
+  const prevDisabled = idx === 0 ? 'disabled' : ''
+  const nextLabel    = idx < total - 1 ? `Next → ${ordinals[idx+1]||'#'+(idx+2)} Concept` : ''
+  const navHtml = `
+    <button class="prev-btn" onclick="renderContextWindow(${idx-1})" ${prevDisabled}>← Previous</button>
+    <span class="chunk-progress">Context <strong>${idx+1}</strong> of <strong>${total}</strong></span>
+    ${idx < total-1
+      ? `<button class="next-btn" onclick="renderContextWindow(${idx+1})">${nextLabel}</button>`
+      : `<span class="complete-badge">✓ All contexts loaded</span>`
+    }`
+
+  // Render into the main response container
+  // If we're in PDF chunk mode (learningPlan exists), preserve the chunk plan bar above
+  const container = document.getElementById('response-container')
+  const isPdfChunk = (typeof learningPlan !== 'undefined') && learningPlan && learningPlan.length > 0
+
+  const contextPillsHtml = total > 1
+    ? `<div class="context-subnav"><span class="context-subnav-label">Context</span><div class="plan-steps">${pillsHtml}</div></div>`
+    : ''
+
+  const cardHtml = `
+    <div class="response-card" id="main-response-card">
+      <div class="response-header">
+        <div class="response-meta">
+          <div class="response-topic">${escHtml(displayTitle)}</div>
+          <span class="mode-tag ${modeColors[data.mode]||'tag-concept'}">${data.mode}</span>
+        </div>
+      </div>
+      ${contextPillsHtml}
+      <div class="response-body">
+        <div class="response-content"><div class="md-body">${rawHtml}</div></div>
+        <div class="steps-panel"><div class="steps-title">Summary</div>${stepsHtml}</div>
+      </div>
+      ${rwHtml}
+      ${data.exercise ? `<div class="exercise-box"><div class="exercise-label">Practice</div><div class="exercise-text">${escHtml(data.exercise)}</div></div>` : ''}
+      <div class="action-bar">
+        <button class="action-btn" onclick="doMoreContext(this)"><span class="btn-icon">➕</span> More Context</button>
+        <button class="action-btn" onclick="doQuiz(this)"><span class="btn-icon">🧠</span> Quizlet</button>
+        <button class="action-btn" onclick="doExercises(this)"><span class="btn-icon">✏️</span> Exercise Questions</button>
+        <button class="action-btn" onclick="doFlashcards(this)"><span class="btn-icon">🃏</span> Flashcards</button>
+        <button class="action-btn" onclick="doRelatedLinks(this)"><span class="btn-icon">🔗</span> Related Links</button>
+        <button class="action-btn" onclick="doExportPDF()"><span class="btn-icon">⬇️</span> Export PDF</button>
+      </div>
+      <div class="followup-thread" id="followup-thread"></div>
+      <div class="followup-bar">
+        <input class="followup-input" id="followup-input" placeholder="Ask a follow-up question about this topic..." onkeydown="if(event.key==='Enter')doFollowup()">
+        <button class="followup-btn" onclick="doFollowup()">Ask →</button>
+      </div>
+      ${total > 1 ? `<div class="chunk-nav context-nav">${navHtml}</div>` : ''}
+    </div>`
+
+  if (isPdfChunk) {
+    // Write the card, then re-inject the plan bar so More Context / context nav
+    // doesn't lose it. Defer via setTimeout so DOM commits first.
+    container.innerHTML = cardHtml
+    var planIdx = (typeof currentChunk === 'number') ? currentChunk : 0
+    setTimeout(function() { injectPlanBar(planIdx) }, 0)
+  } else {
+    // Regular flow — context pill bar goes ABOVE the card
+    container.innerHTML = (total > 1 ? `<div class="plan-bar"><span class="plan-title">Context</span><div class="plan-steps">${pillsHtml}</div></div>` : '') + cardHtml
+    // Remove the duplicate context-subnav inside the card since we already rendered it above
+    var subnav = container.querySelector('.context-subnav')
+    if (subnav) subnav.remove()
+  }
+
+  renderMermaidBlocks()
+  window.scrollTo({top: 0, behavior: 'smooth'})
+}
+
+async function doMoreContext(btn) {
+  // Prevent duplicate concurrent calls (button is disabled via setActionBtnLoading,
+  // but this guards against programmatic double-fires too)
+  if (window._isMoreContext) {
+    console.warn('doMoreContext: already in flight, ignoring duplicate')
+    return
+  }
+  window._isMoreContext = true
+
+  const idx   = currentSessionContexts.length
+  const label = ['First','Second','Third','Fourth','Fifth','Sixth','Seventh','Eighth','Ninth','Tenth'][idx] || `#${idx+1}`
+  setActionBtnLoading(btn, true, '')
+
+  // Show loading state in nav area
+  const container = document.getElementById('response-container')
+  const loadBar   = document.createElement('div')
+  loadBar.style   = 'padding:14px 28px;display:flex;align-items:center;gap:10px;color:var(--text3);font-size:13px;border-top:1px solid var(--border)'
+  loadBar.innerHTML = `<div class="dot"></div><div class="dot" style="animation-delay:.2s"></div><div class="dot" style="animation-delay:.4s"></div><span>Generating ${label} concept...</span>`
+  const card = document.getElementById('main-response-card')
+  if (card) card.appendChild(loadBar)
+
+  try {
+    const res  = await fetch(`${API}/more-context`, {
+      method:'POST', headers:{'Content-Type':'application/json'},
       body: JSON.stringify({
-        topic:           currentSessionTopic,
-        mode:            currentSessionMode,
+        topic: currentSessionTopic, mode: currentSessionMode,
         already_covered: currentSessionContexts,
-        rag_context:     '',
+        context_index: idx, rag_context: '',
       })
     })
     const data = await res.json()
-
-    // Add to accumulated contexts
     if (data.raw) currentSessionContexts.push(data.raw)
 
-    const panel = document.getElementById(panelId)
-    const cleanRaw = (data.raw || '').replace(/## Real World Applications[\s\S]*?(?=## |$)/g,'').trim()
-    const realW = data.real_world ? `
-      <div class="realworld-box" style="margin-top:12px;">
-        <div class="realworld-label">🌍 Real World Applications</div>
-        <div class="md-body">${renderMarkdown(data.real_world)}</div>
-      </div>` : ''
+    // Add to context cards pool and render immediately
+    var newCard = { title: data.title || label + " Concept", data: data }
+    contextCards.push(newCard)
+    var newIdx = contextCards.length - 1
+    renderContextWindow(newIdx)
+    // Fetch AI summary in background, re-render silently when ready
+    fetchAndStoreSummary(newCard, currentSessionTopic).then(function() {
+      if (currentContextIdx === newIdx) renderContextWindow(newIdx)
+    })
+    // Update progress — increment context count
+    trackProgress(currentSessionTopic, currentSessionMode, contextCards.length)
+    saveCurrentSession()
 
-    panel.innerHTML = `
-      <div class="feature-panel-header">
-        <div class="feature-panel-title">➕ Additional Context — ${escHtml(data.title || 'More Detail')}</div>
-      </div>
-      <div class="feature-panel-body">
-        <div class="md-body">${renderMarkdown(cleanRaw)}</div>
-        ${realW}
-      </div>`
-
-    renderMermaidBlocks()
   } catch(e) {
-    document.getElementById(panelId).innerHTML = `<div class="error-box">The backend server is not connected. Please try again later.</div>`
+    if (loadBar.parentNode) loadBar.remove()
+    alert('Error generating more context: ' + e.message)
   }
 
   setActionBtnLoading(btn, false, '<span class="btn-icon">➕</span> More Context')
+  window._isMoreContext = false
 }
 
-// ── Quiz ──────────────────────────────────────────────────────────────────────
+// ── Quiz Modal ─────────────────────────────────────────────────────────────────
 async function doQuiz(btn) {
   setActionBtnLoading(btn, true, '')
-  const fc = getFeatureContainer()
-  const panelId = 'quiz-' + Date.now()
 
-  const loadDiv = document.createElement('div')
-  loadDiv.className = 'feature-panel'
-  loadDiv.id = panelId
-  loadDiv.innerHTML = `
-    <div class="feature-panel-header">
-      <div class="feature-panel-title">🧠 Quizlet</div>
-    </div>
-    <div class="feature-panel-body">
-      <div class="panel-loading">
-        <div class="dot"></div><div class="dot" style="animation-delay:0.2s"></div><div class="dot" style="animation-delay:0.4s"></div>
-        <span>Generating quiz questions based on ${currentSessionContexts.length} context(s)...</span>
-      </div>
-    </div>`
-  fc.appendChild(loadDiv)
+  // Create or reuse modal
+  let modal = document.getElementById('quiz-modal')
+  if (!modal) {
+    modal = document.createElement('div')
+    modal.id        = 'quiz-modal'
+    modal.className = 'modal-overlay'
+    modal.style     = 'display:none'
+    modal.innerHTML = `
+      <div class="modal-box">
+        <div class="modal-header">
+          <div>
+            <div class="modal-title">🧠 Quizlet</div>
+            <div class="modal-subtitle" id="quiz-modal-sub">Loading...</div>
+          </div>
+          <button class="modal-close" onclick="closeModal('quiz-modal')">✕</button>
+        </div>
+        <div class="modal-body" id="quiz-modal-body">
+          <div style="padding:40px;text-align:center;color:var(--text3)">Generating questions...</div>
+        </div>
+        <div class="modal-footer">
+          <div class="quiz-score-bar" id="quiz-total-score" style="flex:1;margin:0">Answer questions to see score</div>
+        </div>
+      </div>`
+    document.body.appendChild(modal)
+  }
+
+  openModal('quiz-modal')
+  document.getElementById('quiz-modal-sub').textContent = `Based on ${currentSessionContexts.length} context(s)`
+  document.getElementById('quiz-modal-body').innerHTML  = '<div style="padding:40px;text-align:center;color:var(--text3)">Generating questions...</div>'
+  document.getElementById('quiz-total-score').textContent = 'Answer questions to see score'
 
   try {
-    const res = await fetch(`${API}/quiz`, {
-      method: 'POST',
-      headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({
-        topic:        currentSessionTopic,
-        all_contexts: currentSessionContexts,
-        num_questions: 5,
-      })
+    const res  = await fetch(`${API}/quiz`, {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ topic: currentSessionTopic, all_contexts: currentSessionContexts })
     })
     const data = await res.json()
+    const qs   = data.questions || []
 
-    let score = 0
-    let answered = 0
-    const total = (data.questions || []).length
+    document.getElementById('quiz-modal-sub').textContent = `${qs.length} questions · ${currentSessionContexts.length} context(s)`
 
-    const questionsHtml = (data.questions || []).map((q, qi) => {
-      const opts = (q.options || []).map((opt, oi) => {
-        const letter = opt.charAt(0)
-        return `<div class="quiz-option" onclick="answerQuiz(this, '${letter}', '${q.correct}', 'quiz-exp-${panelId}-${qi}', 'quiz-score-${panelId}')" data-letter="${letter}">
-          ${escHtml(opt)}
-        </div>`
-      }).join('')
+    const html = qs.map((q, qi) => `
+      <div class="quiz-question" id="qq-${qi}">
+        <div class="quiz-q-num">Question ${qi+1} of ${qs.length}</div>
+        <div class="quiz-q-text">${escHtml(q.question)}</div>
+        <div class="quiz-options" id="qopts-${qi}">
+          ${(q.options||[]).map(opt => `
+            <button class="quiz-option" onclick="answerQuiz(this,'${opt.charAt(0)}','${q.correct}','qexp-${qi}','quiz-total-score',${qs.length})" data-letter="${opt.charAt(0)}">
+              ${escHtml(opt)}
+            </button>`).join('')}
+        </div>
+        <div class="quiz-explanation" id="qexp-${qi}">${escHtml(q.explanation||'')}</div>
+      </div>`).join('<hr style="border:none;border-top:1px solid var(--border);margin:4px 0">')
 
-      return `<div class="quiz-question">
-        <div class="quiz-q-text">${qi+1}. ${escHtml(q.question)}</div>
-        <div class="quiz-options" id="quiz-opts-${panelId}-${qi}">${opts}</div>
-        <div class="quiz-explanation" id="quiz-exp-${panelId}-${qi}">${escHtml(q.explanation || '')}</div>
-      </div>`
-    }).join('')
-
-    document.getElementById(panelId).innerHTML = `
-      <div class="feature-panel-header">
-        <div class="feature-panel-title">🧠 Quizlet — ${total} Questions</div>
-        <span style="font-size:12px;color:var(--text3)">Based on ${currentSessionContexts.length} context(s)</span>
-      </div>
-      <div class="feature-panel-body">
-        <div class="quiz-score" id="quiz-score-${panelId}">Answer the questions to see your score</div>
-        ${questionsHtml || '<div style="color:var(--text3)">No questions generated. Try adding more context first.</div>'}
-      </div>`
-
-    window['quizState_' + panelId] = { score: 0, answered: 0, total }
+    document.getElementById('quiz-modal-body').innerHTML = html || '<div style="color:var(--text3);padding:20px">No questions generated. Try adding more context first.</div>'
+    window._quizAnswered = 0
+    window._quizCorrect  = 0
 
   } catch(e) {
-    document.getElementById(panelId).innerHTML = `<div class="error-box">The backend server is not connected. Please try again later.</div>`
+    document.getElementById('quiz-modal-body').innerHTML = `<div class="error-box">Error: ${e.message}</div>`
   }
 
   setActionBtnLoading(btn, false, '<span class="btn-icon">🧠</span> Quizlet')
 }
 
-function answerQuiz(optEl, chosen, correct, expId, scoreId) {
-  const optsContainer = optEl.parentElement
-  if (optsContainer.dataset.answered) return  // already answered
+function answerQuiz(optEl, chosen, correct, expId, scoreId, total) {
+  const container = optEl.parentElement
+  if (container.dataset.answered) return
+  container.dataset.answered = '1'
 
-  optsContainer.dataset.answered = '1'
-  Array.from(optsContainer.children).forEach(o => {
+  Array.from(container.children).forEach(o => {
     o.classList.add('revealed')
+    o.disabled = true
     if (o.dataset.letter === correct) o.classList.add('correct')
     else if (o.dataset.letter === chosen && chosen !== correct) o.classList.add('wrong')
   })
 
-  // Show explanation
   const exp = document.getElementById(expId)
   if (exp) exp.style.display = 'block'
 
-  // Update score
+  if (!window._quizAnswered) window._quizAnswered = 0
+  if (!window._quizCorrect)  window._quizCorrect  = 0
+  window._quizAnswered++
+  if (chosen === correct) window._quizCorrect++
+
   const scoreEl = document.getElementById(scoreId)
   if (scoreEl) {
-    // Count answered questions
-    const card = scoreEl.closest('.feature-panel-body')
-    const allOpts = card.querySelectorAll('.quiz-options[data-answered]')
-    const correct_count = card.querySelectorAll('.quiz-option.correct.revealed').length - card.querySelectorAll('.quiz-option.correct.wrong').length
-    // Simpler: count green ones the user selected
-    const userCorrect = card.querySelectorAll('.quiz-option.correct:not(.wrong)').length
-    const totalQ = card.querySelectorAll('.quiz-question').length
-    const answeredQ = allOpts.length
-    scoreEl.textContent = `${answeredQ} of ${totalQ} answered`
+    const pct = Math.round((window._quizCorrect / window._quizAnswered) * 100)
+    scoreEl.innerHTML = `<span class="quiz-score-val">${window._quizCorrect}/${window._quizAnswered}</span> correct &nbsp;·&nbsp; ${pct}% &nbsp;·&nbsp; ${window._quizAnswered < total ? total - window._quizAnswered + ' remaining' : '✓ Complete!'}`
   }
 }
 
-// ── Exercises ─────────────────────────────────────────────────────────────────
+// ── Exercise Modal ─────────────────────────────────────────────────────────────
 async function doExercises(btn) {
   setActionBtnLoading(btn, true, '')
-  const fc = getFeatureContainer()
-  const panelId = 'ex-' + Date.now()
 
-  const loadDiv = document.createElement('div')
-  loadDiv.className = 'feature-panel'
-  loadDiv.id = panelId
-  loadDiv.innerHTML = `
-    <div class="feature-panel-header">
-      <div class="feature-panel-title">✏️ Exercise Questions</div>
-    </div>
-    <div class="feature-panel-body">
-      <div class="panel-loading">
-        <div class="dot"></div><div class="dot" style="animation-delay:0.2s"></div><div class="dot" style="animation-delay:0.4s"></div>
-        <span>Generating exercises based on ${currentSessionContexts.length} context(s)...</span>
-      </div>
-    </div>`
-  fc.appendChild(loadDiv)
+  let modal = document.getElementById('ex-modal')
+  if (!modal) {
+    modal = document.createElement('div')
+    modal.id        = 'ex-modal'
+    modal.className = 'modal-overlay'
+    modal.style     = 'display:none'
+    modal.innerHTML = `
+      <div class="modal-box">
+        <div class="modal-header">
+          <div>
+            <div class="modal-title">✏️ Exercise Questions</div>
+            <div class="modal-subtitle" id="ex-modal-sub">Loading...</div>
+          </div>
+          <button class="modal-close" onclick="closeModal('ex-modal')">✕</button>
+        </div>
+        <div class="modal-body" id="ex-modal-body">
+          <div style="padding:40px;text-align:center;color:var(--text3)">Generating exercises...</div>
+        </div>
+      </div>`
+    document.body.appendChild(modal)
+  }
+
+  openModal('ex-modal')
+  document.getElementById('ex-modal-sub').textContent = `Based on ${currentSessionContexts.length} context(s)`
+  document.getElementById('ex-modal-body').innerHTML  = '<div style="padding:40px;text-align:center;color:var(--text3)">Generating exercises...</div>'
 
   try {
-    const res = await fetch(`${API}/exercises`, {
-      method: 'POST',
-      headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({
-        topic:         currentSessionTopic,
-        all_contexts:  currentSessionContexts,
-        num_questions: 4,
-      })
+    const res  = await fetch(`${API}/exercises`, {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ topic: currentSessionTopic, all_contexts: currentSessionContexts })
     })
     const data = await res.json()
+    const exs  = data.exercises || []
 
-    const exercisesHtml = (data.exercises || []).map((ex, i) => `
+    document.getElementById('ex-modal-sub').textContent = `${exs.length} exercises · ${currentSessionContexts.length} context(s)`
+
+    const html = exs.map((ex, i) => `
       <div class="exercise-item">
-        <div class="exercise-type">${ex.type || 'exercise'}</div>
-        <div class="exercise-q-text">${i+1}. ${escHtml(ex.question)}</div>
-        ${ex.hint ? `<div class="exercise-hint">💡 Hint: ${escHtml(ex.hint)}</div>` : ''}
-        <button class="show-answer-btn" onclick="toggleAnswer(this)">Show sample answer</button>
-        <div class="exercise-answer">${escHtml(ex.sample_answer || '')}</div>
+        <div class="exercise-q-num">Exercise ${i+1}</div>
+        <div class="exercise-type-badge">${ex.type||'exercise'}</div>
+        <div class="exercise-q-text">${escHtml(ex.question)}</div>
+        ${ex.hint ? `<div class="exercise-hint">💡 ${escHtml(ex.hint)}</div>` : ''}
+        <textarea class="exercise-textarea" id="ea-${i}" placeholder="Write your answer here..."></textarea>
+        <div style="display:flex;gap:8px;align-items:center">
+          <button class="exercise-submit-btn" onclick="submitExercise(this, ${i}, '${escHtml(ex.question).replace(/'/g,"\\'")}', '${escHtml(ex.sample_answer||'').replace(/'/g,"\\'")}')">
+            Submit Answer
+          </button>
+        </div>
+        <div class="grade-result" id="grade-${i}"></div>
       </div>`).join('')
 
-    document.getElementById(panelId).innerHTML = `
-      <div class="feature-panel-header">
-        <div class="feature-panel-title">✏️ Exercise Questions</div>
-        <span style="font-size:12px;color:var(--text3)">Based on ${currentSessionContexts.length} context(s)</span>
-      </div>
-      <div class="feature-panel-body">
-        ${exercisesHtml || '<div style="color:var(--text3)">No exercises generated. Try adding more context first.</div>'}
-      </div>`
+    document.getElementById('ex-modal-body').innerHTML = html || '<div style="color:var(--text3);padding:20px">No exercises generated.</div>'
 
   } catch(e) {
-    document.getElementById(panelId).innerHTML = `<div class="error-box">The backend server is not connected. Please try again later.</div>`
+    document.getElementById('ex-modal-body').innerHTML = `<div class="error-box">Error: ${e.message}</div>`
   }
 
   setActionBtnLoading(btn, false, '<span class="btn-icon">✏️</span> Exercise Questions')
 }
 
-function toggleAnswer(btn) {
-  const ans = btn.nextElementSibling
-  if (ans.style.display === 'block') {
-    ans.style.display = 'none'
-    btn.textContent = 'Show sample answer'
-  } else {
-    ans.style.display = 'block'
-    btn.textContent = 'Hide answer'
-  }
-}
+async function submitExercise(btn, idx, question, sampleAnswer) {
+  const textarea = document.getElementById(`ea-${idx}`)
+  const userAns  = textarea ? textarea.value.trim() : ''
+  if (!userAns) { alert('Please write your answer first.'); return }
 
-// ── Related Links ─────────────────────────────────────────────────────────────
-async function doRelatedLinks(btn) {
-  setActionBtnLoading(btn, true, '')
-  const fc = getFeatureContainer()
-  const panelId = 'links-' + Date.now()
-
-  const loadDiv = document.createElement('div')
-  loadDiv.className = 'feature-panel'
-  loadDiv.id = panelId
-  loadDiv.innerHTML = `
-    <div class="feature-panel-header">
-      <div class="feature-panel-title">🔗 Related Links</div>
-    </div>
-    <div class="feature-panel-body">
-      <div class="panel-loading">
-        <div class="dot"></div><div class="dot" style="animation-delay:0.2s"></div><div class="dot" style="animation-delay:0.4s"></div>
-        <span>Fetching helpful resources...</span>
-      </div>
-    </div>`
-  fc.appendChild(loadDiv)
+  btn.disabled    = true
+  btn.textContent = 'Grading...'
 
   try {
-    const res = await fetch(`${API}/related-links`, {
-      method: 'POST',
-      headers: {'Content-Type':'application/json'},
+    const res  = await fetch(`${API}/grade`, {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ question, sample_answer: sampleAnswer, user_answer: userAns })
+    })
+    const data = await res.json()
+
+    const resultEl = document.getElementById(`grade-${idx}`)
+    if (resultEl) {
+      const cls = data.verdict === 'correct' ? 'grade-correct' : data.verdict === 'partial' ? 'grade-partial' : 'grade-incorrect'
+      const icon = data.verdict === 'correct' ? '✓' : data.verdict === 'partial' ? '◐' : '✗'
+      const label = data.verdict === 'correct' ? 'Correct' : data.verdict === 'partial' ? 'Partially Correct' : 'Incorrect'
+      resultEl.className = `grade-result ${cls}`
+      resultEl.style.display = 'block'
+      resultEl.innerHTML = `<strong>${icon} ${label} (${data.score}/100)</strong><br/>${escHtml(data.feedback||'')}`
+    }
+  } catch(e) {
+    const resultEl = document.getElementById(`grade-${idx}`)
+    if (resultEl) { resultEl.className='grade-result grade-incorrect'; resultEl.style.display='block'; resultEl.textContent='Grading failed: '+e.message }
+  }
+
+  btn.disabled    = false
+  btn.textContent = 'Re-submit'
+}
+
+// ── Related Links Modal ─────────────────────────────────────────────────────────
+async function doRelatedLinks(btn) {
+  setActionBtnLoading(btn, true, '')
+
+  let modal = document.getElementById('links-modal')
+  if (!modal) {
+    modal = document.createElement('div')
+    modal.id        = 'links-modal'
+    modal.className = 'modal-overlay'
+    modal.style     = 'display:none'
+    modal.innerHTML = `
+      <div class="modal-box">
+        <div class="modal-header">
+          <div>
+            <div class="modal-title">🔗 Related Resources</div>
+            <div class="modal-subtitle">Helpful links and references for your topic</div>
+          </div>
+          <button class="modal-close" onclick="closeModal('links-modal')">✕</button>
+        </div>
+        <div class="modal-body" id="links-modal-body">
+          <div style="padding:40px;text-align:center;color:var(--text3)">Fetching resources...</div>
+        </div>
+      </div>`
+    document.body.appendChild(modal)
+  }
+
+  openModal('links-modal')
+  document.getElementById('links-modal-body').innerHTML = '<div style="padding:40px;text-align:center;color:var(--text3)">Fetching resources...</div>'
+
+  try {
+    const res  = await fetch(`${API}/related-links`, {
+      method:'POST', headers:{'Content-Type':'application/json'},
       body: JSON.stringify({ topic: currentSessionTopic })
     })
     const data = await res.json()
 
-    const linksHtml = (data.links || []).map(link => `
-      <a href="${link.url}" target="_blank" rel="noopener noreferrer" class="link-item">
-        <div class="link-icon">${link.icon || '🔗'}</div>
+    const html = (data.links||[]).map(l => `
+      <a href="${l.url}" target="_blank" rel="noopener noreferrer" class="link-item">
+        <div class="link-icon">${l.icon||'🔗'}</div>
         <div class="link-info">
-          <div class="link-title">${escHtml(link.title)}</div>
-          <div class="link-desc">${escHtml(link.description || '')}</div>
+          <div class="link-title">${escHtml(l.title)}</div>
+          <div class="link-desc">${escHtml(l.description||'')}</div>
         </div>
-        <div class="link-source">${escHtml(link.source || '')}</div>
+        <div class="link-source">${escHtml(l.source||'')}</div>
       </a>`).join('')
 
-    document.getElementById(panelId).innerHTML = `
-      <div class="feature-panel-header">
-        <div class="feature-panel-title">🔗 Related Links</div>
-      </div>
-      <div class="feature-panel-body">
-        ${linksHtml || '<div style="color:var(--text3)">No links found for this topic.</div>'}
-      </div>`
+    document.getElementById('links-modal-body').innerHTML = html || '<div style="color:var(--text3);padding:20px">No links found.</div>'
 
   } catch(e) {
-    document.getElementById(panelId).innerHTML = `<div class="error-box">The backend server is not connected. Please try again later.</div>`
+    document.getElementById('links-modal-body').innerHTML = `<div class="error-box">Error: ${e.message}</div>`
   }
 
   setActionBtnLoading(btn, false, '<span class="btn-icon">🔗</span> Related Links')
@@ -2539,308 +2685,1568 @@ function addToHistory(topic, mode) {
 
 function renderHistory() {
   const list = document.getElementById('history-list')
-  if (!history.length) {
+  // Update Take Exam badge (counts ALL saved sessions, not deduped)
+  var examBadge = document.getElementById('exam-picker-count')
+  if (examBadge) {
+    if (savedSessions.length) { examBadge.style.display = 'inline'; examBadge.textContent = savedSessions.length }
+    else { examBadge.style.display = 'none' }
+  }
+  if (!savedSessions.length) {
     list.innerHTML = '<div style="font-size:12px;color:var(--text3);padding:8px 10px;">No history yet</div>'
     return
   }
   const icons = { 'Concept-First Learning':'📖', 'Reverse Engineering':'🔬', 'Visual Learning':'🗺️' }
-  list.innerHTML = history.map(h => `
-    <div class="history-item" onclick="tryExample('${escHtml(h.topic)}')">
-      <div class="history-topic">${escHtml(h.topic)}</div>
-      <div class="history-mode">${icons[h.mode] || ''} ${h.mode}</div>
-    </div>`).join('')
+
+  // Dedupe: for PDF chunks, only show the MOST RECENT session per chapterGroup.
+  // Non-PDF sessions stay as-is. savedSessions is in reverse chronological order
+  // (unshift adds to front), so iterating in order gives us the most recent first.
+  var seenGroups = {}
+  var displayList = []
+  var groupCounts = {}
+
+  // Same groupKey logic as openExamPicker — single source of truth
+  function getGroupKey(s) {
+    var isPdf = (s.id && s.id.indexOf('s_pdf_') === 0) ||
+                (s.chapterGroup != null && s.chapterGroup !== '') ||
+                (s.topic && s.topic.indexOf(' — ') !== -1)
+    if (!isPdf) return null
+    if (s.chapterGroup) return s.chapterGroup
+    if (s.topic && s.topic.indexOf(' — ') !== -1) return s.topic.split(' — ')[0]
+    return s.topic
+  }
+
+  // Count how many subtopics per chapterGroup (for badge)
+  savedSessions.forEach(function(s) {
+    var key = getGroupKey(s)
+    if (key) groupCounts[key] = (groupCounts[key] || 0) + 1
+  })
+
+  savedSessions.forEach(function(s) {
+    var key = getGroupKey(s)
+    if (key) {
+      if (seenGroups[key]) return
+      seenGroups[key] = true
+      var subCount = groupCounts[key]
+      displayList.push({ sess: s, displayTopic: key, subCount: subCount, isGroup: true })
+    } else {
+      displayList.push({ sess: s, displayTopic: s.topic, subCount: 0, isGroup: false })
+    }
+  })
+
+  list.innerHTML = displayList.slice(0, 20).map(function(item) {
+    var s = item.sess
+    var badge = ''
+    if (item.isGroup && item.subCount > 1) {
+      badge = ' <span style="font-size:10px;color:var(--accent);background:rgba(108,143,255,0.15);padding:1px 5px;border-radius:4px;margin-left:4px;font-weight:600">' + item.subCount + ' parts</span>'
+    } else if (s.contexts && s.contexts.length > 1) {
+      badge = ' <span style="font-size:10px;color:var(--accent);background:rgba(108,143,255,0.1);padding:1px 5px;border-radius:4px;margin-left:4px">' + s.contexts.length + ' ctx</span>'
+    }
+    return '<div class="history-item" data-sess="' + s.id + '" style="position:relative">'
+      + '<div class="history-topic">' + escHtml(item.displayTopic) + '</div>'
+      + '<div class="history-mode">' + (icons[s.mode] || '') + ' ' + s.mode + badge + '</div>'
+      + '<button class="hist-del" data-del="' + s.id + '" data-group="' + (item.isGroup ? s.chapterGroup : '') + '" title="Delete">×</button>'
+      + '</div>'
+  }).join('')
 }
-// ══════════════════════════════════════════════════════
-// IDEA 7 — Teaching Format Selector
-// ══════════════════════════════════════════════════════
-function selectFormat(btn) {
-  const fmt = btn.dataset.fmt
-  if (fmt !== 'text') {
-    // Coming soon — show a brief visual cue
-    btn.style.animation = 'none'
-    btn.textContent = '🚧 Coming soon!'
-    setTimeout(() => {
-      btn.innerHTML = btn.dataset.fmt === 'visual' ? '🖼️ Image <span class="format-badge">SOON</span>'
-        : btn.dataset.fmt === 'video' ? '🎬 Video <span class="format-badge">SOON</span>'
-        : '🧊 3D <span class="format-badge">SOON</span>'
-    }, 1400)
+
+// ═══════════════════════════════════════════════════════════════════════════
+// FLASHCARDS
+// ═══════════════════════════════════════════════════════════════════════════
+var _fcCards = [], _fcIdx = 0, _fcFlipped = false
+
+async function doFlashcards(btn) {
+  setActionBtnLoading(btn, true, '')
+  let modal = document.getElementById('fc-modal')
+  if (!modal) {
+    modal = document.createElement('div')
+    modal.id = 'fc-modal'
+    modal.className = 'modal-overlay'
+    modal.style = 'display:none'
+    modal.innerHTML = `<div class="modal-box" style="max-width:620px">
+      <div class="modal-header">
+        <div><div class="modal-title">🃏 Flashcards</div><div class="modal-subtitle" id="fc-sub">Loading...</div></div>
+        <button class="modal-close" onclick="closeModal('fc-modal')">✕</button>
+      </div>
+      <div class="modal-body" id="fc-body"><div style="padding:40px;text-align:center;color:var(--text3)">Generating flashcards...</div></div>
+    </div>`
+    document.body.appendChild(modal)
+  }
+  openModal('fc-modal')
+  document.getElementById('fc-sub').textContent = 'Loading...'
+  document.getElementById('fc-body').innerHTML = '<div style="padding:40px;text-align:center;color:var(--text3)">Generating flashcards...</div>'
+  try {
+    const res  = await fetch(API+'/flashcards',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({topic:currentSessionTopic,all_contexts:currentSessionContexts})})
+    const data = await res.json()
+    _fcCards   = data.cards || []
+    _fcIdx     = 0
+    document.getElementById('fc-sub').textContent = _fcCards.length + ' cards'
+    renderFlashcard()
+  } catch(e) {
+    document.getElementById('fc-body').innerHTML = '<div class="error-box">'+e.message+'</div>'
+  }
+  setActionBtnLoading(btn, false, '<span class="btn-icon">🃏</span> Flashcards')
+}
+
+function renderFlashcard() {
+  if (!_fcCards.length) return
+  const card = _fcCards[_fcIdx]
+  const diffCls = 'diff-'+(card.difficulty||'medium')
+  document.getElementById('fc-body').innerHTML = `
+    <div class="flashcard-nav">
+      <button class="fc-nav-btn" onclick="fcPrev()" ${_fcIdx===0?'disabled':''}>← Prev</button>
+      <span class="fc-counter">${_fcIdx+1} / ${_fcCards.length}</span>
+      <button class="fc-nav-btn" onclick="fcNext()" ${_fcIdx===_fcCards.length-1?'disabled':''}>Next →</button>
+    </div>
+    <div class="flashcard-scene" onclick="fcFlip()">
+      <div class="flashcard" id="fc-card">
+        <div class="flashcard-face flashcard-front">
+          <div class="flashcard-hint">Click to flip</div>
+          <div class="flashcard-text">${escHtml(card.front)}</div>
+          <span class="flashcard-diff ${diffCls}">${card.difficulty||'medium'}</span>
+        </div>
+        <div class="flashcard-face flashcard-back">
+          <div class="flashcard-hint">Answer</div>
+          <div class="flashcard-text">${escHtml(card.back)}</div>
+        </div>
+      </div>
+    </div>
+    <div class="fc-rate-btns">
+      <span style="font-size:11px;color:var(--text3);margin-right:4px">Rate difficulty:</span>
+      <button class="fc-rate-btn fc-easy"   onclick="fcRate('easy')">Easy</button>
+      <button class="fc-rate-btn fc-medium" onclick="fcRate('medium')">Medium</button>
+      <button class="fc-rate-btn fc-hard"   onclick="fcRate('hard')">Hard</button>
+    </div>`
+  _fcFlipped = false
+}
+
+function fcFlip()   { const c=document.getElementById('fc-card'); if(c){c.classList.toggle('flipped'); _fcFlipped=!_fcFlipped} }
+function fcPrev()   { if(_fcIdx>0){ _fcIdx--; renderFlashcard() } }
+function fcNext()   { if(_fcIdx<_fcCards.length-1){ _fcIdx++; renderFlashcard() } }
+function fcRate(d)  { if(_fcCards[_fcIdx]) _fcCards[_fcIdx].difficulty=d; fcNext() }
+
+
+// ═══════════════════════════════════════════════════════════════════════════
+// EXAM / ASSESSMENT
+// ═══════════════════════════════════════════════════════════════════════════
+var _examData = null, _examAnswers = {}, _examSubmitted = false
+
+async function doExam(btn) {
+  setActionBtnLoading(btn, true, '')
+  let modal = document.getElementById('exam-modal')
+  if (!modal) {
+    modal = document.createElement('div')
+    modal.id = 'exam-modal'
+    modal.className = 'modal-overlay'
+    modal.style = 'display:none'
+    modal.innerHTML = `<div class="modal-box" style="max-width:760px">
+      <div class="modal-header">
+        <div><div class="modal-title">📝 Assessment</div><div class="modal-subtitle" id="exam-sub">Generating exam...</div></div>
+        <button class="modal-close" onclick="closeModal('exam-modal')">✕</button>
+      </div>
+      <div class="modal-body" id="exam-body"><div style="padding:40px;text-align:center;color:var(--text3)">Building exam paper...</div></div>
+      <div class="modal-footer" id="exam-footer" style="display:none">
+        <button class="exam-submit-btn" onclick="submitExam()">Submit Exam →</button>
+      </div>
+    </div>`
+    document.body.appendChild(modal)
+  }
+  openModal('exam-modal')
+  _examData = null; _examAnswers = {}; _examSubmitted = false
+  document.getElementById('exam-sub').textContent = 'Generating exam paper...'
+  document.getElementById('exam-body').innerHTML  = '<div style="padding:40px;text-align:center;color:var(--text3)">Building exam paper from your study material...</div>'
+  document.getElementById('exam-footer').style.display = 'none'
+  try {
+    const res  = await fetch(API+'/exam',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({topic:currentSessionTopic,all_contexts:currentSessionContexts})})
+    _examData  = await res.json()
+    renderExamPaper()
+  } catch(e) {
+    document.getElementById('exam-body').innerHTML = '<div class="error-box">'+e.message+'</div>'
+  }
+  setActionBtnLoading(btn, false, '<span class="btn-icon">📝</span> Take Exam')
+}
+
+function renderExamPaper() {
+  if (!_examData || !_examData.sections) { document.getElementById('exam-body').innerHTML='<div class="error-box">Could not generate exam. Try adding more context first.</div>'; return }
+  const d = _examData
+  let totalMarks = 0
+  let html = '<div style="font-size:12px;color:var(--text3);margin-bottom:16px">' + escHtml(d.instructions||'Answer all sections.') + '</div>'
+  let qGlobal = 0
+  d.sections.forEach(function(sec) {
+    html += '<div class="exam-section-title">' + escHtml(sec.name) + ' — ' + sec.marks_each + ' marks each</div>'
+    sec.questions.forEach(function(q, qi) {
+      qGlobal++
+      const qid = 'eq-' + qGlobal
+      totalMarks += (q.marks || sec.marks_each || 5)
+      if (sec.type === 'mcq') {
+        const optsHtml = (q.options||[]).map(function(opt) {
+          return '<button class="exam-mcq-opt" data-q="'+qid+'" data-letter="'+opt.charAt(0)+'" onclick="examPickMCQ(this)">' + escHtml(opt) + '</button>'
+        }).join('')
+        html += '<div class="exam-q"><div class="exam-q-num">Q'+qGlobal+' <span class="exam-q-marks">['+sec.marks_each+' marks]</span></div><div class="exam-q-text">'+escHtml(q.q)+'</div><div class="exam-mcq-opts" id="opts-'+qid+'">'+optsHtml+'</div></div>'
+      } else if (sec.type === 'tf') {
+        const tfHtml = ['True','False'].map(function(v) {
+          return '<button class="exam-mcq-opt" data-q="'+qid+'" data-letter="'+v+'" onclick="examPickMCQ(this)" style="flex:1">' + v + '</button>'
+        }).join('')
+        html += '<div class="exam-q"><div class="exam-q-num">Q'+qGlobal+' <span class="exam-q-marks">['+sec.marks_each+' marks]</span></div><div class="exam-q-text">'+escHtml(q.q)+'</div><div class="exam-mcq-opts" id="opts-'+qid+'" style="flex-direction:row;gap:8px">'+tfHtml+'</div></div>'
+      } else if (sec.type === 'fib') {
+        // Replace ___ with a small inline input
+        const qText = escHtml(q.q).replace(/_{2,}/, '<input class="fib-input" id="'+qid+'" placeholder="answer" style="display:inline-block;background:var(--bg2);border:1px solid var(--accent);border-radius:4px;padding:2px 8px;color:var(--text);font-family:var(--font);font-size:13px;min-width:120px;outline:none;margin:0 4px">')
+        html += '<div class="exam-q"><div class="exam-q-num">Q'+qGlobal+' <span class="exam-q-marks">['+sec.marks_each+' marks]</span></div><div class="exam-q-text">'+qText+'</div></div>'
+      } else {
+        html += '<div class="exam-q"><div class="exam-q-num">Q'+qGlobal+' <span class="exam-q-marks">['+(q.marks||sec.marks_each)+' marks]</span></div><div class="exam-q-text">'+escHtml(q.q)+'</div><textarea class="exam-textarea" id="'+qid+'" placeholder="Write your answer here..." rows="4"></textarea></div>'
+      }
+    })
+  })
+  document.getElementById('exam-body').innerHTML = html
+  document.getElementById('exam-sub').textContent = 'Total: ' + totalMarks + ' marks'
+  document.getElementById('exam-footer').style.display = 'flex'
+}
+
+function examPickMCQ(btn) {
+  const qid = btn.dataset.q
+  const container = document.getElementById('opts-'+qid)
+  if (!container || container.dataset.answered) return
+  Array.from(container.querySelectorAll('.exam-mcq-opt')).forEach(function(b){ b.classList.remove('selected') })
+  btn.classList.add('selected')
+  _examAnswers[qid] = btn.dataset.letter
+}
+
+async function submitExam() {
+  if (_examSubmitted) return
+  const allQ = []
+  let qGlobal = 0
+  _examData.sections.forEach(function(sec) {
+    sec.questions.forEach(function(q) {
+      qGlobal++
+      const qid = 'eq-' + qGlobal
+      var ua
+      if (sec.type === 'mcq' || sec.type === 'tf') {
+        ua = _examAnswers[qid] || '(no answer)'
+      } else if (sec.type === 'fib') {
+        var fibInput = document.getElementById(qid)
+        ua = fibInput ? fibInput.value.trim() : '(blank)'
+      } else {
+        var ta = document.getElementById(qid)
+        ua = ta ? ta.value.trim() : '(blank)'
+      }
+      allQ.push({ q: q.q, answer: q.answer, marks: q.marks||sec.marks_each||5, type: sec.type, user_answer: ua, qid: qid, correct: q.answer, options: q.options||[] })
+    })
+  })
+  document.getElementById('exam-footer').innerHTML = '<span style="color:var(--text3);font-size:13px">Grading your exam...</span>'
+  try {
+    const res = await fetch(API+'/exam-grade',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({questions:allQ,answers:allQ.map(function(q){return{user_answer:q.user_answer}})})})
+    const data = await res.json()
+    const results = data.results || []
+    let earned = 0, total = 0
+    // Show results
+    allQ.forEach(function(q, i) {
+      const r = results[i] || {}
+      total  += q.marks
+      earned += (r.score||0)
+      const resDiv = document.createElement('div')
+      resDiv.className = 'exam-grade-result ' + (r.score >= q.marks*0.8 ? 'exam-grade-good' : r.score >= q.marks*0.4 ? 'exam-grade-ok' : 'exam-grade-poor')
+      resDiv.style.display = 'block'
+      var gotFull = (r.score||0) >= q.marks
+      var correctHtml = ''
+      // Always show the correct answer if user got it wrong or didn't answer
+      if (!gotFull) {
+        if (q.type === 'mcq' || q.type === 'tf') {
+          correctHtml = '<div style="margin-top:6px;font-size:12px"><span style="color:var(--text3)">Correct answer: </span><span style="color:var(--green);font-weight:600">' + escHtml(q.correct||q.answer||'') + '</span></div>'
+        } else if (q.type === 'short' || q.type === 'long') {
+          correctHtml = '<div style="margin-top:8px;font-size:12px;border-top:1px solid rgba(255,255,255,0.06);padding-top:8px"><span style="color:var(--text3)">Model answer: </span><span style="color:var(--green)">' + escHtml(q.answer||'') + '</span></div>'
+        }
+      }
+      resDiv.innerHTML = '<strong>' + (r.score||0) + '/' + q.marks + ' marks</strong> — ' + escHtml(r.feedback||'') + correctHtml
+      if (q.type === 'mcq' || q.type === 'tf') {
+        const container = document.getElementById('opts-'+q.qid)
+        if (container) {
+          container.dataset.answered = '1'
+          var didAnswer = q.user_answer && q.user_answer !== '(no answer)' && q.user_answer !== '(blank)'
+          Array.from(container.querySelectorAll('.exam-mcq-opt')).forEach(function(b){
+            b.classList.add('revealed')
+            b.disabled = true
+            if (didAnswer) {
+              if (b.dataset.letter === q.correct) b.classList.add('correct')
+              else if (b.dataset.letter === q.user_answer && q.user_answer !== q.correct) b.classList.add('wrong')
+            }
+          })
+          container.parentNode.appendChild(resDiv)
+        }
+      } else if (q.type === 'fib') {
+        const inp = document.getElementById(q.qid)
+        if (inp) {
+          inp.disabled = true
+          var didAns   = inp.value.trim().length > 0
+          var isCorrect = didAns && inp.value.trim().toLowerCase() === String(q.correct||'').trim().toLowerCase()
+          inp.style.borderColor = !didAns ? 'var(--border)' : isCorrect ? 'var(--green)' : '#f87171'
+          inp.style.color       = !didAns ? 'var(--text2)' : isCorrect ? 'var(--green)' : '#f87171'
+          if (!isCorrect) {
+            var corr = document.createElement('span')
+            corr.style.cssText = 'margin-left:8px;font-size:12px;color:var(--text3);font-weight:500'
+            corr.innerHTML = '<span style="color:var(--text3)">A:</span> <span style="color:var(--green)">' + escHtml(q.correct||'') + '</span>'
+            inp.parentNode.appendChild(corr)
+          }
+          inp.parentNode.parentNode.appendChild(resDiv)
+        }
+      } else {
+        const ta = document.getElementById(q.qid)
+        if (ta) { ta.disabled = true; ta.parentNode.appendChild(resDiv) }
+      }
+    })
+    const pct = total > 0 ? Math.round((earned/total)*100) : 0
+    const grade = pct>=90?'A':pct>=80?'B':pct>=70?'C':pct>=60?'D':'F'
+    const banner = '<div class="exam-score-banner"><div class="exam-score-num">'+earned+'/'+total+'</div><div class="exam-score-pct">'+pct+'% — Grade '+grade+'</div><div class="exam-score-label">'+( pct>=80?'Excellent work!':pct>=60?'Good effort — review the feedback below.':'Keep studying — check the model answers.')+'</div></div>'
+    document.getElementById('exam-body').insertAdjacentHTML('afterbegin', banner)
+    document.getElementById('exam-footer').innerHTML = '<span style="color:var(--green);font-size:13px">✓ Exam submitted and graded</span>'
+    _examSubmitted = true
+    // Save to exam results tracker
+    saveExamResult(currentSessionTopic || 'Exam', earned, total, _examData.sections || [])
+  } catch(e) {
+    document.getElementById('exam-footer').innerHTML = '<span style="color:#f87171">Grading failed: '+e.message+'</span>'
+  }
+}
+
+
+// ═══════════════════════════════════════════════════════════════════════════
+// EXPORT PDF
+// ═══════════════════════════════════════════════════════════════════════════
+function formatRawForPDF(raw, svgList, svgIdx) {
+  if (!raw) return { html: '', nextSvgIdx: svgIdx || 0 }
+  svgList = svgList || []
+  svgIdx  = svgIdx  || 0
+
+  var result = ''
+  var inCode    = false
+  var inMermaid = false
+  var codeBuffer = ''
+  var paraBuffer = []
+
+  function flushPara() {
+    if (paraBuffer.length) {
+      result += '<p>' + paraBuffer.join(' ') + '</p>'
+      paraBuffer = []
+    }
+  }
+  function applyBold(txt) {
+    return escHtml(txt)
+      .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+      .replace(/&lt;strong&gt;/g,'<strong>')
+      .replace(/&lt;\/strong&gt;/g,'</strong>')
+  }
+
+  var lines = raw.split('\n')
+  for (var i = 0; i < lines.length; i++) {
+    var line    = lines[i]
+    var trimmed = line.trim()
+
+    // ── Mermaid block ──────────────────────────────────────────────────────
+    if (trimmed === '```mermaid') {
+      flushPara()
+      inMermaid = true
+      continue
+    }
+    if (inMermaid) {
+      if (trimmed === '```') {
+        // Replace with rendered SVG from DOM (in order of appearance)
+        if (svgIdx < svgList.length) {
+          result += svgList[svgIdx]
+          svgIdx++
+        }
+        inMermaid = false
+      }
+      // Skip raw mermaid source — SVG from DOM replaces it
+      continue
+    }
+
+    // ── Code block ─────────────────────────────────────────────────────────
+    if (trimmed.indexOf('```') === 0 && !inCode) {
+      flushPara()
+      inCode = true
+      codeBuffer = ''
+      continue
+    }
+    if (inCode) {
+      if (trimmed === '```') {
+        result += '<pre><code>' + escHtml(codeBuffer.trim()) + '</code></pre>'
+        inCode = false
+        codeBuffer = ''
+      } else {
+        codeBuffer += line + '\n'
+      }
+      continue
+    }
+
+    // ── Headings ───────────────────────────────────────────────────────────
+    if (trimmed.indexOf('## ') === 0) { flushPara(); result += '<h3>' + escHtml(trimmed.slice(3)) + '</h3>'; continue }
+    if (trimmed.indexOf('### ') === 0) { flushPara(); result += '<h4>' + escHtml(trimmed.slice(4)) + '</h4>'; continue }
+
+    // ── Lists ──────────────────────────────────────────────────────────────
+    if (/^\d+\.\s/.test(trimmed)) {
+      flushPara()
+      result += '<li>' + applyBold(trimmed.replace(/^\d+\.\s/, '')) + '</li>'
+      continue
+    }
+    if (trimmed.indexOf('- ') === 0 || trimmed.indexOf('* ') === 0) {
+      flushPara()
+      result += '<li>' + applyBold(trimmed.slice(2)) + '</li>'
+      continue
+    }
+
+    // ── Empty line ─────────────────────────────────────────────────────────
+    if (!trimmed) { flushPara(); continue }
+
+    // ── Regular paragraph text ─────────────────────────────────────────────
+    paraBuffer.push(applyBold(trimmed))
+  }
+
+  flushPara()
+  if (inCode && codeBuffer) result += '<pre><code>' + escHtml(codeBuffer.trim()) + '</code></pre>'
+
+  return { html: result, nextSvgIdx: svgIdx }
+}
+
+function doExportPDF() {
+  const card = document.getElementById('main-response-card')
+  if (!card) { alert('Nothing to export yet.'); return }
+  const topic = currentSessionTopic || 'LearnPilot Study Notes'
+
+  // ── Grab rendered Mermaid SVGs from the live DOM ─────────────────────────
+  // Map: mermaid source text → rendered SVG HTML
+  var mermaidMap = {}
+  document.querySelectorAll('.mermaid').forEach(function(el) {
+    var svg = el.querySelector('svg')
+    if (svg) {
+      // Use the raw source stored in data-raw or find the preceding raw block
+      var key = (el.dataset.raw || el.getAttribute('data-source') || '').trim()
+      if (!key) {
+        // Try to get source from the sibling raw text node or id
+        key = el.id || String(Object.keys(mermaidMap).length)
+      }
+      mermaidMap[key] = '<div class="diagram-box">' + svg.outerHTML + '</div>'
+    }
+  })
+
+  // Also collect SVGs by order — used as fallback
+  var svgList = []
+  document.querySelectorAll('.mermaid svg').forEach(function(svg) {
+    svgList.push('<div class="diagram-box">' + svg.outerHTML + '</div>')
+  })
+  var svgIdx = 0
+
+  // ── Build content per context card ───────────────────────────────────────
+  var allContent = ''
+  contextCards.forEach(function(c, i) {
+    var ordinals = ['First','Second','Third','Fourth','Fifth','Sixth','Seventh','Eighth','Ninth','Tenth']
+    var sectionTitle = i === 0 ? topic : (ordinals[i]||('#'+(i+1))) + ' Concept: ' + (c.aiTitle || c.title || '')
+    var rawFull = c.data.raw_clean || c.data.raw || ''
+    var rawClean = stripLearnPilotInstructions(rawFull)
+    var summary  = c.aiSummary ? '<div class="summary-box"><strong>Summary:</strong> ' + escHtml(c.aiSummary) + '</div>' : ''
+    var rw = c.data.real_world ? '<div class="realworld-box"><strong>Real World Applications</strong><br>' + escHtml(c.data.real_world) + '</div>' : ''
+
+    // Format content — inject rendered SVGs where mermaid blocks appear
+    var formatted = formatRawForPDF(rawClean, svgList, svgIdx)
+    svgIdx = formatted.nextSvgIdx
+
+    allContent += '<div class="context-section">'
+      + (i > 0 ? '<h2 class="context-heading">' + escHtml(sectionTitle) + '</h2>' : '')
+      + formatted.html
+      + summary + rw
+      + '</div>'
+  })
+
+  const style = '<style>' +
+    '* { box-sizing: border-box; }' +
+    'body { font-family: Georgia, serif; max-width: 740px; margin: 40px auto; color: #111; line-height: 1.8; font-size: 14px; }' +
+    'h1 { font-size: 24px; border-bottom: 3px solid #6c8fff; padding-bottom: 10px; margin-bottom: 28px; color: #111; }' +
+    'h2.context-heading { font-size: 18px; color: #6c8fff; margin-top: 36px; margin-bottom: 12px; padding-top: 16px; border-top: 1px solid #e5e7eb; }' +
+    'h3 { font-size: 15px; font-style: italic; color: #333; margin: 20px 0 8px; }' +
+    'h4 { font-size: 13px; font-weight: bold; color: #444; margin: 16px 0 6px; }' +
+    'p { margin: 0 0 12px; word-wrap: break-word; overflow-wrap: break-word; }' +
+    'pre { background: #f4f4f4; padding: 14px; border-radius: 6px; font-size: 11px; white-space: pre-wrap; word-break: break-word; overflow-wrap: break-word; border: 1px solid #d0d0d0; margin: 14px 0; page-break-inside: avoid; font-family: Consolas, Monaco, monospace; line-height: 1.5; }' +
+    'code { background: #f0f0f0; padding: 2px 6px; border-radius: 3px; font-size: 11px; font-family: Consolas, Monaco, monospace; }' +
+    'ol, ul { margin: 0 0 12px 20px; padding: 0; }' +
+    'li { margin-bottom: 6px; word-wrap: break-word; }' +
+    '.diagram-box { margin: 20px 0; page-break-inside: avoid; text-align: center; background: #f8f9ff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 16px; max-width: 500px; margin-left: auto; margin-right: auto; }' +
+    '.diagram-box svg { max-width: 460px !important; max-height: 380px !important; width: auto !important; height: auto !important; }' +
+    '.summary-box { background: #f0f4ff; border-left: 3px solid #6c8fff; padding: 10px 14px; margin: 16px 0; font-size: 13px; border-radius: 0 4px 4px 0; }' +
+    '.realworld-box { background: #f0fff4; border-left: 3px solid #4ade80; padding: 10px 14px; margin: 16px 0; font-size: 13px; border-radius: 0 4px 4px 0; }' +
+    '.context-section { margin-bottom: 32px; }' +
+    '.footer { margin-top: 48px; padding-top: 12px; border-top: 1px solid #e5e7eb; font-size: 11px; color: #999; text-align: center; }' +
+    '@media print {' +
+    '  body { margin: 16px; font-size: 12px; }' +
+    '  pre { font-size: 10px; }' +
+    '  .diagram-box { page-break-inside: avoid; }' +
+    '}' +
+    '</style>'
+
+  const date = new Date().toLocaleDateString('en-US', {year:'numeric',month:'long',day:'numeric'})
+  const header = '<h1>' + escHtml(topic) + '</h1>'
+    + '<div style="font-size:12px;color:#888;margin-bottom:28px">Generated by LearnPilot · ' + date + (contextCards.length > 1 ? ' · ' + contextCards.length + ' contexts' : '') + '</div>'
+  const footer = '<div class="footer">LearnPilot — AI-Powered Adaptive Learning Assistant</div>'
+
+  const win = window.open('', '_blank')
+  win.document.write('<!DOCTYPE html><html><head><meta charset="utf-8"><title>' + escHtml(topic) + '</title>' + style + '</head><body>' + header + allContent + footer + '</body></html>')
+  win.document.close()
+  setTimeout(function(){ win.print() }, 800)
+}
+
+// ── Progress Tracker ──────────────────────────────────────────────────────────
+function openProgressModal() {
+  renderProgressTracker()
+  openModal('progress-modal')
+}
+
+function trackProgress(topic, mode, contextCount) {
+  var existing = progressTopics.findIndex(function(p) { return p.topic === topic })
+  if (existing !== -1) {
+    progressTopics[existing].contexts  = contextCount
+    progressTopics[existing].mode      = mode
+    progressTopics[existing].timestamp = Date.now()
+  } else {
+    progressTopics.unshift({ topic: topic, mode: mode, contexts: contextCount, timestamp: Date.now() })
+  }
+  // Update sidebar badge
+  var badge = document.getElementById('progress-btn-count')
+  if (badge) { badge.style.display = 'inline'; badge.textContent = progressTopics.length }
+}
+
+function renderProgressTracker() {
+  var body = document.getElementById('progress-modal-body')
+  var sub  = document.getElementById('progress-modal-sub')
+  if (!body) return
+
+  if (!progressTopics.length) {
+    body.innerHTML = '<div style="color:var(--text3);font-size:13px;padding:20px 0">Start learning to see your progress here.</div>'
     return
   }
-  document.querySelectorAll('.format-btn').forEach(b => b.classList.remove('active'))
-  btn.classList.add('active')
-  currentFormat = fmt
+
+  var totalTopics   = progressTopics.length
+  var totalContexts = progressTopics.reduce(function(s,p){ return s + p.contexts }, 0)
+  var modeCounts    = {}
+  progressTopics.forEach(function(p) { modeCounts[p.mode] = (modeCounts[p.mode]||0) + 1 })
+
+  if (sub) sub.textContent = totalTopics + ' topic' + (totalTopics!==1?'s':'') + ' · ' + totalContexts + ' context' + (totalContexts!==1?'s':'')
+
+  function dotClass(mode) {
+    if (mode === 'Concept-First Learning') return 'dot-concept'
+    if (mode === 'Reverse Engineering')    return 'dot-reverse'
+    if (mode === 'Visual Learning')        return 'dot-visual'
+    return 'dot-pdf'
+  }
+  function modeColor(mode) {
+    if (mode === 'Concept-First Learning') return '#6c8fff'
+    if (mode === 'Reverse Engineering')    return '#a78bfa'
+    if (mode === 'Visual Learning')        return '#4ade80'
+    return '#fbbf24'
+  }
+  function modeShort(mode) {
+    if (mode === 'Concept-First Learning') return 'Concept'
+    if (mode === 'Reverse Engineering')    return 'Reverse'
+    if (mode === 'Visual Learning')        return 'Visual'
+    return 'PDF'
+  }
+
+  // Stats
+  var statsHtml = '<div class="progress-stats" style="margin-bottom:18px">'
+    + '<div class="progress-stat"><div class="progress-stat-num">' + totalTopics + '</div><div class="progress-stat-lbl">Topics</div></div>'
+    + '<div class="progress-stat"><div class="progress-stat-num">' + totalContexts + '</div><div class="progress-stat-lbl">Contexts</div></div>'
+    + '<div class="progress-stat"><div class="progress-stat-num">' + Object.keys(modeCounts).length + '</div><div class="progress-stat-lbl">Modes</div></div>'
+    + '</div>'
+
+  // Mode bars
+  var modeHtml = '<div style="margin-bottom:18px">'
+    + '<div style="font-size:11px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:0.6px;margin-bottom:8px">By Mode</div>'
+    + '<div style="display:flex;flex-direction:column;gap:6px">'
+  Object.keys(modeCounts).forEach(function(mode) {
+    var pct = Math.round((modeCounts[mode] / totalTopics) * 100)
+    modeHtml += '<div style="display:flex;align-items:center;gap:10px">'
+      + '<div class="progress-mode-dot ' + dotClass(mode) + '" style="width:8px;height:8px"></div>'
+      + '<div style="font-size:12px;color:var(--text2);width:70px">' + modeShort(mode) + '</div>'
+      + '<div style="flex:1;height:6px;background:var(--bg3);border-radius:3px;overflow:hidden">'
+      + '<div style="height:100%;width:' + pct + '%;background:' + modeColor(mode) + ';border-radius:3px;transition:width 0.5s"></div>'
+      + '</div>'
+      + '<div style="font-size:11px;color:var(--text3);width:30px;text-align:right">' + modeCounts[mode] + '</div>'
+      + '</div>'
+  })
+  modeHtml += '</div></div>'
+
+  // Topic list
+  var topicHtml = '<div>'
+    + '<div style="font-size:11px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:0.6px;margin-bottom:8px">Topics Studied</div>'
+    + '<div class="progress-topic-list" style="max-height:280px">'
+  progressTopics.forEach(function(p) {
+    var diff = Math.floor((Date.now() - p.timestamp) / 60000)
+    var timeAgo = diff < 1 ? 'just now' : diff < 60 ? diff + 'm ago' : Math.floor(diff/60) + 'h ago'
+    var ctxBadge = p.contexts > 1 ? '<span style="font-size:10px;color:var(--accent);background:rgba(108,143,255,0.1);padding:1px 5px;border-radius:4px">' + p.contexts + ' ctx</span>' : ''
+    topicHtml += ['<div', 'class="progress-topic-item"', 'data-topic=' + JSON.stringify(p.topic) + '>'].join(' ')
+      + '<div class="progress-mode-dot ' + dotClass(p.mode) + '"></div>'
+      + '<div class="progress-topic-name">' + escHtml(p.topic) + '</div>'
+      + '<div style="display:flex;gap:6px;align-items:center;flex-shrink:0">'
+      + ctxBadge
+      + '<span style="font-size:10px;color:var(--text3)">' + timeAgo + '</span>'
+      + '</div>'
+      + '</div>'
+  })
+  topicHtml += '</div></div>'
+
+  body.innerHTML = statsHtml + modeHtml + topicHtml
 }
 
-// ══════════════════════════════════════════════════════
-// IDEA 2 — Pre-Assessment / Knowledge Check
-// ══════════════════════════════════════════════════════
-function selectPrecheck(el, level) {
-  document.querySelectorAll('.precheck-opt').forEach(o => o.classList.remove('selected'))
-  el.classList.add('selected')
-  precheckLevel = level
+
+
+// ── Follow-up Question ────────────────────────────────────────────────────────
+async function doFollowup() {
+  var input  = document.getElementById("followup-input")
+  var thread = document.getElementById("followup-thread")
+  if (!input || !input.value.trim()) return
+  var question = input.value.trim()
+  input.value = ""
+  input.disabled = true
+  var bubble = document.createElement("div")
+  bubble.className = "followup-answer"
+  bubble.innerHTML = '<div class="followup-q">↩ ' + escHtml(question) + '</div>'
+    + '<span style="color:var(--text3);font-size:12px">Thinking...</span>'
+  if (thread) thread.appendChild(bubble)
+  try {
+    var ctx = currentSessionContexts[currentContextIdx] || currentSessionContexts[0] || ""
+    var res = await fetch(API + "/followup", {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({
+        topic:    currentSessionTopic,
+        mode:     currentSessionMode,
+        context:  ctx.slice(0, 2000),
+        question: question
+      })
+    })
+    var data = await res.json()
+    bubble.innerHTML = '<div class="followup-q">↩ ' + escHtml(question) + '</div>'
+      + renderMarkdown(data.answer || 'No answer received.')
+  } catch(e) {
+    bubble.innerHTML = '<div class="followup-q">↩ ' + escHtml(question) + '</div>'
+      + '<span style="color:#f87171">Error: ' + e.message + '</span>'
+  }
+  input.disabled = false
+  input.focus()
+  saveCurrentSession()
 }
 
-function closePrecheck(skipped) {
-  document.getElementById('precheck-overlay').classList.remove('open')
-  if (skipped) precheckLevel = 'skip'
-  if (pendingTopic) {
-    document.getElementById('topic-input').value = pendingTopic
-    pendingTopic = null
-    submit()
+
+// ── Study Timer ───────────────────────────────────────────────────────────────
+var _timerInterval = null
+var _timerTotal    = 25 * 60
+var _timerLeft     = 25 * 60
+var _timerRunning  = false
+var _timerBreak    = 5  * 60
+var _timerOnBreak  = false
+
+function toggleTimer() {
+  var w = document.getElementById('timer-widget')
+  var f = document.getElementById('timer-fab')
+  if (!w) return
+  if (w.classList.contains('visible')) {
+    w.classList.remove('visible')
+    if (f) f.style.display = 'flex'
+  } else {
+    w.classList.add('visible')
+    if (f) f.style.display = 'none'
+    updateTimerDisplay()
   }
 }
 
-// ══════════════════════════════════════════════════════
-// IDEA 8 — Study Timer & Breaks
-// ══════════════════════════════════════════════════════
-function startTimer(minutes) {
-  if (timerInterval) clearInterval(timerInterval)
-  timerTotal     = minutes * 60
-  timerRemaining = timerTotal
-  timerPaused    = false
-  document.getElementById('timer-bar').classList.add('active')
-  document.getElementById('timer-label').textContent = `Study session (${minutes} min)`
+function setTimer(focusMin, breakMin) {
+  timerReset()
+  _timerTotal = focusMin * 60
+  _timerLeft  = focusMin * 60
+  _timerBreak = breakMin * 60
+  _timerOnBreak = false
+  document.getElementById('timer-mode-label').textContent = 'Focus Session'
   updateTimerDisplay()
-  timerInterval = setInterval(tickTimer, 1000)
 }
 
-function tickTimer() {
-  if (timerPaused) return
-  timerRemaining--
-  updateTimerDisplay()
-  if (timerRemaining <= 0) {
-    clearInterval(timerInterval)
-    timerInterval = null
-    document.getElementById('timer-bar').classList.remove('active')
-    startBreak(5)
+function timerStartStop() {
+  var btn = document.getElementById('timer-start-btn')
+  if (_timerRunning) {
+    clearInterval(_timerInterval)
+    _timerRunning = false
+    if (btn) btn.textContent = '▶ Resume'
+  } else {
+    _timerRunning = true
+    if (btn) btn.textContent = '⏸ Pause'
+    _timerInterval = setInterval(function() {
+      _timerLeft--
+      updateTimerDisplay()
+      if (_timerLeft <= 0) {
+        clearInterval(_timerInterval)
+        _timerRunning = false
+        var label = document.getElementById('timer-mode-label')
+        if (!_timerOnBreak) {
+          _timerOnBreak = true
+          _timerTotal   = _timerBreak
+          _timerLeft    = _timerBreak
+          if (label) label.textContent = '☕ Break Time!'
+          if (btn) btn.textContent = '▶ Start Break'
+          if (Notification && Notification.permission === 'granted')
+            new Notification('LearnPilot', { body: 'Focus done! Take a break.' })
+        } else {
+          _timerOnBreak = false
+          _timerTotal   = 25 * 60
+          _timerLeft    = 25 * 60
+          if (label) label.textContent = 'Focus Session'
+          if (btn) btn.textContent = '▶ Start'
+          if (Notification && Notification.permission === 'granted')
+            new Notification('LearnPilot', { body: 'Break over! Time to focus.' })
+        }
+        updateTimerDisplay()
+      }
+    }, 1000)
   }
+}
+
+function timerReset() {
+  clearInterval(_timerInterval)
+  _timerRunning = false
+  _timerLeft    = _timerTotal
+  _timerOnBreak = false
+  var label = document.getElementById('timer-mode-label')
+  var btn   = document.getElementById('timer-start-btn')
+  if (label) label.textContent = 'Focus Session'
+  if (btn)   btn.textContent   = '▶ Start'
+  updateTimerDisplay()
 }
 
 function updateTimerDisplay() {
-  const m = Math.floor(timerRemaining / 60)
-  const s = timerRemaining % 60
-  const str = `${m}:${s.toString().padStart(2,'0')}`
-  const pct = (timerRemaining / timerTotal) * 100
-  const disp = document.getElementById('timer-display')
-  const fill = document.getElementById('timer-fill')
-  disp.textContent = str
-  fill.style.width = pct + '%'
-  const warn = timerRemaining < 300  // last 5 min
-  disp.className = 'timer-display' + (warn ? ' warning' : '')
-  fill.className  = 'timer-fill'   + (warn ? ' warning' : '')
+  var m  = Math.floor(_timerLeft / 60)
+  var s  = _timerLeft % 60
+  var el = document.getElementById('timer-display')
+  var bar = document.getElementById('timer-bar')
+  if (el)  el.textContent = (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s
+  if (bar) {
+    var pct = _timerTotal > 0 ? (_timerLeft / _timerTotal * 100) : 0
+    bar.style.width      = pct + '%'
+    bar.style.background = _timerOnBreak ? '#4ade80' : 'var(--accent)'
+  }
 }
 
-function pauseTimer() {
-  timerPaused = !timerPaused
-  document.getElementById('timer-pause-btn').textContent = timerPaused ? 'Resume' : 'Pause'
+// Request notification permission
+if (typeof Notification !== 'undefined' && Notification.permission === 'default') {
+  Notification.requestPermission()
 }
 
-function stopTimer() {
-  if (timerInterval) clearInterval(timerInterval)
-  timerInterval = null
-  document.getElementById('timer-bar').classList.remove('active')
+
+
+// ── Persistent Session Storage ────────────────────────────────────────────────
+// Each session = { id, topic, mode, contexts:[raw1,raw2,...], followups:[{q,a}...], aiTitle, aiSummary, timestamp }
+// Stored in localStorage under 'learnpilot_sessions'
+
+var savedSessions = []
+var currentSessionId = null
+
+function loadSavedSessions() {
+  try {
+    var raw = localStorage.getItem('learnpilot_sessions')
+    savedSessions = raw ? JSON.parse(raw) : []
+  } catch(e) { savedSessions = [] }
 }
 
-function startBreak(minutes) {
-  breakRemaining = minutes * 60
-  document.getElementById('break-overlay').classList.add('open')
-  updateBreakDisplay()
-  breakInterval = setInterval(() => {
-    breakRemaining--
-    updateBreakDisplay()
-    if (breakRemaining <= 0) endBreak()
-  }, 1000)
+function persistSessions() {
+  try {
+    // Limit to 50 most recent to avoid quota issues
+    var toSave = savedSessions.slice(0, 50)
+    localStorage.setItem('learnpilot_sessions', JSON.stringify(toSave))
+  } catch(e) { console.warn('Session save failed:', e) }
 }
 
-function updateBreakDisplay() {
-  const m = Math.floor(breakRemaining / 60)
-  const s = breakRemaining % 60
-  document.getElementById('break-timer-display').textContent = `${m}:${s.toString().padStart(2,'0')}`
+function saveCurrentSession() {
+  try {
+    if (!currentSessionTopic || !contextCards.length) {
+      console.warn('saveCurrentSession skipped: topic=' + currentSessionTopic + ' cards=' + (contextCards && contextCards.length))
+      return
+    }
+
+    // Determine if this is a PDF chunk session using all available signals:
+    // 1. ID starts with s_pdf_ (current format)
+    // 2. chapterGroup already set on an existing session (preserved across saves)
+    // 3. Topic has "parent — subtopic" format (legacy saves before chapterGroup field)
+    var isPdfById = currentSessionId && currentSessionId.indexOf('s_pdf_') === 0
+    var hasDash   = currentSessionTopic && currentSessionTopic.indexOf(' — ') !== -1
+
+    // Resolve chapterGroup — highest-priority first:
+    var resolvedChapterGroup = null
+    if (isPdfById) {
+      resolvedChapterGroup = currentTopic || null
+    }
+    // If currentTopic is empty but topic has " — ", infer parent from topic
+    if (!resolvedChapterGroup && hasDash) {
+      resolvedChapterGroup = currentSessionTopic.split(' — ')[0] || null
+    }
+    // Preserve existing chapterGroup if session already in savedSessions (prevents corruption)
+    if (!resolvedChapterGroup && currentSessionId) {
+      var existing = savedSessions.find(function(s) { return s.id === currentSessionId })
+      if (existing && existing.chapterGroup) resolvedChapterGroup = existing.chapterGroup
+    }
+
+    // Resolve chunkIndex
+    var resolvedChunkIndex = null
+    if (currentSessionId && currentSessionId.indexOf('s_pdf_') === 0) {
+      resolvedChunkIndex = parseInt(currentSessionId.replace(/.*_p/, ''), 10)
+      if (isNaN(resolvedChunkIndex)) resolvedChunkIndex = null
+    }
+
+    var session = {
+      id:           currentSessionId || ('s_' + Date.now()),
+      topic:        currentSessionTopic,
+      mode:         currentSessionMode || currentMode || 'Concept-First Learning',
+      chapterGroup: resolvedChapterGroup,
+      chunkIndex:   resolvedChunkIndex,
+      contexts:     contextCards.map(function(c) {
+                      return {
+                        raw:        c.data && c.data.raw,
+                        raw_clean:  c.data && c.data.raw_clean,
+                        real_world: c.data && c.data.real_world,
+                        mode:       c.data && c.data.mode,
+                        aiTitle:    c.aiTitle,
+                        aiSummary:  c.aiSummary,
+                        title:      c.title,
+                      }
+                    }),
+      followups:    collectFollowups(),
+      timestamp:    Date.now(),
+    }
+    currentSessionId = session.id
+
+    var idx = savedSessions.findIndex(function(s) { return s.id === session.id })
+    if (idx !== -1) savedSessions[idx] = session
+    else savedSessions.unshift(session)
+    persistSessions()
+    renderHistory()
+  } catch (e) {
+    console.error('saveCurrentSession failed:', e)
+  }
 }
 
-function endBreak() {
-  if (breakInterval) clearInterval(breakInterval)
-  breakInterval = null
-  document.getElementById('break-overlay').classList.remove('open')
-  // reset precheck for next topic
-  precheckLevel = null
+function collectFollowups() {
+  var thread = document.getElementById('followup-thread')
+  if (!thread) return []
+  var out = []
+  thread.querySelectorAll('.followup-answer').forEach(function(b) {
+    var q = b.querySelector('.followup-q')
+    if (q) {
+      var qText = q.textContent.replace(/^↩\s*/, '').trim()
+      var aHtml = b.innerHTML.replace(q.outerHTML, '').trim()
+      out.push({ q: qText, a: aHtml })
+    }
+  })
+  return out
 }
 
-// ══════════════════════════════════════════════════════
-// IDEAS 4 & 5 — Compare Sessions
-// ══════════════════════════════════════════════════════
-function toggleCompareView() {
-  compareMode = !compareMode
-  const view    = document.getElementById('compare-view')
-  const resArea = document.getElementById('response-area')
-  const inputB  = document.getElementById('input-area-block')
-  const btn     = document.getElementById('compare-toggle-btn')
+function restoreSession(sessionId) {
+  // Clear inflight guards so teachChunk/doMoreContext aren't blocked after restore
+  window._isTeaching    = false
+  window._isMoreContext = false
 
-  if (compareMode) {
-    view.classList.add('open')
-    resArea.style.display = 'none'
-    inputB.style.display  = 'none'
-    btn.classList.add('active')
-    btn.textContent = '✕ Exit Compare'
-    populateCompareSelects()
+  var s = savedSessions.find(function(x) { return x.id === sessionId })
+  if (!s) return false
+
+  // Restore state
+  currentSessionId       = s.id
+  currentSessionTopic    = s.topic
+  currentSessionMode     = s.mode
+  currentSessionContexts = s.contexts.map(function(c) { return c.raw || '' })
+  contextCards = s.contexts.map(function(c) {
+    return {
+      title:     c.title || s.topic,
+      data:      { raw: c.raw, raw_clean: c.raw_clean, real_world: c.real_world, mode: c.mode },
+      aiTitle:   c.aiTitle,
+      aiSummary: c.aiSummary,
+    }
+  })
+  currentContextIdx = 0
+
+  // Clear PDF chunk state — will be restored below only if this IS a PDF session
+  learningPlan   = []
+  chunkResponses = {}
+
+  // If this is a PDF chunk session, rebuild the learningPlan from saved sibling sessions
+  var isPdf = s.id && s.id.indexOf('s_pdf_') === 0
+  if (isPdf) {
+    // Find siblings: first try chapterGroup match (reliable), fallback to ID prefix
+    var siblings = []
+    if (s.chapterGroup) {
+      siblings = savedSessions.filter(function(x) {
+        return x.chapterGroup === s.chapterGroup && x.id && x.id.indexOf('s_pdf_') === 0
+      })
+    }
+    // Fallback: ID prefix match
+    if (siblings.length === 0) {
+      var prefix = s.id.replace(/_p\d+$/, '')
+      siblings = savedSessions.filter(function(x) {
+        return x.id && x.id.indexOf(prefix + '_p') === 0
+      })
+    }
+    // Sort by chunkIndex or extracted _p index
+    siblings.sort(function(a, b) {
+      var ai = (a.chunkIndex != null) ? a.chunkIndex : parseInt(a.id.replace(/.*_p/, ''), 10)
+      var bi = (b.chunkIndex != null) ? b.chunkIndex : parseInt(b.id.replace(/.*_p/, ''), 10)
+      return (isNaN(ai)?0:ai) - (isNaN(bi)?0:bi)
+    })
+    if (siblings.length >= 1) {
+      learningPlan = siblings.map(function(sib) {
+        var subTitle = sib.topic.indexOf(' — ') !== -1
+          ? sib.topic.split(' — ').slice(1).join(' — ')
+          : sib.topic
+        var pIdx = (sib.chunkIndex != null) ? sib.chunkIndex : parseInt(sib.id.replace(/.*_p/, ''), 10)
+        return { section: subTitle, page_start: 0, page_end: 0, _sibId: sib.id, _pIdx: isNaN(pIdx)?0:pIdx }
+      })
+    }
+  }
+
+  renderContextWindow(0)
+
+  // Defer plan bar injection so it runs after renderContextWindow's innerHTML write settles
+  if (isPdf && learningPlan.length >= 1) {
+    var myPIdx = parseInt(s.id.replace(/.*_p/, ''), 10)
+    if (isNaN(myPIdx)) myPIdx = 0
+    setTimeout(function() { injectPlanBar(myPIdx) }, 0)
   } else {
-    view.classList.remove('open')
-    resArea.style.display = 'block'
-    inputB.style.display  = 'block'
-    btn.classList.remove('active')
-    btn.textContent = '⇄ Compare Sessions'
+    // Remove any stale plan bar from previous PDF session
+    setTimeout(function() {
+      var container = document.getElementById('response-container')
+      if (container) {
+        var oldPlan = container.querySelector('.plan-bar')
+        if (oldPlan) oldPlan.remove()
+      }
+    }, 0)
   }
+
+  // Restore followups
+  setTimeout(function() {
+    var thread = document.getElementById('followup-thread')
+    if (thread && s.followups && s.followups.length) {
+      s.followups.forEach(function(fu) {
+        var b = document.createElement('div')
+        b.className = 'followup-answer'
+        b.innerHTML = '<div class="followup-q">↩ ' + escHtml(fu.q) + '</div>' + fu.a
+        thread.appendChild(b)
+      })
+    }
+  }, 100)
+  return true
 }
 
-function populateCompareSelects() {
-  const opts = history.map((h, i) =>
-    `<option value="${i}">${h.topic.slice(0,32)}${h.topic.length>32?'…':''} · ${h.mode.split(' ')[0]}</option>`
-  ).join('')
-  const base = '<option value="">Select session</option>'
-  document.getElementById('compare-select-left').innerHTML  = base + opts
-  document.getElementById('compare-select-right').innerHTML = base + opts
+function deleteSession(sessionId, ev, chapterGroup) {
+  if (ev) { ev.stopPropagation(); ev.preventDefault() }
+  if (chapterGroup) {
+    // Group delete: remove all sessions with this chapterGroup
+    var count = savedSessions.filter(function(s) { return s.chapterGroup === chapterGroup }).length
+    if (!confirm('Delete all ' + count + ' subtopic sessions for "' + chapterGroup + '"?')) return
+    savedSessions = savedSessions.filter(function(s) { return s.chapterGroup !== chapterGroup })
+  } else {
+    if (!confirm('Delete this session?')) return
+    savedSessions = savedSessions.filter(function(s) { return s.id !== sessionId })
+  }
+  persistSessions()
+  renderHistory()
 }
 
-function loadComparePane(side, idx) {
-  const bodyId  = `compare-body-${side}`
-  const topicId = `compare-topic-${side}`
-  const body    = document.getElementById(bodyId)
-  const topicEl = document.getElementById(topicId)
+// Load on init
+loadSavedSessions()
+renderHistory()
 
-  if (idx === '') {
-    topicEl.textContent = '—'
-    body.innerHTML = '<div class="compare-empty"><div class="compare-empty-icon">📄</div><div>Select a session from history to compare</div></div>'
+
+
+// ── Multi-Session Exam Picker ────────────────────────────────────────────────
+function openExamPicker() {
+  var body  = document.getElementById('exam-picker-body')
+  var goBtn = document.getElementById('exam-picker-go')
+
+  if (!savedSessions.length) {
+    body.innerHTML = '<div style="color:var(--text3);font-size:13px;padding:20px 0;text-align:center">No saved sessions yet. Generate some content first.</div>'
+    goBtn.style.display = 'none'
+    openModal('exam-picker-modal')
     return
   }
+  goBtn.style.display = 'inline-block'
 
-  const session = history[parseInt(idx)]
-  if (!session) return
-  topicEl.textContent = session.topic
-
-  if (compareHistory[idx]) {
-    body.innerHTML = `<div class="md-body">${renderMarkdown(compareHistory[idx].raw || compareHistory[idx].explanation || '')}</div>`
-    renderMermaidBlocks()
-    return
+  // Determine if session is a PDF chunk and return its group key
+  function getPdfGroupKey(s) {
+    var byId    = s.id && s.id.indexOf('s_pdf_') === 0
+    var byGroup = s.chapterGroup && s.chapterGroup !== ''
+    var byTopic = s.topic && s.topic.indexOf(' \u2014 ') !== -1
+    if (!byId && !byGroup && !byTopic) return null
+    if (byGroup) return s.chapterGroup
+    if (byTopic) return s.topic.split(' \u2014 ')[0].trim()
+    return s.topic
   }
 
-  body.innerHTML = '<div class="panel-loading"><div class="dot"></div><span>Loading session...</span></div>'
-  // Since history is in-memory (no persistent storage yet), show what we have
-  body.innerHTML = `
-    <div style="padding:12px 0;">
-      <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.8px;color:var(--text3);margin-bottom:8px;">Topic</div>
-      <div style="font-size:14px;color:var(--text);margin-bottom:16px;">${escHtml(session.topic)}</div>
-      <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.8px;color:var(--text3);margin-bottom:8px;">Mode</div>
-      <div style="font-size:13px;color:var(--text2);">${escHtml(session.mode)}</div>
-      <div style="margin-top:16px;padding:12px;background:var(--bg3);border-radius:var(--radius-sm);font-size:12px;color:var(--text3);">
-        Full response available when Brosil adds session persistence to the backend via <code>/history</code> endpoint returning raw content.
-      </div>
-    </div>`
+  var pdfGroups  = {}
+  var groupOrder = []
+  var standalones = []
+
+  savedSessions.forEach(function(s) {
+    var key = getPdfGroupKey(s)
+    if (key) {
+      if (!pdfGroups[key]) { pdfGroups[key] = []; groupOrder.push(key) }
+      pdfGroups[key].push(s)
+    } else {
+      standalones.push(s)
+    }
+  })
+
+  groupOrder.forEach(function(key) {
+    pdfGroups[key].sort(function(a, b) {
+      var ai = a.chunkIndex != null ? a.chunkIndex : parseInt((a.id||'').replace(/.*_p/,''), 10)
+      var bi = b.chunkIndex != null ? b.chunkIndex : parseInt((b.id||'').replace(/.*_p/,''), 10)
+      return (isNaN(ai) ? 999 : ai) - (isNaN(bi) ? 999 : bi)
+    })
+  })
+
+  // Build shell
+  while (body.firstChild) body.removeChild(body.firstChild)
+
+  var desc = document.createElement('p')
+  desc.style.cssText = 'font-size:12px;color:var(--text3);margin:0 0 12px'
+  desc.textContent = 'The AI will mix question types (MCQ, fill-in-the-blanks, short answer, long answer) based on the content. Questions will only cover what was studied.'
+  body.appendChild(desc)
+
+  var toolbar = document.createElement('div')
+  toolbar.style.cssText = 'display:flex;align-items:center;gap:8px;margin-bottom:12px'
+  toolbar.innerHTML = '<button class="fc-nav-btn" onclick="examPickerSelectAll(true)" style="padding:5px 12px;font-size:11px">Select All</button>'
+    + '<button class="fc-nav-btn" onclick="examPickerSelectAll(false)" style="padding:5px 12px;font-size:11px">Clear</button>'
+    + '<div style="margin-left:auto;font-size:11px;color:var(--text3)" id="picker-count">0 selected</div>'
+  body.appendChild(toolbar)
+
+  var list = document.createElement('div')
+  list.id = 'picker-list'
+  list.style.cssText = 'display:flex;flex-direction:column;gap:8px;max-height:400px;overflow-y:auto;padding-right:4px'
+  body.appendChild(list)
+
+  // PDF groups
+  groupOrder.forEach(function(key) {
+    var sessions = pdfGroups[key]
+    var safeId   = 'grp_' + key.replace(/[^a-zA-Z0-9]/g, '_')
+
+    var card = document.createElement('div')
+    card.style.cssText = 'border:1px solid var(--border);border-radius:8px;overflow:hidden'
+
+    // Header
+    var header = document.createElement('div')
+    header.style.cssText = 'display:flex;align-items:center;gap:10px;padding:10px 12px;cursor:pointer;background:var(--bg3)'
+    header.onclick = function() {
+      var bd = document.getElementById(safeId + '_body')
+      var ch = document.getElementById(safeId + '_chev')
+      if (bd) { var hidden = bd.style.display === 'none'; bd.style.display = hidden ? '' : 'none'; if (ch) ch.textContent = hidden ? '▾' : '▸' }
+    }
+
+    var gCb = document.createElement('input')
+    gCb.type = 'checkbox'; gCb.className = 'pdf-group-cb'; gCb.dataset.group = safeId; gCb.style.flexShrink = '0'
+    gCb.onclick = function(e) { e.stopPropagation() }
+    gCb.onchange = function() {
+      list.querySelectorAll('.pdf-sub-cb[data-group="' + safeId + '"]').forEach(function(c) { c.checked = gCb.checked })
+      updatePickerCount()
+    }
+    header.appendChild(gCb)
+
+    var ico = document.createElement('span'); ico.textContent = '📄'; ico.style.fontSize = '15px'
+    header.appendChild(ico)
+
+    var info = document.createElement('div'); info.style.cssText = 'flex:1;min-width:0;overflow:hidden'
+    var t1 = document.createElement('div'); t1.style.cssText = 'font-size:13px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis'; t1.textContent = key
+    var t2 = document.createElement('div'); t2.style.cssText = 'font-size:11px;color:var(--text3);margin-top:1px'; t2.textContent = sessions.length + ' subtopic' + (sessions.length !== 1 ? 's' : '')
+    info.appendChild(t1); info.appendChild(t2)
+    header.appendChild(info)
+
+    var chev = document.createElement('span'); chev.id = safeId + '_chev'; chev.textContent = '▾'; chev.style.cssText = 'color:var(--text3);font-size:11px;flex-shrink:0'
+    header.appendChild(chev)
+    card.appendChild(header)
+
+    // Body
+    var bd = document.createElement('div'); bd.id = safeId + '_body'
+    bd.style.cssText = 'padding:6px 12px 10px 40px;display:flex;flex-direction:column;gap:3px;border-top:1px solid var(--border);background:var(--bg2)'
+
+    sessions.forEach(function(s) {
+      var sub = s.topic && s.topic.indexOf(' \u2014 ') !== -1 ? s.topic.split(' \u2014 ').slice(1).join(' \u2014 ').trim() : (s.topic || '(unnamed)')
+      var row = document.createElement('label')
+      row.style.cssText = 'display:flex;align-items:center;gap:8px;padding:4px 6px;cursor:pointer;border-radius:4px'
+      row.onmouseover = function() { this.style.background = 'var(--bg3)' }
+      row.onmouseout  = function() { this.style.background = '' }
+
+      var cb = document.createElement('input'); cb.type = 'checkbox'; cb.className = 'exam-pick-cb pdf-sub-cb'
+      cb.dataset.group = safeId; cb.value = s.id; cb.style.flexShrink = '0'
+      cb.onchange = function() {
+        updatePickerCount()
+        var all = list.querySelectorAll('.pdf-sub-cb[data-group="' + safeId + '"]')
+        var chk = list.querySelectorAll('.pdf-sub-cb[data-group="' + safeId + '"]:checked')
+        var gc  = list.querySelector('.pdf-group-cb[data-group="' + safeId + '"]')
+        if (gc) { gc.indeterminate = chk.length > 0 && chk.length < all.length; gc.checked = chk.length === all.length }
+      }
+      row.appendChild(cb)
+
+      var lbl = document.createElement('span'); lbl.style.cssText = 'font-size:12px;color:var(--text2)'; lbl.textContent = sub
+      row.appendChild(lbl)
+      bd.appendChild(row)
+    })
+    card.appendChild(bd)
+    list.appendChild(card)
+  })
+
+  // Standalone sessions
+  var modeIcons = { 'Concept-First Learning':'📖', 'Reverse Engineering':'🔬', 'Visual Learning':'🗺️' }
+  standalones.forEach(function(s) {
+    var card = document.createElement('label')
+    card.style.cssText = 'display:flex;align-items:flex-start;gap:10px;padding:10px 12px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;cursor:pointer'
+
+    var cb = document.createElement('input'); cb.type = 'checkbox'; cb.className = 'exam-pick-cb'
+    cb.value = s.id; cb.style.cssText = 'margin-top:3px;flex-shrink:0'
+    cb.onchange = function() { updatePickerCount() }
+    card.appendChild(cb)
+
+    var inf = document.createElement('div'); inf.style.cssText = 'flex:1;min-width:0'
+    var tt  = document.createElement('div'); tt.style.cssText = 'font-size:13px;color:var(--text);font-weight:500;line-height:1.4'
+    tt.textContent = (modeIcons[s.mode] || '📝') + ' ' + (s.topic || '(unnamed)')
+    var mt = document.createElement('div'); mt.style.cssText = 'font-size:11px;color:var(--text3);margin-top:2px'
+    mt.textContent = s.mode || ''
+    inf.appendChild(tt); inf.appendChild(mt)
+    card.appendChild(inf)
+    list.appendChild(card)
+  })
+
+  updatePickerCount()
+  openModal('exam-picker-modal')
 }
 
-// ══════════════════════════════════════════════════════
-// IDEA 9 — Final Assessment / Exam
-// ══════════════════════════════════════════════════════
-async function doExam(trigger) {
-  trigger.style.display = 'none'
-  const fc = document.getElementById('features-container')
-  const panelId = 'exam-' + Date.now()
+function togglePickerGroup(safeId) {
+  var bd = document.getElementById(safeId + '_body')
+  var ch = document.getElementById(safeId + '_chev')
+  if (bd) { var hidden = bd.style.display === 'none'; bd.style.display = hidden ? '' : 'none'; if (ch) ch.textContent = hidden ? '▾' : '▸' }
+}
 
-  const loadDiv = document.createElement('div')
-  loadDiv.className = 'exam-panel'
-  loadDiv.id = panelId
-  loadDiv.innerHTML = `
-    <div class="exam-header">
-      <div class="exam-title">🎓 Final Assessment — ${escHtml(currentSessionTopic)}</div>
-    </div>
-    <div class="exam-body">
-      <div class="panel-loading">
-        <div class="dot"></div><div class="dot" style="animation-delay:0.2s"></div><div class="dot" style="animation-delay:0.4s"></div>
-        <span>Building your final exam from all session content...</span>
-      </div>
-    </div>`
-  fc.appendChild(loadDiv)
+function togglePdfGroup(groupCb) {
+  var groupId = groupCb.dataset.group
+  document.querySelectorAll('[data-group="' + groupId + '"].pdf-sub-cb').forEach(function(cb) {
+    cb.checked = groupCb.checked
+  })
+  updatePickerCount()
+}
+
+function updateGroupCheckbox(groupId) {
+  var groupCb = document.querySelector('.pdf-group-cb[data-group="' + groupId + '"]')
+  if (!groupCb) return
+  var subs = document.querySelectorAll('.pdf-sub-cb[data-group="' + groupId + '"]')
+  var checked = 0
+  subs.forEach(function(cb) { if (cb.checked) checked++ })
+  if (checked === 0) { groupCb.checked = false; groupCb.indeterminate = false }
+  else if (checked === subs.length) { groupCb.checked = true; groupCb.indeterminate = false }
+  else { groupCb.checked = false; groupCb.indeterminate = true }
+}
+
+function examPickerSelectAll(check) {
+  document.querySelectorAll('.exam-pick-cb').forEach(function(cb) { cb.checked = check })
+  document.querySelectorAll('.pdf-group-cb').forEach(function(cb) { cb.checked = check; cb.indeterminate = false })
+  updatePickerCount()
+}
+
+function updatePickerCount() {
+  var n = document.querySelectorAll('.exam-pick-cb:checked').length
+  var c = document.getElementById('picker-count')
+  if (c) c.textContent = n + ' selected'
+  var go = document.getElementById('exam-picker-go')
+  if (go) { go.disabled = n === 0; go.style.opacity = n === 0 ? '0.4' : '1' }
+}
+
+async function generateMultiExam() {
+  var selected = []
+  document.querySelectorAll('.exam-pick-cb:checked').forEach(function(cb) { selected.push(cb.value) })
+  if (!selected.length) { alert('Select at least one session.'); return }
+
+  var sessions = savedSessions.filter(function(s) { return selected.indexOf(s.id) !== -1 })
+  var combinedTopic = sessions.length === 1
+    ? sessions[0].topic
+    : 'Combined Exam: ' + sessions.slice(0,3).map(function(s){return s.topic}).join(', ') + (sessions.length > 3 ? ' +' + (sessions.length-3) + ' more' : '')
+
+  closeModal('exam-picker-modal')
+  currentSessionTopic = combinedTopic
+  _examData = null; _examAnswers = {}; _examSubmitted = false
+  openModal('exam-modal')
+  document.getElementById('exam-footer').style.display = 'none'
+
+  function setProgress(done, total, label) {
+    var pct = Math.round((done / total) * 100)
+    document.getElementById('exam-sub').textContent = label
+    document.getElementById('exam-body').innerHTML =
+      '<div style="padding:32px 24px">'
+      + '<div style="font-size:13px;color:var(--text2);margin-bottom:16px;text-align:center">' + escHtml(label) + '</div>'
+      + '<div style="background:var(--bg3);border-radius:8px;height:10px;overflow:hidden;margin-bottom:10px">'
+      + '<div style="height:100%;width:' + pct + '%;background:var(--accent);border-radius:8px;transition:width 0.4s ease"></div>'
+      + '</div>'
+      + '<div style="font-size:11px;color:var(--text3);text-align:center">' + done + ' of ' + total + ' sessions done</div>'
+      + '</div>'
+  }
+
+  var results = []
+  setProgress(0, sessions.length, 'Starting exam generation...')
 
   try {
-    const res = await fetch(`${API}/exercises`, {
-      method: 'POST',
-      headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({
-        topic: currentSessionTopic,
-        all_contexts: currentSessionContexts,
-        num_questions: 5,
+    for (var i = 0; i < sessions.length; i++) {
+      var s = sessions[i]
+      setProgress(i, sessions.length, 'Generating questions for: ' + s.topic + ' (' + (i+1) + '/' + sessions.length + ')')
+      var ctxList = []
+      s.contexts.forEach(function(c) { if (c.raw) ctxList.push(c.raw) })
+      if (s.followups) {
+        s.followups.forEach(function(fu) {
+          var tmp = document.createElement('div'); tmp.innerHTML = fu.a
+          ctxList.push('Q: ' + fu.q + '\nA: ' + (tmp.textContent || ''))
+        })
+      }
+      var res = await fetch(API + '/exam', {
+        method:'POST', headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({ topic: s.topic, all_contexts: ctxList })
+      })
+      var data = await res.json()
+      results.push({ topic: s.topic, exam: data })
+      setProgress(i + 1, sessions.length, 'Done: ' + s.topic)
+    }
+    setProgress(sessions.length, sessions.length, 'Assembling exam paper...')
+    var merged = mergeExams(results, combinedTopic)
+    _examData = merged
+    renderExamPaper()
+  } catch(e) {
+    document.getElementById('exam-body').innerHTML = '<div class="error-box">Error generating exam: ' + e.message + '</div>'
+  }
+}
+
+
+function mergeExams(results, combinedTopic) {
+  // Each result = { topic, exam: {title, instructions, sections:[...]} }
+  // Merge by section type. Preserve the order: mcq, tf, fib, short, long.
+  var typeOrder = ['mcq', 'tf', 'fib', 'short', 'long']
+  var sectionNames = {
+    'mcq':   'Section A – Multiple Choice',
+    'tf':    'Section B – True or False',
+    'fib':   'Section C – Fill in the Blanks',
+    'short': 'Section D – Short Answer',
+    'long':  'Section E – Long Answer',
+  }
+  var defaultMarks = { 'mcq': 2, 'tf': 1, 'fib': 2, 'short': 5, 'long': 15 }
+
+  var byType = { 'mcq': [], 'tf': [], 'fib': [], 'short': [], 'long': [] }
+
+  results.forEach(function(r) {
+    if (!r.exam || !r.exam.sections) return
+    r.exam.sections.forEach(function(sec) {
+      var t = sec.type
+      if (!byType[t]) byType[t] = []
+      ;(sec.questions || []).forEach(function(q) {
+        // Tag the question with source session topic if multiple sessions
+        q._source = r.topic
+        byType[t].push(q)
       })
     })
-    const data = await res.json()
-    const questions = data.exercises || []
-
-    const qsHtml = questions.map((q, i) => `
-      <div class="exam-q">
-        <div class="exam-q-num">Question ${i+1} · <span style="text-transform:capitalize;">${q.type || 'written'}</span></div>
-        <div class="exam-q-text">${escHtml(q.question)}</div>
-        ${q.hint ? `<div style="font-size:11px;color:var(--text3);font-style:italic;margin-bottom:8px;">💡 ${escHtml(q.hint)}</div>` : ''}
-        <textarea class="exam-input" id="exam-ans-${i}" placeholder="Write your answer here…"></textarea>
-        <div class="exam-result" id="exam-res-${i}">
-          <strong style="color:var(--green);">Sample answer:</strong><br/>${escHtml(q.sample_answer || '')}
-        </div>
-        <button class="show-answer-btn" onclick="revealExamAnswer(${i})">Show model answer</button>
-      </div>`).join('')
-
-    document.getElementById(panelId).innerHTML = `
-      <div class="exam-header">
-        <div class="exam-title">🎓 Final Assessment — ${escHtml(currentSessionTopic)}</div>
-        <span style="font-size:11px;color:var(--text3);">${questions.length} questions · Based on your full session</span>
-      </div>
-      <div class="exam-body">
-        <div class="exam-score-bar">
-          <div class="exam-score-num">${questions.length}</div>
-          <div><div style="font-size:13px;font-weight:500;color:var(--text2);">Questions</div><div class="exam-score-label">Answer all, then check your work</div></div>
-        </div>
-        ${qsHtml}
-      </div>`
-
-  } catch(e) {
-    document.getElementById(panelId).innerHTML =
-      `<div class="error-box">The backend server is not connected. Please try again later.</div>`
-  }
-}
-
-function revealExamAnswer(i) {
-  const res = document.getElementById(`exam-res-${i}`)
-  const btn = res.previousElementSibling
-  if (res.style.display === 'block') {
-    res.style.display = 'none'
-    btn.textContent = 'Show model answer'
-  } else {
-    res.style.display = 'block'
-    btn.textContent = 'Hide answer'
-  }
-}
-
-// ══════════════════════════════════════════════════════
-// IDEA 10 — Export / Preview Options
-// ══════════════════════════════════════════════════════
-function exportMarkdown() {
-  if (!currentSessionRawData) return
-  const md = `# ${currentSessionTopic}\n\n**Mode:** ${currentSessionMode}\n\n---\n\n${currentSessionRawData.raw || currentSessionRawData.explanation || ''}`
-  const blob = new Blob([md], {type: 'text/markdown'})
-  const a    = document.createElement('a')
-  a.href     = URL.createObjectURL(blob)
-  a.download = `${currentSessionTopic.replace(/[^a-z0-9]/gi,'_').toLowerCase()}_learnpilot.md`
-  a.click()
-}
-
-function exportPDF() {
-  window.print()
-}
-
-function copyToClipboard() {
-  if (!currentSessionRawData) return
-  const text = currentSessionRawData.raw || currentSessionRawData.explanation || ''
-  navigator.clipboard.writeText(text).then(() => {
-    const btns = document.querySelectorAll('.export-btn')
-    btns.forEach(b => { if (b.textContent.includes('Copy')) { b.textContent = '✓ Copied!'; setTimeout(() => { b.innerHTML = '📋 Copy text' }, 1800) } })
   })
+
+  // Build final exam structure
+  var sections = []
+  typeOrder.forEach(function(t) {
+    if (byType[t].length > 0) {
+      sections.push({
+        name: sectionNames[t],
+        type: t,
+        marks_each: defaultMarks[t],
+        questions: byType[t]
+      })
+    }
+  })
+
+  return {
+    title: 'Exam: ' + combinedTopic,
+    instructions: 'Answer all sections. Questions are drawn from each selected session.',
+    sections: sections
+  }
 }
 
+
+
+// ── Exam Results Tracker ──────────────────────────────────────────────────────
+var examResults = []
+
+function loadExamResults() {
+  try {
+    var raw = localStorage.getItem('learnpilot_exam_results')
+    examResults = raw ? JSON.parse(raw) : []
+  } catch(e) { examResults = [] }
+  updateExamResultsBadge()
+}
+
+function saveExamResult(topic, earned, total, sections) {
+  var pct   = total > 0 ? Math.round((earned / total) * 100) : 0
+  var grade = pct>=90?'A':pct>=80?'B':pct>=70?'C':pct>=60?'D':'F'
+  var breakdown = {}
+  sections.forEach(function(sec) {
+    var sEarned = 0, sTotal = 0
+    sec.questions.forEach(function(q, i) {
+      sTotal  += (q.marks || sec.marks_each || 5)
+    })
+    breakdown[sec.type] = { total: sTotal, name: sec.name }
+  })
+  examResults.unshift({
+    id:        'er_' + Date.now(),
+    topic:     topic,
+    earned:    earned,
+    total:     total,
+    pct:       pct,
+    grade:     grade,
+    breakdown: breakdown,
+    timestamp: Date.now(),
+  })
+  if (examResults.length > 30) examResults.pop()
+  try { localStorage.setItem('learnpilot_exam_results', JSON.stringify(examResults)) } catch(e) {}
+  updateExamResultsBadge()
+}
+
+function updateExamResultsBadge() {
+  var badge = document.getElementById('exam-results-count')
+  if (!badge) return
+  if (examResults.length) { badge.style.display = 'inline'; badge.textContent = examResults.length }
+  else { badge.style.display = 'none' }
+}
+
+function openExamResults() {
+  renderExamResults()
+  openModal('exam-results-modal')
+}
+
+function renderExamResults() {
+  var body = document.getElementById('exam-results-body')
+  var sub  = document.getElementById('exam-results-sub')
+  if (!examResults.length) {
+    body.innerHTML = '<div style="color:var(--text3);font-size:13px;padding:20px 0;text-align:center">No exams taken yet. Take your first exam to see results here.</div>'
+    return
+  }
+
+  // Summary stats
+  var avgPct  = Math.round(examResults.reduce(function(s,r){return s+r.pct},0) / examResults.length)
+  var best    = examResults.reduce(function(a,b){return a.pct>b.pct?a:b})
+  var grades  = {A:0,B:0,C:0,D:0,F:0}
+  examResults.forEach(function(r){ grades[r.grade] = (grades[r.grade]||0)+1 })
+
+  if (sub) sub.textContent = examResults.length + ' exam' + (examResults.length>1?'s':'') + ' · avg ' + avgPct + '%'
+
+  var gradeColors = {A:'#4ade80',B:'#6c8fff',C:'#fbbf24',D:'#fb923c',F:'#f87171'}
+
+  // Stats cards
+  var statsHtml = '<div style="display:flex;gap:8px;margin-bottom:18px">'
+    + '<div class="progress-stat" style="flex:1"><div class="progress-stat-num">' + examResults.length + '</div><div class="progress-stat-lbl">Exams</div></div>'
+    + '<div class="progress-stat" style="flex:1"><div class="progress-stat-num">' + avgPct + '%</div><div class="progress-stat-lbl">Avg Score</div></div>'
+    + '<div class="progress-stat" style="flex:1"><div class="progress-stat-num" style="color:' + (gradeColors[best.grade]||'var(--accent)') + '">' + best.grade + '</div><div class="progress-stat-lbl">Best Grade</div></div>'
+    + '</div>'
+
+  // Grade distribution bar
+  var gradeBarHtml = '<div style="margin-bottom:18px">'
+    + '<div style="font-size:11px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:0.6px;margin-bottom:8px">Grade Distribution</div>'
+    + '<div style="display:flex;gap:6px;align-items:flex-end;height:40px">'
+  var maxG = Math.max.apply(null, Object.values(grades))
+  Object.keys(grades).forEach(function(g) {
+    var h = maxG > 0 ? Math.round((grades[g]/maxG)*36)+4 : 4
+    gradeBarHtml += '<div style="display:flex;flex-direction:column;align-items:center;flex:1;gap:3px">'
+      + '<div style="font-size:10px;color:var(--text3)">' + (grades[g]||0) + '</div>'
+      + '<div style="width:100%;height:' + h + 'px;background:' + (gradeColors[g]) + ';border-radius:3px 3px 0 0;opacity:' + (grades[g]?'1':'0.2') + '"></div>'
+      + '<div style="font-size:11px;font-weight:600;color:' + gradeColors[g] + '">' + g + '</div>'
+      + '</div>'
+  })
+  gradeBarHtml += '</div></div>'
+
+  // Individual results list
+  var listHtml = '<div style="font-size:11px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:0.6px;margin-bottom:8px">All Exams</div>'
+    + '<div style="display:flex;flex-direction:column;gap:8px;max-height:300px;overflow-y:auto">'
+
+  examResults.forEach(function(r) {
+    var diff = Math.floor((Date.now() - r.timestamp) / 60000)
+    var timeAgo = diff < 1 ? 'just now' : diff < 60 ? diff + 'm ago' : diff < 1440 ? Math.floor(diff/60) + 'h ago' : Math.floor(diff/1440) + 'd ago'
+    var gradeColor = gradeColors[r.grade] || 'var(--text2)'
+    var barWidth = r.pct
+    listHtml += '<div style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:12px 14px">'
+      + '<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">'
+      + '<div style="font-size:13px;color:var(--text);font-weight:500;flex:1;padding-right:10px">' + escHtml(r.topic) + '</div>'
+      + '<div style="display:flex;align-items:center;gap:8px;flex-shrink:0">'
+      + '<span style="font-size:18px;font-weight:700;color:' + gradeColor + '">' + r.grade + '</span>'
+      + '<span style="font-size:12px;color:var(--text2)">' + r.earned + '/' + r.total + '</span>'
+      + '</div>'
+      + '</div>'
+      + '<div style="background:var(--bg2);border-radius:4px;height:6px;overflow:hidden;margin-bottom:6px">'
+      + '<div style="height:100%;width:' + barWidth + '%;background:' + gradeColor + ';border-radius:4px;transition:width 0.5s"></div>'
+      + '</div>'
+      + '<div style="display:flex;justify-content:space-between">'
+      + '<span style="font-size:11px;color:var(--text3)">' + r.pct + '%</span>'
+      + '<span style="font-size:11px;color:var(--text3)">' + timeAgo + '</span>'
+      + '</div>'
+      + '</div>'
+  })
+  listHtml += '</div>'
+
+  body.innerHTML = statsHtml + gradeBarHtml + listHtml
+}
+
+// Load exam results on page init
+loadExamResults()
+
+
+
+// ── Inject Plan Bar above unified response card (for PDF chunks) ──────────────
+function injectPlanBar(activeIdx) {
+  if (!learningPlan || !learningPlan.length) return
+  var container = document.getElementById('response-container')
+  if (!container) return
+
+  // Remove existing plan bar if present
+  var existing = container.querySelector('.plan-bar')
+  if (existing) existing.remove()
+
+  var planSteps = learningPlan.map(function(s, i) {
+    var cls = i < activeIdx ? 'plan-step done' : i === activeIdx ? 'plan-step active' : 'plan-step'
+    var icon = i < activeIdx ? '✓ ' : ''
+    return '<span class="' + cls + '" onclick="teachChunk(' + i + ')">' + icon + escHtml(s.section) + '</span>'
+  }).join('')
+
+  var planBarHtml =
+    '<div class="plan-bar">'
+    + '<span class="plan-title">Learning Plan</span>'
+    + '<div class="plan-steps">' + planSteps + '</div>'
+    + '</div>'
+
+  container.insertAdjacentHTML('afterbegin', planBarHtml)
+}
+
+
+</script>
+
+  <!-- Exam Results Tracker Modal -->
+  <div class="modal-overlay" id="exam-results-modal" style="display:none">
+    <div class="modal-box" style="max-width:560px">
+      <div class="modal-header">
+        <div>
+          <div class="modal-title">🏆 Exam Results</div>
+          <div class="modal-subtitle" id="exam-results-sub">Your exam history</div>
+        </div>
+        <button class="modal-close" onclick="closeModal('exam-results-modal')">✕</button>
+      </div>
+      <div class="modal-body" id="exam-results-body">
+        <div style="color:var(--text3);font-size:13px">No exams taken yet.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quiz Modal -->
+  <div class="modal-overlay" id="quiz-modal" style="display:none">
+    <div class="modal-box">
+      <div class="modal-header">
+        <div><div class="modal-title">🧠 Quizlet</div><div class="modal-subtitle" id="quiz-modal-sub">Loading...</div></div>
+        <button class="modal-close" onclick="closeModal('quiz-modal')">✕</button>
+      </div>
+      <div class="modal-body" id="quiz-modal-body"></div>
+      <div class="modal-footer"><div class="quiz-score-bar" id="quiz-total-score" style="flex:1;margin:0">Answer questions to see score</div></div>
+    </div>
+  </div>
+
+  <!-- Exercise Modal -->
+  <div class="modal-overlay" id="ex-modal" style="display:none">
+    <div class="modal-box">
+      <div class="modal-header">
+        <div><div class="modal-title">✏️ Exercise Questions</div><div class="modal-subtitle" id="ex-modal-sub">Loading...</div></div>
+        <button class="modal-close" onclick="closeModal('ex-modal')">✕</button>
+      </div>
+      <div class="modal-body" id="ex-modal-body"></div>
+    </div>
+  </div>
+
+  <!-- Related Links Modal -->
+  <div class="modal-overlay" id="links-modal" style="display:none">
+    <div class="modal-box">
+      <div class="modal-header">
+        <div><div class="modal-title">🔗 Related Resources</div><div class="modal-subtitle">Helpful links for your topic</div></div>
+        <button class="modal-close" onclick="closeModal('links-modal')">✕</button>
+      </div>
+      <div class="modal-body" id="links-modal-body"></div>
+    </div>
+  </div>
+
+  <!-- Flashcards Modal -->
+  <div class="modal-overlay" id="fc-modal" style="display:none">
+    <div class="modal-box" style="max-width:620px">
+      <div class="modal-header">
+        <div><div class="modal-title">🃏 Flashcards</div><div class="modal-subtitle" id="fc-sub">Loading...</div></div>
+        <button class="modal-close" onclick="closeModal('fc-modal')">✕</button>
+      </div>
+      <div class="modal-body" id="fc-body"></div>
+    </div>
+  </div>
+
+  <!-- Exam Picker Modal -->
+  <div class="modal-overlay" id="exam-picker-modal" style="display:none">
+    <div class="modal-box" style="max-width:560px">
+      <div class="modal-header">
+        <div>
+          <div class="modal-title">📝 Take Exam — Choose Sessions</div>
+          <div class="modal-subtitle">Select which sessions to include in your exam</div>
+        </div>
+        <button class="modal-close" onclick="closeModal('exam-picker-modal')">✕</button>
+      </div>
+      <div class="modal-body" id="exam-picker-body">
+        <div style="color:var(--text3);font-size:13px">Loading sessions...</div>
+      </div>
+      <div class="modal-footer">
+        <button class="exam-submit-btn" onclick="generateMultiExam()" id="exam-picker-go">Generate Exam →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Exam Modal -->
+  <div class="modal-overlay" id="exam-modal" style="display:none">
+    <div class="modal-box" style="max-width:760px">
+      <div class="modal-header">
+        <div><div class="modal-title">📝 Assessment</div><div class="modal-subtitle" id="exam-sub">Generating exam...</div></div>
+        <button class="modal-close" onclick="closeModal('exam-modal')">✕</button>
+      </div>
+      <div class="modal-body" id="exam-body"></div>
+      <div class="modal-footer" id="exam-footer" style="display:none">
+        <button class="exam-submit-btn" onclick="submitExam()">Submit Exam →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Progress Modal -->
+  <div class="modal-overlay" id="progress-modal" style="display:none">
+    <div class="modal-box" style="max-width:520px">
+      <div class="modal-header">
+        <div><div class="modal-title">📊 Progress Tracker</div><div class="modal-subtitle" id="progress-modal-sub">This session</div></div>
+        <button class="modal-close" onclick="closeModal('progress-modal')">✕</button>
+      </div>
+      <div class="modal-body" id="progress-modal-body">
+        <div style="color:var(--text3);font-size:13px">Start learning to see your progress here.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Study Timer FAB -->
+  <button class="timer-fab" id="timer-fab" onclick="toggleTimer()" title="Study Timer">⏱</button>
+
+  <!-- Study Timer Widget -->
+  <div class="timer-widget" id="timer-widget">
+    <div class="timer-header">
+      <span class="timer-title">⏱ Study Timer</span>
+      <button class="timer-close" onclick="toggleTimer()">✕</button>
+    </div>
+    <div class="timer-display" id="timer-display">25:00</div>
+    <div class="timer-mode-label" id="timer-mode-label">Focus Session</div>
+    <div class="timer-progress"><div class="timer-progress-bar" id="timer-bar" style="width:100%"></div></div>
+    <div class="timer-controls">
+      <button class="timer-btn primary" id="timer-start-btn" onclick="timerStartStop()">▶ Start</button>
+      <button class="timer-btn" onclick="timerReset()">↺ Reset</button>
+    </div>
+    <div class="timer-presets">
+      <button class="timer-preset" onclick="setTimer(25,5)">25/5</button>
+      <button class="timer-preset" onclick="setTimer(50,10)">50/10</button>
+      <button class="timer-preset" onclick="setTimer(15,3)">15/3</button>
+      <button class="timer-preset" onclick="setTimer(45,15)">45/15</button>
+    </div>
+  </div>
 </body>
 </html>
