@@ -10,6 +10,10 @@ from logger_util import SystemMonitor
 from history_service import HistoryService
 
 app = FastAPI()
+
+@app.get("/health")
+async def health_check():
+    return {"status": "online"}
 @app.get('/')
 async def read_index():
     return FileResponse('static/index.html')
