@@ -143,17 +143,27 @@ class AIEngine:
         if not steps:
             steps = ["Review the concept", "Try the example", "Apply to a new problem"]
 
+        # Strip real_world from raw for clean rendering (shown separately in UI)
+        raw_clean = re.sub(
+            r"##\s+Real World Applications[\s\S]*?(?=\n##|\Z)", "", raw
+        ).strip()
+
         return {
-            "mode":                 mode,
-            "explanation":          raw,
-            "raw":                  raw,
+            # Fields required by LearningResponse pydantic model
+            "mode":                   mode,
+            "explanation":            raw,
             "real_world_application": real_world,
             "resources": [
-                {"title": "Khan Academy",  "url": f"https://www.khanacademy.org/search?referer=%2F&page_search_query={topic}"},
-                {"title": "Wikipedia",     "url": f"https://en.wikipedia.org/wiki/{topic.replace(' ', '_')}"},
-                {"title": "YouTube",       "url": f"https://www.youtube.com/results?search_query={topic}+explained"},
+                {"title": "Khan Academy", "url": f"https://www.khanacademy.org/search?referer=%2F&page_search_query={topic}"},
+                {"title": "Wikipedia",    "url": f"https://en.wikipedia.org/wiki/{topic.replace(' ', '_')}"},
+                {"title": "YouTube",      "url": f"https://www.youtube.com/results?search_query={topic}+explained"},
             ],
-            "quiz":  None,
-            "steps": steps[:6],
+            "quiz":      None,
+            "steps":     steps[:6],
             "image_url": None,
+            # Extra fields used directly by frontend JS (not in pydantic model —
+            # must be preserved by removing response_model= from /generate route)
+            "raw":        raw,
+            "raw_clean":  raw_clean,
+            "real_world": real_world,
         }

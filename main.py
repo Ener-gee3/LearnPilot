@@ -14,6 +14,12 @@ from features import (
     generate_quiz,
     generate_exercises,
     fetch_related_links,
+    grade_exercise,
+    generate_flashcards,
+    grade_exam,
+    generate_exam,
+    ask_followup,
+    generate_summary,
 )
 from pdf_service import (
     get_uploaded_files,
@@ -101,7 +107,7 @@ class GenerateChunkRequest(BaseModel):
 async def get_history():
     return HistoryService.get_history()
 
-@app.post("/generate", response_model=LearningResponse)
+@app.post("/generate")
 async def generate(request: LearningRequest):
     start_time = time.time()
     SystemMonitor.log_request(request.mode, request.topic)
@@ -189,7 +195,7 @@ async def generate_chunk(request: GenerateChunkRequest):
     result["total_chunks"]  = request.total_chunks
     return result
 
-# ── Grade / Flashcards / Followup / Exam-grade / Summarize endpoints ──────────
+# ── Grade / Flashcards / Followup / Exam / Exam-grade / Summarize endpoints ──
 
 class GradeRequest(BaseModel):
     question: str
@@ -200,27 +206,23 @@ class FlashcardsRequest(BaseModel):
     topic: str
     all_contexts: List[str]
 
+class ExamRequest(BaseModel):
+    topic: str
+    all_contexts: List[str]
+
+class ExamGradeRequest(BaseModel):
+    questions: List[Dict]
+    answers: List[Dict]
+
 class FollowupRequest(BaseModel):
     topic: str
     mode: str
     context: str
     question: str
 
-class ExamGradeRequest(BaseModel):
-    questions: List[Dict]
-    answers: List[Dict]
-
 class SummarizeRequest(BaseModel):
     raw_response: str
     topic: str
-
-from features import (
-    grade_exercise,
-    generate_flashcards,
-    grade_exam,
-    ask_followup,
-    generate_summary,
-)
 
 @app.post("/grade")
 async def grade(request: GradeRequest):
@@ -236,6 +238,16 @@ async def flashcards(request: FlashcardsRequest):
     cards = await generate_flashcards(request.topic, request.all_contexts)
     return {"cards": cards}
 
+@app.post("/exam")
+async def exam(request: ExamRequest):
+    result = await generate_exam(request.topic, request.all_contexts)
+    return result
+
+@app.post("/exam-grade")
+async def exam_grade(request: ExamGradeRequest):
+    results = await grade_exam(request.questions, request.answers)
+    return {"results": results}
+
 @app.post("/followup")
 async def followup(request: FollowupRequest):
     answer = await ask_followup(
@@ -245,11 +257,6 @@ async def followup(request: FollowupRequest):
         question=request.question,
     )
     return {"answer": answer}
-
-@app.post("/exam-grade")
-async def exam_grade(request: ExamGradeRequest):
-    results = await grade_exam(request.questions, request.answers)
-    return {"results": results}
 
 @app.post("/summarize")
 async def summarize(request: SummarizeRequest):
