@@ -118,7 +118,7 @@ async function submit() {
     return
   }
 
-  const btn = document.getElementById('submit-btn')
+  const btn = document.getElementById('generate-btn')
   btn.disabled = true
   btn.innerHTML = '<span>Generating...</span>'
 
