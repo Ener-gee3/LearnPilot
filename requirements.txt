@@ -17,3 +17,5 @@ uvicorn
 python-multipart
 groq
 python-dotenv
+groq
+python-dotenv
