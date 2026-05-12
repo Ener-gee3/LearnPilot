@@ -20,7 +20,7 @@ async def read_index():
 
 app.mount('/static', StaticFiles(directory='static'), name='static')
 
-app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
+app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_credentials=True, allow_methods=["*"], allow_headers=["*"])
 
 class QuizModel(BaseModel):
     question: str
