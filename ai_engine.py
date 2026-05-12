@@ -146,6 +146,7 @@ class AIEngine:
         return {
             "mode":                 mode,
             "explanation":          raw,
+            "raw":                  raw,
             "real_world_application": real_world,
             "resources": [
                 {"title": "Khan Academy",  "url": f"https://www.khanacademy.org/search?referer=%2F&page_search_query={topic}"},
