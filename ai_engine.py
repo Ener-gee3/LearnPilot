@@ -1,151 +1,158 @@
-import os
-import re
-import json
-import logging
+import os, re, json, logging
 from groq import Groq
 from dotenv import load_dotenv
-from rag_service import retrieve_context
 
 load_dotenv()
-
-logger = logging.getLogger("LearnPilot")
-MODEL_ID = os.getenv("MODEL_ID", "llama-3.1-8b-instant")
+logger       = logging.getLogger("LearnPilot")
+MODEL_ID     = os.getenv("MODEL_ID", "llama-3.3-70b-versatile")
 GROQ_API_KEY = os.getenv("GROQ_API_KEY", "")
-client = Groq(api_key=GROQ_API_KEY)
+_client      = Groq(api_key=GROQ_API_KEY)
 
-CONCEPT_FIRST_SYSTEM = """
-You are LearnPilot, an educational tutor.
+# ── Mode System Prompts ───────────────────────────────────────────────────────
+# Imported by features.py so keep these at module level.
 
-Use this exact structure:
+CONCEPT_FIRST_SYSTEM = """\
+You are LearnPilot, an expert educational AI using Concept-First Learning.
+Teach the topic by building from fundamentals to complex ideas.
 
+Structure your response with these markdown sections:
 ## Concept
-Explain the core idea clearly.
+A clear, concise definition and explanation of the core concept.
 
 ## Why It Matters
-Explain why the concept matters.
+Why this concept is important and where it fits in the bigger picture.
 
-## Step-by-Step
-Break it into clear steps.
+## Simple Example
+A concrete, beginner-friendly example.
 
-## Example
-Give one concrete example.
+## Deeper Dive
+More advanced aspects, edge cases, or nuances.
 
-## Common Mistake
-Explain one common mistake.
+## Real World Applications
+2-3 specific real-world use cases with brief explanations.
 
-## Practice
-Give one short practice question.
+## Quick Review
+3 bullet points summarising the key takeaways.
+
+Keep explanations clear, accurate, and appropriately detailed for the topic complexity.\
 """
 
-REVERSE_ENGINEERING_SYSTEM = """
-You are LearnPilot in Reverse Engineering mode.
+REVERSE_ENGINEERING_SYSTEM = """\
+You are LearnPilot, an expert educational AI using Reverse Engineering (Learning by Deconstruction).
+Start with a complete working solution and systematically break it down.
 
-Use this exact structure:
+Structure your response with these markdown sections:
+## Complete Solution
+Present a full, working example or solution relevant to the topic.
 
-## Final Result
-Start with what the learner should understand.
+## Component Breakdown
+Identify and list each major component or step in the solution.
 
-## Backward Breakdown
-Work backward from the result.
+## Step-by-Step Explanation
+Explain each component in detail — what it does and why it's there.
 
-## Key Mechanism
-Explain the mechanism underneath.
+## Concept Connections
+Link each component back to underlying theoretical concepts.
 
-## Example
-Give one concrete example.
+## Real World Applications
+2-3 industries or domains where this solution pattern is used.
 
-## Practice
-Give one short practice question.
+## Reconstruction Challenge
+A brief exercise prompting the learner to recreate or modify the solution.
+
+Keep code examples syntactically correct and explanations precise.\
 """
 
-VISUAL_SYSTEM = """
-You are LearnPilot in Visual Learning mode.
+VISUAL_SYSTEM = """\
+You are LearnPilot, an expert educational AI specialising in Visual Learning.
+Explain the topic using diagrams described in plain text, analogies, and step-by-step visual walkthroughs.
 
-Use this exact structure:
+Structure your response with these markdown sections:
+## Visual Overview
+Describe a diagram or mental model that captures the concept (use ASCII art or Mermaid if applicable).
 
-## Mental Picture
-Describe the idea visually.
+## Concept
+A clear definition focused on visual/spatial understanding.
 
-## Diagram Description
-Describe what a diagram would show.
+## Analogy
+A memorable everyday analogy that makes the concept intuitive.
 
-## Step-by-Step
-Break it into visual steps.
+## Step-by-Step Visual Walkthrough
+Walk through the concept as a sequence of visual steps.
 
-## Example
-Give one concrete example.
+## Real World Applications
+2-3 visual or practical applications.
 
-## Practice
-Give one short practice question.
+## Memory Aid
+A mnemonic, diagram label, or visual trick to remember the key idea.
+
+Be creative and descriptive — the goal is vivid mental imagery.\
 """
+
+_SYSTEMS = {
+    "Concept-First Learning": CONCEPT_FIRST_SYSTEM,
+    "Reverse Engineering":    REVERSE_ENGINEERING_SYSTEM,
+    "Visual Learning":        VISUAL_SYSTEM,
+}
+
 
 class AIEngine:
     @staticmethod
-    async def generate_response(mode: str, topic: str, code_snippet=None):
-        system_map = {
-            "Concept-First Learning": CONCEPT_FIRST_SYSTEM,
-            "Reverse Engineering": REVERSE_ENGINEERING_SYSTEM,
-            "Visual Learning": VISUAL_SYSTEM,
-        }
+    async def generate_response(mode: str, topic: str, code_snippet: str = None):
+        system = _SYSTEMS.get(mode, CONCEPT_FIRST_SYSTEM)
 
-        system = system_map.get(mode, CONCEPT_FIRST_SYSTEM)
-        rag_context = await retrieve_context(topic, mode)
-
-        user = f"""
-Topic: {topic}
-
-Reference context:
-{rag_context if rag_context else "No external context found. Use reliable general knowledge."}
-
-Code snippet:
-{code_snippet if code_snippet else "None"}
-
-Generate a useful learning response.
-"""
+        user_parts = [f"Topic: {topic}"]
+        if code_snippet and code_snippet.strip():
+            user_parts.append(f"\nCode/Example provided by the student:\n```\n{code_snippet.strip()}\n```")
+        user_parts.append("\nGenerate a complete learning response following your structure exactly.")
+        user_msg = "\n".join(user_parts)
 
         try:
-            resp = client.chat.completions.create(
+            resp = _client.chat.completions.create(
                 model=MODEL_ID,
                 messages=[
                     {"role": "system", "content": system},
-                    {"role": "user", "content": user},
+                    {"role": "user",   "content": user_msg},
                 ],
-                temperature=0.6,
-                max_tokens=1400,
+                temperature=0.7,
+                max_tokens=1200,
                 top_p=0.9,
             )
             raw = resp.choices[0].message.content.strip()
         except Exception as e:
             logger.error(f"[AIEngine] LLM call failed: {e}")
-            raw = f"## Concept\nI could not connect to the AI provider.\n\n## Practice\nTry again after checking the backend API key."
+            raw = f"## Concept\nAn error occurred while generating a response for '{topic}'. Please try again."
 
-        real_world = ""
-        practice = ""
+        # Parse real_world section out for the dedicated field
+        rw_match = re.search(
+            r"##\s+Real World Applications\s*\n(.*?)(?=\n##|\Z)", raw, re.DOTALL
+        )
+        real_world = rw_match.group(1).strip() if rw_match else ""
 
-        rw_match = re.search(r"##\s*Why It Matters\s*\n([\s\S]*?)(?=\n##|\Z)", raw)
-        if rw_match:
-            real_world = rw_match.group(1).strip()
-
-        practice_match = re.search(r"##\s*Practice\s*\n([\s\S]*?)(?=\n##|\Z)", raw)
-        if practice_match:
-            practice = practice_match.group(1).strip()
-
-        steps = []
-        step_match = re.search(r"##\s*Step-by-Step\s*\n([\s\S]*?)(?=\n##|\Z)", raw)
-        if step_match:
-            lines = [x.strip("-• 1234567890. ") for x in step_match.group(1).splitlines() if x.strip()]
-            steps = lines[:5]
-
+        # Parse steps from Quick Review / Step-by-Step section
+        steps: list[str] = []
+        steps_match = re.search(
+            r"##\s+(?:Quick Review|Step-by-Step[^\n]*|Reconstruction Challenge)\s*\n(.*?)(?=\n##|\Z)",
+            raw, re.DOTALL
+        )
+        if steps_match:
+            for line in steps_match.group(1).splitlines():
+                line = line.strip().lstrip("-•* ").strip()
+                if line:
+                    steps.append(line)
         if not steps:
-            steps = ["Understand the idea", "Study an example", "Try a practice question"]
+            steps = ["Review the concept", "Try the example", "Apply to a new problem"]
 
         return {
-            "mode": mode,
-            "explanation": raw,
-            "raw": raw,
-            "real_world": real_world,
-            "resources": [],
-            "steps": steps,
-            "exercise": practice,
+            "mode":                 mode,
+            "explanation":          raw,
+            "real_world_application": real_world,
+            "resources": [
+                {"title": "Khan Academy",  "url": f"https://www.khanacademy.org/search?referer=%2F&page_search_query={topic}"},
+                {"title": "Wikipedia",     "url": f"https://en.wikipedia.org/wiki/{topic.replace(' ', '_')}"},
+                {"title": "YouTube",       "url": f"https://www.youtube.com/results?search_query={topic}+explained"},
+            ],
+            "quiz":  None,
+            "steps": steps[:6],
             "image_url": None,
         }
