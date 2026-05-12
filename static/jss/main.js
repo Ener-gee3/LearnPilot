@@ -15,7 +15,7 @@
 //  2. Paste that URL into BACKEND_URL below (keep the quotes)
 //  3. Push to GitHub — done, works everywhere
 // ─────────────────────────────────────────────────────────────────────────────
-const BACKEND_URL = ''   // <- paste deployed backend URL here when ready
+const BACKEND_URL = 'https://learnpilot-2g0r.onrender.com'   // <- paste deployed backend URL here when ready
 
 const isLocal = window.location.hostname === 'localhost'
              || window.location.hostname === '127.0.0.1'

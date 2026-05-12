@@ -15,3 +15,5 @@ uvicorn==0.46.0
 gunicorn
 uvicorn
 python-multipart
+groq
+python-dotenv
