@@ -12,6 +12,10 @@ from history_service import HistoryService
 app = FastAPI()
 
 @app.get("/health")
+
+@app.get("/files")
+async def get_files():
+    return []
 @app.get("/files")
 async def get_files():
     return []
