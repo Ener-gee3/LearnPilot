@@ -1058,7 +1058,7 @@ function endBreak() {
   breakInterval = null
   document.getElementById('break-overlay').classList.remove('open')
   // reset precheck for next topic
-  precheckLevel = null
+  precheckLevel = 'beginner'
 }
 
 // ══════════════════════════════════════════════════════
