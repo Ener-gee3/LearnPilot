@@ -1,6 +1,6 @@
 class AIEngine:
     @staticmethod
-    def generate_response(mode: str, topic: str):
+    async def generate_response(mode: str, topic: str, code_snippet=None):
         # This structure supports Brosil's 'Real World Application' and 'Resources' ideas
         return {
             "mode": mode,
