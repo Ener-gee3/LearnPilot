@@ -1,20 +1,16 @@
+
 class AIEngine:
     @staticmethod
     async def generate_response(mode: str, topic: str, code_snippet=None):
-        # This structure supports Brosil's 'Real World Application' and 'Resources' ideas
         return {
             "mode": mode,
-            "explanation": f"Deep dive into {topic}.",
-            "real_world_application": "Simulated scenario: How this works in industry.",
-            "resources": [
-                {"title": "Documentation", "url": "https://example.com"},
-                {"title": "Tutorial Video", "url": "https://example.com"},
-                {"title": "Practice Lab", "url": "https://example.com"}
-            ],
+            "explanation": f"Explaining {topic} in {mode} mode.",
+            "real_world": "This is used in professional software development.",
+            "resources": [{"title": "Guide", "url": "https://google.com"}],
+            "steps": ["Step 1: Setup", "Step 2: Implementation"],
             "quiz": {
-                "question": "How would you apply this?",
-                "options": ["Option A", "Option B", "Option C"],
-                "correct_answer": "Option A"
-            },
-            "steps": ["Step 1: Theory", "Step 2: Simulation", "Step 3: Quiz"]
+                "question": "What is the first step?",
+                "options": ["Setup", "Deploy", "Test"],
+                "correct_answer": "Setup"
+            }
         }
