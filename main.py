@@ -153,7 +153,14 @@ async def upload_pdf(file: UploadFile = File(...)):
         raise HTTPException(status_code=400, detail="Only PDF files are supported.")
     content = await file.read()
     info    = await save_pdf(content, file.filename)
-    return info
+    # Frontend checks data.success and uses data.file_id
+    return {
+        "success": True,
+        "file_id": info["id"],
+        "id":      info["id"],
+        "name":    info["name"],
+        "pages":   info["pages"],
+    }
 
 @app.get("/files")
 async def list_files():
