@@ -124,6 +124,18 @@ _SYSTEMS = {
     "Concept-First Learning": CONCEPT_FIRST_SYSTEM,
     "Reverse Engineering":    REVERSE_ENGINEERING_SYSTEM,
     "Visual Learning":        VISUAL_SYSTEM,
+    "Beginner Tutor": (
+        CONCEPT_FIRST_SYSTEM
+        + "\n\nPersona instructions: explain in very simple language, avoid jargon unless defined."
+    ),
+    "Interview Prep": (
+        REVERSE_ENGINEERING_SYSTEM
+        + "\n\nPersona instructions: emphasize trade-offs, edge cases, and likely interview follow-up questions."
+    ),
+    "Exam Prep": (
+        CONCEPT_FIRST_SYSTEM
+        + "\n\nPersona instructions: prioritize high-yield facts, common mistakes, and revision cues."
+    ),
 }
 
 

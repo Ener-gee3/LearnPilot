@@ -21,7 +21,9 @@ const isLocal = window.location.hostname === 'localhost'
              || window.location.hostname === '127.0.0.1'
              || window.location.protocol === 'file:'
 
-const API = BACKEND_URL || (isLocal ? 'http://127.0.0.1:8000' : '')
+const API = window.LearnPilotApi
+  ? window.LearnPilotApi.buildApiBase(BACKEND_URL)
+  : (BACKEND_URL || (isLocal ? 'http://127.0.0.1:8000' : ''))
 let currentMode   = 'Concept-First Learning'
 let history       = []
 let activePdfId   = null
@@ -119,20 +121,15 @@ async function submit() {
   }
 
   const btn = document.getElementById('submit-btn')
-  btn.disabled = true
-  btn.innerHTML = '<span>Generating...</span>'
-
   document.getElementById('empty-state').style.display = 'none'
   const container = document.getElementById('response-container')
-  container.style.display = 'block'
-
-  container.innerHTML = `
-    <div class="loading">
-      <div class="loading-dots">
-        <div class="dot"></div><div class="dot"></div><div class="dot"></div>
-      </div>
-      <div class="loading-text">Searching sources & generating explanation...</div>
-    </div>`
+  if (window.LearnPilotUI) {
+    window.LearnPilotUI.setGenerateLoading('response-container', 'submit-btn')
+  } else {
+    btn.disabled = true
+    btn.innerHTML = '<span>Generating...</span>'
+    container.style.display = 'block'
+  }
 
   try {
     // Detect chapter reference from input or topic text
@@ -152,20 +149,20 @@ async function submit() {
     }
 
     // Normal generate (no PDF or no chapter ref)
-    const res = await fetch(`${API}/generate`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        topic,
-        mode: currentMode,
-        code_snippet: null,
-        pdf_id: activePdfId || null,
-        chapter_ref: chapterRef || null,
-      })
-    })
-
-    if (!res.ok) throw new Error(`Server error: ${res.status}`)
-    const data = await res.json()
+    const payload = {
+      topic,
+      mode: currentMode,
+      code_snippet: null,
+      pdf_id: activePdfId || null,
+      chapter_ref: chapterRef || null,
+    }
+    const data = window.LearnPilotApi
+      ? await window.LearnPilotApi.postJson(`${API}/generate`, payload)
+      : await (await fetch(`${API}/generate`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        })).json()
 
     renderResponse(topic, data)
     addToHistory(topic, currentMode)
@@ -179,8 +176,12 @@ async function submit() {
       </div>`
   }
 
-  btn.disabled = false
-  btn.innerHTML = '<span>Generate</span><span>→</span>'
+  if (window.LearnPilotUI) {
+    window.LearnPilotUI.resetGenerateButton('submit-btn')
+  } else {
+    btn.disabled = false
+    btn.innerHTML = '<span>Generate</span><span>→</span>'
+  }
 }
 
 function renderResponse(topic, data) {
