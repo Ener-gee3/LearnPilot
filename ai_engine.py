@@ -139,6 +139,46 @@ _SYSTEMS = {
 }
 
 
+def _extract_markdown_section(raw: str, header_names: list[str]) -> str:
+    lines = raw.splitlines()
+    target_idx = -1
+    for i, line in enumerate(lines):
+        stripped = line.strip().lower()
+        if stripped.startswith("## "):
+            header = stripped[3:].strip()
+            if any(header == h.lower() for h in header_names):
+                target_idx = i
+                break
+    if target_idx == -1:
+        return ""
+
+    out = []
+    for j in range(target_idx + 1, len(lines)):
+        line = lines[j]
+        if line.strip().startswith("## "):
+            break
+        out.append(line)
+    return "\n".join(out).strip()
+
+
+def _remove_markdown_section(raw: str, header_name: str) -> str:
+    lines = raw.splitlines()
+    start = -1
+    for i, line in enumerate(lines):
+        if line.strip().lower() == f"## {header_name}".lower():
+            start = i
+            break
+    if start == -1:
+        return raw.strip()
+
+    end = len(lines)
+    for j in range(start + 1, len(lines)):
+        if lines[j].strip().startswith("## "):
+            end = j
+            break
+    return "\n".join(lines[:start] + lines[end:]).strip()
+
+
 class AIEngine:
     @staticmethod
     async def generate_response(mode: str, topic: str, code_snippet: str = None):
@@ -167,19 +207,13 @@ class AIEngine:
             raw = f"## Concept\nAn error occurred while generating a response for '{topic}'. Please try again."
 
         # Parse real_world section out for the dedicated field
-        rw_match = re.search(
-            r"##\s+Real World Applications\s*\n(.*?)(?=\n##|\Z)", raw, re.DOTALL
-        )
-        real_world = rw_match.group(1).strip() if rw_match else ""
+        real_world = _extract_markdown_section(raw, ["Real World Applications"])
 
         # Parse steps from Quick Review / Step-by-Step section
         steps: list[str] = []
-        steps_match = re.search(
-            r"##\s+(?:Quick Review|Step-by-Step[^\n]*|Reconstruction Challenge)\s*\n(.*?)(?=\n##|\Z)",
-            raw, re.DOTALL
-        )
-        if steps_match:
-            for line in steps_match.group(1).splitlines():
+        steps_block = _extract_markdown_section(raw, ["Quick Review", "Step-by-Step", "Reconstruction Challenge"])
+        if steps_block:
+            for line in steps_block.splitlines():
                 line = line.strip().lstrip("-•* ").strip()
                 if line:
                     steps.append(line)
@@ -187,9 +221,7 @@ class AIEngine:
             steps = ["Review the concept", "Try the example", "Apply to a new problem"]
 
         # Strip real_world from raw for clean rendering (shown separately in UI)
-        raw_clean = re.sub(
-            r"##\s+Real World Applications[\s\S]*?(?=\n##|\Z)", "", raw
-        ).strip()
+        raw_clean = _remove_markdown_section(raw, "Real World Applications")
 
         return {
             # Fields required by LearningResponse pydantic model

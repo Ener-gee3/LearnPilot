@@ -83,7 +83,7 @@ async def observability_and_limits(request: Request, call_next):
         except RateLimitError as e:
             latency_ms = (time.perf_counter() - start) * 1000
             record_request(path, latency_ms, is_error=True)
-            return JSONResponse(status_code=429, content=err("RATE_LIMIT", str(e)))
+            return JSONResponse(status_code=429, content=err("RATE_LIMIT", "Rate limit exceeded"))
 
     from fastapi.responses import JSONResponse
     try:
@@ -94,7 +94,7 @@ async def observability_and_limits(request: Request, call_next):
     except Exception as ex:
         latency_ms = (time.perf_counter() - start) * 1000
         record_request(path, latency_ms, is_error=True)
-        return JSONResponse(status_code=500, content=err("INTERNAL_ERROR", "Unexpected server error", str(ex)))
+        return JSONResponse(status_code=500, content=err("INTERNAL_ERROR", "Unexpected server error"))
 
 
 # ── Static files & index ──────────────────────────────────────────────────────
